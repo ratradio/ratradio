@@ -9,7 +9,7 @@
 *{ margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', Helvetica, Arial, sans-serif; -webkit-user-select: none; user-select: none; }
 body{ background:#000; color:#fff; overflow-x: hidden; }
 
-/* HEADER PATEN DARI HOME */
+/* HEADER & LIVE BAR (PATEN DARI HOME) */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
 .nav-top { height: 48px; background: #000; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #fff; padding: 0 15px; }
 .logo-main img { height: 46px; cursor: pointer; transition: 0.3s; }
@@ -17,44 +17,29 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .menu-links a { color: #fff; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 0 15px; transition: 0.2s; }
 .menu-links a:hover { color: #888; }
 
+.nav-live { height: 32px; background: #000; display: flex; align-items: center; border-bottom: 1px solid #fff; }
+.live-label { background: #fff; color: #000; height: 100%; padding: 0 12px; font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 6px; text-transform: uppercase; }
+.live-label span { color: #ff0000; font-size: 14px; animation: blink 1.5s infinite; } 
+@keyframes blink { 0%, 100% {opacity:1;} 50% {opacity:0.2;} }
+.current-show { padding: 0 15px; font-size: 11px; font-weight: 700; display: flex; align-items: center; text-transform: uppercase; }
+.btn-toggle-small { cursor: pointer; margin-right: 12px; width: 14px; display: flex; justify-content: center; }
+
 /* CONTENT EXPLORE */
-.explore-content { padding: 120px 60px; max-width: 1200px; }
+.explore-content { padding: 140px 60px 60px 60px; max-width: 1200px; }
 .explore-header h1 { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 60px; line-height: 0.8; }
 
 /* SYSTEM TREE GENRE */
 .genre-group { margin-bottom: 30px; }
-
-.parent-genre { 
-    display: inline-flex; align-items: center; 
-    border: 1px solid #fff; padding: 8px 12px; 
-    cursor: pointer; transition: 0.2s; 
-    background: #000;
-}
+.parent-genre { display: inline-flex; align-items: center; border: 1px solid #fff; padding: 8px 12px; cursor: pointer; transition: 0.2s; background: #000; }
 .parent-genre h2 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
 .parent-genre .arrow { margin-left: 12px; font-size: 10px; transition: 0.3s; }
-
 .parent-genre:hover, .parent-genre.active { background: #fff; color: #000; }
 .parent-genre.active .arrow { transform: rotate(180deg); }
 
-.sub-wrapper { 
-    display: none; padding-top: 15px; padding-left: 30px; 
-    border-left: 1px solid rgba(255,255,255,0.5); margin-left: 15px; 
-    flex-wrap: wrap; gap: 8px; 
-}
+.sub-wrapper { display: none; padding-top: 15px; padding-left: 30px; border-left: 1px solid rgba(255,255,255,0.5); margin-left: 15px; flex-wrap: wrap; gap: 8px; }
 .sub-wrapper.show { display: flex; }
-
-.sub-item { 
-    border: 1px solid rgba(255,255,255,0.3); 
-    padding: 5px 10px; font-size: 10.5px; 
-    font-weight: 700; text-transform: uppercase; 
-    cursor: pointer; transition: 0.2s; 
-}
+.sub-item { border: 1px solid rgba(255,255,255,0.3); padding: 5px 10px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
 .sub-item:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
-
-/* CUSTOM SCROLLBAR */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #fff; }
 </style>
 </head>
 <body>
@@ -69,6 +54,13 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
           <a href="#">Shop</a>
           <a href="#">About</a>
       </div>
+    </div>
+  </div>
+  <div class="nav-live">
+    <div class="live-label">Live Now <span>●</span></div>
+    <div class="current-show">
+        <div class="btn-toggle-small">▶</div> 
+        <span>BASEMENT SESSIONS W/ DIRTY CAT</span>
     </div>
   </div>
 </div>
@@ -90,63 +82,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
         </div>
     </div>
 
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Techno & House</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Techno</div><div class="sub-item">Minimal Techno</div><div class="sub-item">Acid Techno</div><div class="sub-item">Industrial Techno</div><div class="sub-item">Dub Techno</div><div class="sub-item">House</div><div class="sub-item">Deep House</div><div class="sub-item">Tech House</div><div class="sub-item">Acid House</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Bass & Club</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Breakbeat</div><div class="sub-item">Baile Funk</div><div class="sub-item">Hardgroove</div><div class="sub-item">Jungle</div><div class="sub-item">Drum & Bass</div><div class="sub-item">UK Garage</div><div class="sub-item">Dubstep</div><div class="sub-item">Grime</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Electronic & Experimental</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Electronica</div><div class="sub-item">IDM</div><div class="sub-item">Glitch</div><div class="sub-item">Ambient Techno</div><div class="sub-item">Harsh Noise</div><div class="sub-item">Dark Ambient</div><div class="sub-item">Drone</div><div class="sub-item">Experimental</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Jazz</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Jazz</div><div class="sub-item">Spiritual Jazz</div><div class="sub-item">Free Jazz</div><div class="sub-item">Jazz Fusion</div><div class="sub-item">Contemporary Jazz</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Pop & Wave</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Pop</div><div class="sub-item">Synth-Pop</div><div class="sub-item">New Wave</div><div class="sub-item">Dream Pop</div><div class="sub-item">Indie Pop</div><div class="sub-item">J-Pop</div><div class="sub-item">City Pop</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Rock & Alternative</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Rock & Alternative</div><div class="sub-item">Indie Rock</div><div class="sub-item">Psychedelic Rock</div><div class="sub-item">Garage Rock</div><div class="sub-item">Shoegaze</div><div class="sub-item">Post-Punk</div><div class="sub-item">Math Rock</div><div class="sub-item">Post-Rock</div><div class="sub-item">Midwest Emo</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Hip Hop & Beats</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Hip Hop</div><div class="sub-item">Boom Bap</div><div class="sub-item">Trap</div><div class="sub-item">Drill</div><div class="sub-item">Industrial Hip Hop</div><div class="sub-item">Instrumental</div><div class="sub-item">Trip Hop</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Soul & Funk</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Soul</div><div class="sub-item">Funk</div><div class="sub-item">Gospel</div><div class="sub-item">R&B</div>
-        </div>
-    </div>
-
-</main>
+    </main>
 
 <script>
     function toggleSub(el) {
