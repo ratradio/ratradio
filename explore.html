@@ -40,6 +40,11 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .sub-wrapper.show { display: flex; }
 .sub-item { border: 1px solid rgba(255,255,255,0.3); padding: 5px 10px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
 .sub-item:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #fff; }
 </style>
 </head>
 <body>
@@ -82,7 +87,63 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
         </div>
     </div>
 
-    </main>
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Techno & House</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Techno</div><div class="sub-item">Minimal Techno</div><div class="sub-item">Acid Techno</div><div class="sub-item">Industrial Techno</div><div class="sub-item">Dub Techno</div><div class="sub-item">House</div><div class="sub-item">Deep House</div><div class="sub-item">Tech House</div><div class="sub-item">Acid House</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Bass & Club</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Breakbeat</div><div class="sub-item">Baile Funk</div><div class="sub-item">Hardgroove</div><div class="sub-item">Jungle</div><div class="sub-item">Drum & Bass</div><div class="sub-item">UK Garage</div><div class="sub-item">Dubstep</div><div class="sub-item">Grime</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Electronic & Experimental</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Electronica</div><div class="sub-item">IDM</div><div class="sub-item">Glitch</div><div class="sub-item">Ambient Techno</div><div class="sub-item">Harsh Noise</div><div class="sub-item">Dark Ambient</div><div class="sub-item">Drone</div><div class="sub-item">Experimental</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Jazz</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Jazz</div><div class="sub-item">Spiritual Jazz</div><div class="sub-item">Free Jazz</div><div class="sub-item">Jazz Fusion</div><div class="sub-item">Contemporary Jazz</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Pop & Wave</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Pop</div><div class="sub-item">Synth-Pop</div><div class="sub-item">New Wave</div><div class="sub-item">Dream Pop</div><div class="sub-item">Indie Pop</div><div class="sub-item">J-Pop</div><div class="sub-item">City Pop</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Rock & Alternative</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Rock & Alternative</div><div class="sub-item">Indie Rock</div><div class="sub-item">Psychedelic Rock</div><div class="sub-item">Garage Rock</div><div class="sub-item">Shoegaze</div><div class="sub-item">Post-Punk</div><div class="sub-item">Math Rock</div><div class="sub-item">Post-Rock</div><div class="sub-item">Midwest Emo</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Hip Hop & Beats</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Hip Hop</div><div class="sub-item">Boom Bap</div><div class="sub-item">Trap</div><div class="sub-item">Drill</div><div class="sub-item">Industrial Hip Hop</div><div class="sub-item">Instrumental</div><div class="sub-item">Trip Hop</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Soul & Funk</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Soul</div><div class="sub-item">Funk</div><div class="sub-item">Gospel</div><div class="sub-item">R&B</div>
+        </div>
+    </div>
+
+</main>
 
 <script>
     function toggleSub(el) {
