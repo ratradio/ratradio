@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore Genres | RAT Radio</title>
+<style>
+/* FONDASI TETAP SAMA DENGAN HOME */
+*{ margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', Helvetica, Arial, sans-serif; -webkit-user-select: none; user-select: none; }
+body{ background:#000; color:#fff; overflow-x: hidden; }
+
+/* HEADER PATEN DARI HOME */
+.header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
+.nav-top { height: 48px; background: #000; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #fff; padding: 0 15px; }
+.logo-main img { height: 46px; cursor: pointer; transition: 0.3s; }
+.logo-main:hover img { transform: scale(1.05); }
+.menu-links a { color: #fff; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 0 15px; transition: 0.2s; }
+.menu-links a:hover { color: #888; }
+
+/* CONTENT EXPLORE */
+.explore-content { padding: 120px 60px; max-width: 1200px; }
+.explore-header h1 { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 60px; line-height: 0.8; }
+
+/* SYSTEM TREE GENRE (SESUAI REFERENSI GAMBAR) */
+.genre-group { margin-bottom: 30px; }
+
+/* Parent Label */
+.parent-genre { 
+    display: inline-flex; align-items: center; 
+    border: 1px solid #fff; padding: 8px 12px; 
+    cursor: pointer; transition: 0.2s; 
+    background: #000;
+}
+.parent-genre h2 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+.parent-genre .arrow { margin-left: 12px; font-size: 10px; transition: 0.3s; }
+
+.parent-genre:hover, .parent-genre.active { background: #fff; color: #000; }
+.parent-genre.active .arrow { transform: rotate(180deg); }
+
+/* Sub Genre Wrapper (The Tree Line) */
+.sub-wrapper { 
+    display: none; padding-top: 15px; padding-left: 30px; 
+    border-left: 1px solid rgba(255,255,255,0.5); margin-left: 15px; 
+    flex-wrap: wrap; gap: 8px; 
+}
+.sub-wrapper.show { display: flex; }
+
+.sub-item { 
+    border: 1px solid rgba(255,255,255,0.3); 
+    padding: 5px 10px; font-size: 10.5px; 
+    font-weight: 700; text-transform: uppercase; 
+    cursor: pointer; transition: 0.2s; 
+}
+.sub-item:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #fff; }
+</style>
+</head>
+<body>
+
+<div class="header-container">
+  <div class="nav-top">
+    <div class="logo-main" onclick="window.location.href='index.html'"><img src="New Project (3).png" alt="RAT Radio"></div>
+    <div class="nav-right-side">
+      <div class="menu-links">
+          <a href="index.html">Latest</a>
+          <a href="explore.html" style="color: #888;">Explore</a>
+          <a href="#">Shop</a>
+          <a href="#">About</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="explore-content">
+    <div class="explore-header"><h1>EXPLORE<br>GENRES</h1></div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Metal</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Heavy Metal</div><div class="sub-item">Thrash Metal</div><div class="sub-item">Death Metal</div>
+            <div class="sub-item">Black Metal</div><div class="sub-item">DSBM</div><div class="sub-item">Atmospheric Black</div>
+            <div class="sub-item">Doom Metal</div><div class="sub-item">Sludge</div><div class="sub-item">Stoner Metal</div>
+            <div class="sub-item">Drone Metal</div><div class="sub-item">Funeral Doom</div><div class="sub-item">Death-Doom</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Punk & Hardcore</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Grindcore</div><div class="sub-item">Goregrind</div><div class="sub-item">Powerviolence</div>
+            <div class="sub-item">Hardcore Punk</div><div class="sub-item">Post-Hardcore</div><div class="sub-item">Crust Punk</div>
+            <div class="sub-item">D-Beat</div><div class="sub-item">Screamo</div><div class="sub-item">Skramz</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Electronic</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Techno</div><div class="sub-item">Minimal</div><div class="sub-item">Acid</div>
+            <div class="sub-item">Industrial Techno</div><div class="sub-item">House</div><div class="sub-item">Deep House</div>
+            <div class="sub-item">Breakbeat</div><div class="sub-item">Jungle</div><div class="sub-item">Drum & Bass</div>
+            <div class="sub-item">UK Garage</div><div class="sub-item">Dubstep</div><div class="sub-item">IDM</div>
+        </div>
+    </div>
+
+    </main>
+
+<script>
+    function toggleSub(el) {
+        const wrapper = el.nextElementSibling;
+        wrapper.classList.toggle('show');
+        el.classList.toggle('active');
+    }
+</script>
+
+</body>
+</html>
