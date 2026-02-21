@@ -23,7 +23,6 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 @keyframes blink { 0%, 100% {opacity:1;} 50% {opacity:0.2;} }
 .current-show { padding: 0 15px; font-size: 11px; font-weight: 700; display: flex; align-items: center; text-transform: uppercase; }
 .btn-toggle-small { cursor: pointer; margin-right: 12px; width: 14px; display: flex; justify-content: center; transition: 0.2s; }
-.btn-toggle-small:hover { opacity: 0.6; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
 /* CONTENT EXPLORE */
@@ -43,34 +42,22 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .sub-item { border: 1px solid rgba(255,255,255,0.3); padding: 5px 10px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
 .sub-item:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
-/* ================= PLAYER FIXED (SINKRON DENGAN HOME) ================= */
-.player-fixed {
-  position: fixed; bottom: 0; width: 100%; height: 55px; 
-  background: #000; color: #fff; display: none; 
-  align-items: center; justify-content: space-between; 
-  z-index: 1000; transform: translateY(100%); 
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border-top: 1px solid rgba(255,255,255,0.2);
-}
+/* PLAYER FIXED */
+.player-fixed { position: fixed; bottom: 0; width: 100%; height: 55px; background: #000; color: #fff; display: none; align-items: center; justify-content: space-between; z-index: 1000; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-top: 1px solid rgba(255,255,255,0.2); }
 .progress-container { position: absolute; top: -3px; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.1); cursor: pointer; display: flex; align-items: center; }
 .progress-bar { height: 100%; background: #fff; width: 0%; position: relative; }
-.progress-bar::after { content: ""; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: #fff; border-radius: 50%; }
-
 .player-left { display: flex; align-items: center; padding-left: 20px; gap: 15px; }
-.btn-toggle-bottom { cursor: pointer; font-size: 22px; width: 25px; display: flex; justify-content: center; transition: 0.2s; }
+.btn-toggle-bottom { cursor: pointer; font-size: 22px; width: 25px; display: flex; justify-content: center; }
 .stop-square-bottom { width: 14px; height: 14px; background: #fff; } 
 .track-box { display: flex; align-items: center; gap: 12px; }
 .track-box img { width: 38px; height: 38px; border: 1px solid #fff; filter: grayscale(100%); }
 .title-info b { font-size: 12.5px; display: block; text-transform: uppercase; font-weight: 700; line-height: 1.2; }
 .title-info span { font-size: 10px; opacity: 0.7; }
-
 .player-right { display: flex; align-items: center; height: 100%; }
 .icon-group { display: flex; align-items: center; gap: 20px; padding: 0 20px; }
-.icon-group span { cursor: pointer; color: #fff; font-weight: 700; transition: 0.2s; display: flex; align-items: center; }
 .divider { width: 1px; height: 100%; background: #fff; opacity: 0.2; } 
 .up-next-btn { display: flex; align-items: center; gap: 6px; padding: 0 20px; font-weight: 700; font-size: 11px; color: #fff; text-decoration: none; }
-.close-btn { padding: 0 20px; font-size: 18px; cursor: pointer; border-left: 1px solid #fff; opacity: 0.4; height: 100%; display: flex; align-items: center; transition: 0.3s; }
-.close-btn:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+.close-btn { padding: 0 20px; font-size: 18px; cursor: pointer; border-left: 1px solid #fff; opacity: 0.4; height: 100%; display: flex; align-items: center; }
 
 /* CUSTOM SCROLLBAR */
 ::-webkit-scrollbar { width: 4px; }
@@ -117,63 +104,97 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
             <div class="sub-item">Grindcore</div><div class="sub-item">Goregrind</div><div class="sub-item">Powerviolence</div><div class="sub-item">Hardcore Punk</div><div class="sub-item">Post-Hardcore</div><div class="sub-item">Crust Punk</div><div class="sub-item">D-Beat</div><div class="sub-item">Screamo</div><div class="sub-item">Skramz</div>
         </div>
     </div>
-    
-    </main>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Techno & House</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Techno</div><div class="sub-item">Minimal Techno</div><div class="sub-item">Acid Techno</div><div class="sub-item">Industrial Techno</div><div class="sub-item">Dub Techno</div><div class="sub-item">House</div><div class="sub-item">Deep House</div><div class="sub-item">Tech House</div><div class="sub-item">Acid House</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Bass & Club</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Breakbeat</div><div class="sub-item">Baile Funk</div><div class="sub-item">Hardgroove</div><div class="sub-item">Jungle</div><div class="sub-item">Drum & Bass</div><div class="sub-item">UK Garage</div><div class="sub-item">Dubstep</div><div class="sub-item">Grime</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Electronic & Experimental</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Electronica</div><div class="sub-item">IDM</div><div class="sub-item">Glitch</div><div class="sub-item">Ambient Techno</div><div class="sub-item">Harsh Noise</div><div class="sub-item">Dark Ambient</div><div class="sub-item">Drone</div><div class="sub-item">Experimental</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Jazz</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Jazz</div><div class="sub-item">Spiritual Jazz</div><div class="sub-item">Free Jazz</div><div class="sub-item">Jazz Fusion</div><div class="sub-item">Contemporary Jazz</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Pop & Wave</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Pop</div><div class="sub-item">Synth-Pop</div><div class="sub-item">New Wave</div><div class="sub-item">Dream Pop</div><div class="sub-item">Indie Pop</div><div class="sub-item">J-Pop</div><div class="sub-item">City Pop</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Rock & Alternative</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Rock & Alternative</div><div class="sub-item">Indie Rock</div><div class="sub-item">Psychedelic Rock</div><div class="sub-item">Garage Rock</div><div class="sub-item">Shoegaze</div><div class="sub-item">Post-Punk</div><div class="sub-item">Math Rock</div><div class="sub-item">Post-Rock</div><div class="sub-item">Midwest Emo</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Hip Hop & Beats</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Hip Hop</div><div class="sub-item">Boom Bap</div><div class="sub-item">Trap</div><div class="sub-item">Drill</div><div class="sub-item">Industrial Hip Hop</div><div class="sub-item">Instrumental</div><div class="sub-item">Trip Hop</div>
+        </div>
+    </div>
+
+    <div class="genre-group">
+        <div class="parent-genre" onclick="toggleSub(this)"><h2>Soul & Funk</h2><span class="arrow">▼</span></div>
+        <div class="sub-wrapper">
+            <div class="sub-item">Soul</div><div class="sub-item">Funk</div><div class="sub-item">Gospel</div><div class="sub-item">R&B</div>
+        </div>
+    </div>
+</main>
 
 <div class="player-fixed" id="main-player">
-  <div class="progress-container" id="p-cont">
-      <div class="progress-bar" id="p-bar"></div>
-  </div>
+  <div class="progress-container" id="p-cont"><div class="progress-bar" id="p-bar"></div></div>
   <div class="player-left">
     <div class="btn-toggle-bottom" id="toggle-bottom">▶</div>
     <div class="track-box">
-      <img src="" alt="Cover" id="bottom-cover">
+      <img src="https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg" alt="Cover" id="bottom-cover">
       <div class="title-info"><b id="player-title">TITLE</b><span id="player-sub">SUBTITLE</span></div>
     </div>
   </div>
   <div class="player-right">
-    <div class="icon-group">
-        <span title="Rewind 30s" onclick="seek(-30)">⟲ 30</span>
-        <span title="Forward 30s" onclick="seek(30)">⟳ 30</span>
-        <span style="font-size:24px">☁</span>
-    </div>
+    <div class="icon-group"><span>⟲ 30</span><span>⟳ 30</span><span style="font-size:24px">☁</span></div>
     <div class="divider"></div>
-    <div class="icon-group">
-        <span id="like-btn">♡</span>
-        <span style="font-size:18px; filter: brightness(0) invert(1);">🔗</span>
-        <span>☰</span>
-    </div>
+    <div class="icon-group"><span>♡</span><span style="font-size:18px; filter: brightness(0) invert(1);">🔗</span><span>☰</span></div>
     <a href="#" class="up-next-btn">UP NEXT ▲</a>
     <div class="close-btn" id="close-player">✕</div>
   </div>
 </div>
 
 <script>
-    // LOGIC GENRE TREE
     function toggleSub(el) {
         const wrapper = el.nextElementSibling;
         wrapper.classList.toggle('show');
         el.classList.toggle('active');
     }
 
-    // LOGIC PLAYER (SINKRON DENGAN HOME)
     const smallBtn = document.getElementById('toggle-small');
     const bottomBtn = document.getElementById('toggle-bottom');
     const playerBar = document.getElementById('main-player');
     const playerTitle = document.getElementById('player-title');
     const playerSub = document.getElementById('player-sub');
-    const bottomCover = document.getElementById('bottom-cover');
-    const liveLabelText = document.getElementById('live-text-source').innerText;
-    const progressBar = document.getElementById('p-bar');
-    const pContainer = document.getElementById('p-cont');
+    const liveText = document.getElementById('live-text-source').innerText;
 
-    let isPlaying = false; let playerVisible = false; let isLiveMode = false; let currentProgress = 0; let progressInterval;
-
-    const liveData = {
-        title: liveLabelText,
-        sub: "LIVE NOW",
-        img: "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg"
-    };
+    let isPlaying = false; let playerVisible = false;
 
     function showPlayer() {
         if (!playerVisible) {
@@ -183,40 +204,26 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
         }
     }
 
-    function updatePlayIcons() {
-        const stopS = '<div class="stop-square-small"></div>';
-        const stopB = '<div class="stop-square-bottom"></div>';
-        bottomBtn.innerHTML = isPlaying ? stopB : '▶';
-        smallBtn.innerHTML = (isPlaying && isLiveMode) ? stopS : '▶';
-    }
-
-    function updatePlayerContent(title, sub, img) {
-        playerTitle.innerText = title;
-        playerSub.innerText = sub;
-        bottomCover.src = img;
+    function updateIcons() {
+        smallBtn.innerHTML = isPlaying ? '<div class="stop-square-small"></div>' : '▶';
+        bottomBtn.innerHTML = isPlaying ? '<div class="stop-square-bottom"></div>' : '▶';
     }
 
     smallBtn.addEventListener('click', () => {
-        if (!isLiveMode || !isPlaying) {
-            updatePlayerContent(liveData.title, liveData.sub, liveData.img);
-            isPlaying = true; isLiveMode = true; showPlayer();
-        } else {
-            isPlaying = false; isLiveMode = false;
-        }
-        updatePlayIcons();
+        isPlaying = !isPlaying;
+        playerTitle.innerText = liveText;
+        playerSub.innerText = "LIVE NOW";
+        showPlayer(); updateIcons();
     });
 
     bottomBtn.addEventListener('click', () => {
-        isPlaying = !isPlaying;
-        if (!isPlaying) isLiveMode = false;
-        updatePlayIcons();
+        isPlaying = !isPlaying; updateIcons();
     });
 
-    document.getElementById('close-player').addEventListener('click', function() {
+    document.getElementById('close-player').addEventListener('click', () => {
         playerBar.style.transform = 'translateY(100%)';
-        setTimeout(() => { playerBar.style.display = 'none'; playerVisible = false; isPlaying = false; updatePlayIcons(); }, 400);
+        setTimeout(() => { playerBar.style.display = 'none'; playerVisible = false; isPlaying = false; updateIcons(); }, 400);
     });
 </script>
-
 </body>
 </html>
