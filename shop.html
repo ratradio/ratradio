@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop | RAT Radio</title>
+
+<style>
+/* CSS RESET & ANTI-BLOK (SINKRON INDEX & EXPLORE) */
+*{ 
+    margin:0; padding:0; box-sizing:border-box; 
+    font-family: 'Inter', Helvetica, Arial, sans-serif; 
+    -webkit-user-select: none; 
+    user-select: none;          
+}
+
+body{ background:#000; color:#fff; overflow-x: hidden; }
+
+/* ================= HEADER CONTAINER (SINKRON) ================= */
+.header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
+.nav-top { height: 48px; background: #000; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #fff; padding: 0 15px; }
+.logo-main img { height: 46px; cursor: pointer; transition: 0.3s; }
+.logo-main:hover img { transform: scale(1.05); }
+
+.nav-right-side { display: flex; align-items: center; }
+.menu-links a { color: #fff; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 0 15px; transition: 0.2s; }
+.menu-links a:hover { color: #888; }
+
+.search-container { display: flex; align-items: center; padding-left: 15px; margin-left: 5px; height: 24px; border-left: 1px solid #fff; }
+.search-wrapper { display: flex; align-items: center; gap: 8px; }
+.search-input { background: transparent; border: none; border-bottom: 1px solid #fff; color: #fff; font-size: 12px; width: 80px; outline: none; transition: 0.4s; -webkit-user-select: text; user-select: text; }
+.search-input:focus { width: 140px; }
+.search-icon { width: 13px; height: 13px; border: 1.5px solid #fff; border-radius: 50%; position: relative; cursor: pointer; }
+.search-icon::after { content: ""; position: absolute; width: 1.5px; height: 5px; background: #fff; bottom: -3px; right: -2px; transform: rotate(-45deg); }
+
+.nav-live { height: 32px; background: #000; display: flex; align-items: center; border-bottom: 1px solid #fff; }
+.live-label { background: #fff; color: #000; height: 100%; padding: 0 12px; font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 6px; text-transform: uppercase; }
+.live-label span { color: #ff0000; font-size: 14px; animation: blink 1.5s infinite; } 
+@keyframes blink { 0%, 100% {opacity:1;} 50% {opacity:0.2;} }
+.current-show { padding: 0 15px; font-size: 11px; font-weight: 700; display: flex; align-items: center; text-transform: uppercase; }
+.btn-toggle-small { cursor: pointer; margin-right: 12px; width: 14px; display: flex; justify-content: center; }
+.stop-square-small { width: 10px; height: 10px; background: #fff; }
+
+/* ================= SHOP CONTENT (CENTERED) ================= */
+.shop-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.shop-status {
+    font-size: 11px; /* Ukuran sama dengan navigasi */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.4;
+}
+
+/* ================= PLAYER FIXED (SINKRON) ================= */
+.player-fixed {
+  position: fixed; bottom: 0; width: 100%; height: 55px; 
+  background: #000; color: #fff; display: none; 
+  align-items: center; justify-content: space-between; 
+  z-index: 1000; transform: translateY(100%); 
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+.progress-container { position: absolute; top: -3px; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.1); cursor: pointer; display: flex; align-items: center; }
+.progress-bar { height: 100%; background: #fff; width: 0%; position: relative; }
+.progress-bar::after { content: ""; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: #fff; border-radius: 50%; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
+.player-left { display: flex; align-items: center; padding-left: 20px; gap: 15px; }
+.btn-toggle-bottom { cursor: pointer; font-size: 22px; width: 25px; display: flex; justify-content: center; }
+.stop-square-bottom { width: 14px; height: 14px; background: #fff; } 
+.track-box { display: flex; align-items: center; gap: 12px; }
+.track-box img { width: 38px; height: 38px; border: 1px solid #fff; filter: grayscale(100%); }
+.title-info b { font-size: 12.5px; display: block; text-transform: uppercase; font-weight: 700; line-height: 1.2; }
+.title-info span { font-size: 10px; opacity: 0.7; }
+.player-right { display: flex; align-items: center; height: 100%; }
+.icon-group { display: flex; align-items: center; gap: 20px; padding: 0 20px; }
+.icon-group span { cursor: pointer; color: #fff; font-weight: 700; display: flex; align-items: center; }
+#like-btn { font-size: 22px; } 
+.share-icon { font-size: 18px; filter: brightness(0) invert(1); }
+.divider { width: 1px; height: 100%; background: #fff; opacity: 0.2; } 
+.up-next-btn { display: flex; align-items: center; gap: 6px; padding: 0 20px; font-weight: 700; font-size: 11px; color: #fff; text-decoration: none; }
+.close-btn { padding: 0 20px; font-size: 18px; cursor: pointer; border-left: 1px solid #fff; opacity: 0.4; height: 100%; display: flex; align-items: center; }
+
+</style>
+</head>
+<body>
+
+<div class="header-container">
+  <div class="nav-top">
+    <div class="logo-main" onclick="window.location.href='index.html'"><img src="New Project (3).png"></div>
+    <div class="nav-right-side">
+      <div class="menu-links">
+          <a href="index.html">Latest</a>
+          <a href="explore.html">Explore</a>
+          <a href="shop.html" style="color: #888;">Shop</a>
+          <a href="#">About</a>
+      </div>
+      <div class="search-container">
+        <div class="search-wrapper">
+          <input type="text" class="search-input">
+          <div class="search-icon"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-live">
+    <div class="live-label">Live Now <span>●</span></div>
+    <div class="current-show">
+        <div class="btn-toggle-small" id="toggle-small">▶</div> 
+        <span id="live-text-source">BASEMENT SESSIONS W/ DIRTY CAT</span>
+    </div>
+  </div>
+</div>
+
+<div class="shop-container">
+    <p class="shop-status">We are not ready yet :(</p>
+</div>
+
+<div class="player-fixed" id="main-player">
+  <div class="progress-container" id="p-cont">
+      <div class="progress-bar" id="p-bar"></div>
+  </div>
+  <div class="player-left">
+    <div class="btn-toggle-bottom" id="toggle-bottom">▶</div>
+    <div class="track-box">
+      <img src="" alt="Cover" id="bottom-cover">
+      <div class="title-info"><b id="player-title">TITLE</b><span id="player-sub">SUBTITLE</span></div>
+    </div>
+  </div>
+  <div class="player-right">
+    <div class="icon-group">
+        <span onclick="seek(-30)">⟲ 30</span>
+        <span onclick="seek(30)">⟳ 30</span>
+        <span style="font-size:24px">☁</span>
+    </div>
+    <div class="divider"></div>
+    <div class="icon-group">
+        <span id="like-btn">♡</span>
+        <span class="share-icon">🔗</span>
+        <span>☰</span>
+    </div>
+    <a href="#" class="up-next-btn">UP NEXT ▲</a>
+    <div class="close-btn" id="close-player">✕</div>
+  </div>
+</div>
+
+<script>
+  // PLAYER LOGIC (SINKRON TOTAL)
+  const smallBtn = document.getElementById('toggle-small');
+  const bottomBtn = document.getElementById('toggle-bottom');
+  const playerBar = document.getElementById('main-player');
+  const playerTitle = document.getElementById('player-title');
+  const playerSub = document.getElementById('player-sub');
+  const bottomCover = document.getElementById('bottom-cover');
+  const liveLabelText = document.getElementById('live-text-source').innerText;
+  const progressBar = document.getElementById('p-bar');
+  const pContainer = document.getElementById('p-cont');
+
+  let isPlaying = false; let playerVisible = false; let isLiveMode = false;
+  let currentProgress = 0; let progressInterval; let isDragging = false;
+
+  const liveData = {
+    title: liveLabelText, sub: "LIVE NOW",
+    img: "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg"
+  };
+
+  function startProgress() {
+      clearInterval(progressInterval);
+      progressInterval = setInterval(() => {
+          if (isPlaying && currentProgress < 100 && !isDragging) {
+              currentProgress += 0.1; 
+              progressBar.style.width = currentProgress + "%";
+          }
+      }, 100);
+  }
+
+  function seek(amount) {
+      currentProgress += (amount / 2); 
+      currentProgress = Math.max(0, Math.min(100, currentProgress));
+      progressBar.style.width = currentProgress + "%";
+  }
+
+  pContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      updatePos(e);
+  });
+
+  window.addEventListener('mousemove', (e) => { if (isDragging) updatePos(e); });
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  function updatePos(e) {
+      const rect = pContainer.getBoundingClientRect();
+      let pos = (e.clientX - rect.left) / rect.width;
+      currentProgress = Math.max(0, Math.min(1, pos)) * 100;
+      progressBar.style.width = currentProgress + "%";
+  }
+
+  function showPlayer() {
+    if (!playerVisible) {
+        playerBar.style.display = 'flex';
+        setTimeout(() => { playerBar.style.transform = 'translateY(0)'; }, 10);
+        playerVisible = true;
+    }
+  }
+
+  function updateIcons() {
+    bottomBtn.innerHTML = isPlaying ? '<div class="stop-square-bottom"></div>' : '▶';
+    smallBtn.innerHTML = (isPlaying && isLiveMode) ? '<div class="stop-square-small"></div>' : '▶';
+    if (isPlaying) startProgress(); else clearInterval(progressInterval);
+  }
+
+  smallBtn.addEventListener('click', () => {
+    if (!isLiveMode || !isPlaying) {
+        playerTitle.innerText = liveData.title; playerSub.innerText = liveData.sub;
+        bottomCover.src = liveData.img;
+        isPlaying = true; isLiveMode = true; showPlayer();
+    } else { isPlaying = false; isLiveMode = false; }
+    updateIcons();
+  });
+
+  bottomBtn.addEventListener('click', () => {
+    isPlaying = !isPlaying; if (!isPlaying) isLiveMode = false;
+    updateIcons();
+  });
+
+  document.getElementById('like-btn').addEventListener('click', function() {
+    const isL = this.innerText === '♡';
+    this.innerHTML = isL ? '♥' : '♡';
+    this.style.color = isL ? '#ff0000' : '#fff';
+  });
+
+  document.getElementById('close-player').addEventListener('click', () => {
+    playerBar.style.transform = 'translateY(100%)';
+    setTimeout(() => { 
+        playerBar.style.display = 'none'; playerVisible = false;
+        isPlaying = false; updateIcons();
+    }, 400);
+  });
+</script>
+
+</body>
+</html>
