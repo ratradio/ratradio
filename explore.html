@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Explore Genres | RAT Radio</title>
 <style>
-/* FONDASI TETAP SAMA DENGAN HOME */
+/* FONDASI SAMA DENGAN HOME */
 *{ margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', Helvetica, Arial, sans-serif; -webkit-user-select: none; user-select: none; }
 body{ background:#000; color:#fff; overflow-x: hidden; }
 
-/* HEADER & LIVE BAR (PATEN DARI HOME) */
+/* HEADER & LIVE BAR */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
 .nav-top { height: 48px; background: #000; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #fff; padding: 0 15px; }
 .logo-main img { height: 46px; cursor: pointer; transition: 0.3s; }
@@ -22,11 +22,11 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .live-label span { color: #ff0000; font-size: 14px; animation: blink 1.5s infinite; } 
 @keyframes blink { 0%, 100% {opacity:1;} 50% {opacity:0.2;} }
 .current-show { padding: 0 15px; font-size: 11px; font-weight: 700; display: flex; align-items: center; text-transform: uppercase; }
-.btn-toggle-small { cursor: pointer; margin-right: 12px; width: 14px; display: flex; justify-content: center; transition: 0.2s; }
+.btn-toggle-small { cursor: pointer; margin-right: 12px; width: 14px; display: flex; justify-content: center; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
 /* CONTENT EXPLORE */
-.explore-content { padding: 140px 60px 100px 60px; max-width: 1200px; }
+.explore-content { padding: 140px 60px 120px 60px; max-width: 1200px; }
 .explore-header h1 { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 60px; line-height: 0.8; }
 
 /* SYSTEM TREE GENRE */
@@ -42,10 +42,12 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .sub-item { border: 1px solid rgba(255,255,255,0.3); padding: 5px 10px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
 .sub-item:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
-/* PLAYER FIXED */
+/* PLAYER FIXED (FULL SYNC) */
 .player-fixed { position: fixed; bottom: 0; width: 100%; height: 55px; background: #000; color: #fff; display: none; align-items: center; justify-content: space-between; z-index: 1000; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-top: 1px solid rgba(255,255,255,0.2); }
 .progress-container { position: absolute; top: -3px; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.1); cursor: pointer; display: flex; align-items: center; }
 .progress-bar { height: 100%; background: #fff; width: 0%; position: relative; }
+.progress-bar::after { content: ""; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: #fff; border-radius: 50%; }
+
 .player-left { display: flex; align-items: center; padding-left: 20px; gap: 15px; }
 .btn-toggle-bottom { cursor: pointer; font-size: 22px; width: 25px; display: flex; justify-content: center; }
 .stop-square-bottom { width: 14px; height: 14px; background: #fff; } 
@@ -53,13 +55,15 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .track-box img { width: 38px; height: 38px; border: 1px solid #fff; filter: grayscale(100%); }
 .title-info b { font-size: 12.5px; display: block; text-transform: uppercase; font-weight: 700; line-height: 1.2; }
 .title-info span { font-size: 10px; opacity: 0.7; }
+
 .player-right { display: flex; align-items: center; height: 100%; }
 .icon-group { display: flex; align-items: center; gap: 20px; padding: 0 20px; }
+.icon-group span { cursor: pointer; font-weight: 700; font-size: 14px; }
 .divider { width: 1px; height: 100%; background: #fff; opacity: 0.2; } 
 .up-next-btn { display: flex; align-items: center; gap: 6px; padding: 0 20px; font-weight: 700; font-size: 11px; color: #fff; text-decoration: none; }
 .close-btn { padding: 0 20px; font-size: 18px; cursor: pointer; border-left: 1px solid #fff; opacity: 0.4; height: 100%; display: flex; align-items: center; }
 
-/* CUSTOM SCROLLBAR */
+/* SCROLLBAR */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #000; }
 ::-webkit-scrollbar-thumb { background: #fff; }
@@ -69,7 +73,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 
 <div class="header-container">
   <div class="nav-top">
-    <div class="logo-main" onclick="window.location.href='index.html'"><img src="New Project (3).png" alt="RAT Radio"></div>
+    <div class="logo-main" onclick="window.location.href='index.html'"><img src="New Project (3).png"></div>
     <div class="nav-right-side">
       <div class="menu-links">
           <a href="index.html">Latest</a>
@@ -91,75 +95,16 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 <main class="explore-content">
     <div class="explore-header"><h1>EXPLORE<br>GENRES</h1></div>
 
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Metal</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Heavy Metal</div><div class="sub-item">Thrash Metal</div><div class="sub-item">Death Metal</div><div class="sub-item">Black Metal</div><div class="sub-item">DSBM</div><div class="sub-item">Atmospheric Black Metal</div><div class="sub-item">Doom Metal</div><div class="sub-item">Sludge</div><div class="sub-item">Stoner Metal</div><div class="sub-item">Drone Metal</div><div class="sub-item">Funeral Doom</div><div class="sub-item">Death-Doom</div><div class="sub-item">Gothic</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Punk & Hardcore</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Grindcore</div><div class="sub-item">Goregrind</div><div class="sub-item">Powerviolence</div><div class="sub-item">Hardcore Punk</div><div class="sub-item">Post-Hardcore</div><div class="sub-item">Crust Punk</div><div class="sub-item">D-Beat</div><div class="sub-item">Screamo</div><div class="sub-item">Skramz</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Techno & House</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Techno</div><div class="sub-item">Minimal Techno</div><div class="sub-item">Acid Techno</div><div class="sub-item">Industrial Techno</div><div class="sub-item">Dub Techno</div><div class="sub-item">House</div><div class="sub-item">Deep House</div><div class="sub-item">Tech House</div><div class="sub-item">Acid House</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Bass & Club</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Breakbeat</div><div class="sub-item">Baile Funk</div><div class="sub-item">Hardgroove</div><div class="sub-item">Jungle</div><div class="sub-item">Drum & Bass</div><div class="sub-item">UK Garage</div><div class="sub-item">Dubstep</div><div class="sub-item">Grime</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Electronic & Experimental</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Electronica</div><div class="sub-item">IDM</div><div class="sub-item">Glitch</div><div class="sub-item">Ambient Techno</div><div class="sub-item">Harsh Noise</div><div class="sub-item">Dark Ambient</div><div class="sub-item">Drone</div><div class="sub-item">Experimental</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Jazz</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Jazz</div><div class="sub-item">Spiritual Jazz</div><div class="sub-item">Free Jazz</div><div class="sub-item">Jazz Fusion</div><div class="sub-item">Contemporary Jazz</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Pop & Wave</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Pop</div><div class="sub-item">Synth-Pop</div><div class="sub-item">New Wave</div><div class="sub-item">Dream Pop</div><div class="sub-item">Indie Pop</div><div class="sub-item">J-Pop</div><div class="sub-item">City Pop</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Rock & Alternative</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Rock & Alternative</div><div class="sub-item">Indie Rock</div><div class="sub-item">Psychedelic Rock</div><div class="sub-item">Garage Rock</div><div class="sub-item">Shoegaze</div><div class="sub-item">Post-Punk</div><div class="sub-item">Math Rock</div><div class="sub-item">Post-Rock</div><div class="sub-item">Midwest Emo</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Hip Hop & Beats</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Hip Hop</div><div class="sub-item">Boom Bap</div><div class="sub-item">Trap</div><div class="sub-item">Drill</div><div class="sub-item">Industrial Hip Hop</div><div class="sub-item">Instrumental</div><div class="sub-item">Trip Hop</div>
-        </div>
-    </div>
-
-    <div class="genre-group">
-        <div class="parent-genre" onclick="toggleSub(this)"><h2>Soul & Funk</h2><span class="arrow">▼</span></div>
-        <div class="sub-wrapper">
-            <div class="sub-item">Soul</div><div class="sub-item">Funk</div><div class="sub-item">Gospel</div><div class="sub-item">R&B</div>
-        </div>
-    </div>
+    <div class="genre-group"><div class="parent-genre" onclick="toggleSub(this)"><h2>Metal</h2><span class="arrow">▼</span></div><div class="sub-wrapper"><div class="sub-item">Heavy Metal</div><div class="sub-item">Thrash Metal</div><div class="sub-item">Death Metal</div><div class="sub-item">Black Metal</div><div class="sub-item">DSBM</div><div class="sub-item">Atmospheric Black Metal</div><div class="sub-item">Doom Metal</div><div class="sub-item">Sludge</div><div class="sub-item">Stoner Metal</div><div class="sub-item">Drone Metal</div><div class="sub-item">Funeral Doom</div><div class="sub-item">Death-Doom</div><div class="sub-item">Gothic</div></div></div>
+    <div class="genre-group"><div class="parent-genre" onclick="toggleSub(this)"><h2>Punk & Hardcore</h2><span class="arrow">▼</span></div><div class="sub-wrapper"><div class="sub-item">Grindcore</div><div class="sub-item">Goregrind</div><div class="sub-item">Powerviolence</div><div class="sub-item">Hardcore Punk</div><div class="sub-item">Post-Hardcore</div><div class="sub-item">Crust Punk</div><div class="sub-item">D-Beat</div><div class="sub-item">Screamo</div><div class="sub-item">Skramz</div></div></div>
+    <div class="genre-group"><div class="parent-genre" onclick="toggleSub(this)"><h2>Techno & House</h2><span class="arrow">▼</span></div><div class="sub-wrapper"><div class="sub-item">Techno</div><div class="sub-item">Minimal Techno</div><div class="sub-item">Acid Techno</div><div class="sub-item">Industrial Techno</div><div class="sub-item">Dub Techno</div><div class="sub-item">House</div><div class="sub-item">Deep House</div><div class="sub-item">Tech House</div><div class="sub-item">Acid House</div></div></div>
+    <div class="genre-group"><div class="parent-genre" onclick="toggleSub(this)"><h2>Bass & Club</h2><span class="arrow">▼</span></div><div class="sub-wrapper"><div class="sub-item">Breakbeat</div><div class="sub-item">Baile Funk</div><div class="sub-item">Hardgroove</div><div class="sub-item">Jungle</div><div class="sub-item">Drum & Bass</div><div class="sub-item">UK Garage</div><div class="sub-item">Dubstep</div><div class="sub-item">Grime</div></div></div>
+    <div class="genre-group"><div class="parent-genre" onclick="toggleSub(this)"><h2>Electronic & Experimental</h2><span class="arrow">▼</span></div><div class="sub-wrapper"><div class="sub-item">Electronica</div><div class="sub-item">IDM</div><div class="sub-item">Glitch</div><div class="sub-item">Ambient Techno</div><div class="sub-item">Harsh Noise</div><div class="sub-item">Dark Ambient</div><div class="sub-item">Drone</div><div class="sub-item">Experimental</div></div></div>
+    <div class="genre-group"><div class="parent-genre" onclick="toggleSub(this)"><h2>Jazz</h2><span class="arrow">▼</span></div><div class="sub-wrapper"><div class="sub-item">Jazz</div><div class="sub-item">Spiritual Jazz</div><div class="sub-item">Free Jazz</div><div class="sub-item">Jazz Fusion</div><div class="sub-item">Contemporary Jazz</div></div></div>
+    <div class="genre-group"><div class="parent-genre" onclick="toggleSub(this)"><h2>Pop & Wave</h2><span class="arrow">▼</span></div><div class="sub-wrapper"><div class="sub-item">Pop</div><div class="sub-item">Synth-Pop</div><div class="sub-item">New Wave</div><div class="sub-item">Dream Pop</div><div class="sub-item">Indie Pop</div><div class="sub-item">J-Pop</div><div class="sub-item">City Pop</div></div></div>
+    <div class="genre-group"><div class="parent-genre" onclick="toggleSub(this)"><h2>Rock & Alternative</h2><span class="arrow">▼</span></div><div class="sub-wrapper"><div class="sub-item">Rock & Alternative</div><div class="sub-item">Indie Rock</div><div class="sub-item">Psychedelic Rock</div><div class="sub-item">Garage Rock</div><div class="sub-item">Shoegaze</div><div class="sub-item">Post-Punk</div><div class="sub-item">Math Rock</div><div class="sub-item">Post-Rock</div><div class="sub-item">Midwest Emo</div></div></div>
+    <div class="genre-group"><div class="parent-genre" onclick="toggleSub(this)"><h2>Hip Hop & Beats</h2><span class="arrow">▼</span></div><div class="sub-wrapper"><div class="sub-item">Hip Hop</div><div class="sub-item">Boom Bap</div><div class="sub-item">Trap</div><div class="sub-item">Drill</div><div class="sub-item">Industrial Hip Hop</div><div class="sub-item">Instrumental</div><div class="sub-item">Trip Hop</div></div></div>
+    <div class="genre-group"><div class="parent-genre" onclick="toggleSub(this)"><h2>Soul & Funk</h2><span class="arrow">▼</span></div><div class="sub-wrapper"><div class="sub-item">Soul</div><div class="sub-item">Funk</div><div class="sub-item">Gospel</div><div class="sub-item">R&B</div></div></div>
 </main>
 
 <div class="player-fixed" id="main-player">
@@ -172,29 +117,40 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
     </div>
   </div>
   <div class="player-right">
-    <div class="icon-group"><span>⟲ 30</span><span>⟳ 30</span><span style="font-size:24px">☁</span></div>
+    <div class="icon-group">
+        <span onclick="seek(-30)">⟲ 30</span>
+        <span onclick="seek(30)">⟳ 30</span>
+        <span style="font-size:24px">☁</span>
+    </div>
     <div class="divider"></div>
-    <div class="icon-group"><span>♡</span><span style="font-size:18px; filter: brightness(0) invert(1);">🔗</span><span>☰</span></div>
+    <div class="icon-group">
+        <span id="like-btn" onclick="toggleLike()">♡</span>
+        <span style="font-size:18px; filter: brightness(0) invert(1);">🔗</span>
+        <span>☰</span>
+    </div>
     <a href="#" class="up-next-btn">UP NEXT ▲</a>
     <div class="close-btn" id="close-player">✕</div>
   </div>
 </div>
 
 <script>
+    // GENRE LOGIC
     function toggleSub(el) {
         const wrapper = el.nextElementSibling;
         wrapper.classList.toggle('show');
         el.classList.toggle('active');
     }
 
+    // PLAYER LOGIC (SYNC INDEX)
     const smallBtn = document.getElementById('toggle-small');
     const bottomBtn = document.getElementById('toggle-bottom');
     const playerBar = document.getElementById('main-player');
     const playerTitle = document.getElementById('player-title');
     const playerSub = document.getElementById('player-sub');
+    const progressBar = document.getElementById('p-bar');
     const liveText = document.getElementById('live-text-source').innerText;
 
-    let isPlaying = false; let playerVisible = false;
+    let isPlaying = false; let playerVisible = false; let progress = 0; let progInterval;
 
     function showPlayer() {
         if (!playerVisible) {
@@ -204,9 +160,20 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
         }
     }
 
+    function startProgress() {
+        clearInterval(progInterval);
+        progInterval = setInterval(() => {
+            if(isPlaying && progress < 100) {
+                progress += 0.1;
+                progressBar.style.width = progress + "%";
+            }
+        }, 1000);
+    }
+
     function updateIcons() {
         smallBtn.innerHTML = isPlaying ? '<div class="stop-square-small"></div>' : '▶';
         bottomBtn.innerHTML = isPlaying ? '<div class="stop-square-bottom"></div>' : '▶';
+        if(isPlaying) startProgress(); else clearInterval(progInterval);
     }
 
     smallBtn.addEventListener('click', () => {
@@ -219,6 +186,17 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
     bottomBtn.addEventListener('click', () => {
         isPlaying = !isPlaying; updateIcons();
     });
+
+    function toggleLike() {
+        const btn = document.getElementById('like-btn');
+        if(btn.innerText === '♡') { btn.innerText = '♥'; btn.style.color = '#ff0000'; }
+        else { btn.innerText = '♡'; btn.style.color = '#fff'; }
+    }
+
+    function seek(val) {
+        progress = Math.min(Math.max(progress + (val/2), 0), 100);
+        progressBar.style.width = progress + "%";
+    }
 
     document.getElementById('close-player').addEventListener('click', () => {
         playerBar.style.transform = 'translateY(100%)';
