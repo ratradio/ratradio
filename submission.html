@@ -29,8 +29,24 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 
 .search-container { display: flex; align-items: center; padding-left: 15px; margin-left: 5px; height: 24px; border-left: 1px solid #fff; }
 .search-wrapper { display: flex; align-items: center; gap: 8px; }
-.search-input { background: transparent; border: none; border-bottom: 1px solid #fff; color: #fff; font-size: 12px; width: 80px; outline: none; transition: 0.4s; -webkit-user-select: text; user-select: text; }
-.search-input:focus { width: 140px; }
+
+/* UPDATE: INTERAKSI SEARCH BAR MEMANJANG */
+.search-input { 
+    background: transparent; 
+    border: none; 
+    border-bottom: 1px solid #fff; 
+    color: #fff; 
+    font-size: 12px; 
+    width: 80px; 
+    outline: none; 
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+    -webkit-user-select: text; 
+    user-select: text; 
+}
+.search-input:focus { 
+    width: 140px; 
+}
+
 .search-icon { width: 13px; height: 13px; border: 1.5px solid #fff; border-radius: 50%; position: relative; cursor: pointer; }
 .search-icon::after { content: ""; position: absolute; width: 1.5px; height: 5px; background: #fff; bottom: -3px; right: -2px; transform: rotate(-45deg); }
 
@@ -206,7 +222,6 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 </div>
 
 <script>
-  // Script dijamin identik dengan About.html lo
   const smallBtn = document.getElementById('toggle-small');
   const bottomBtn = document.getElementById('toggle-bottom');
   const playerBar = document.getElementById('main-player');
