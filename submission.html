@@ -17,7 +17,7 @@
 html { scroll-behavior: smooth; }
 body{ background:#000; color:#fff; overflow-x: hidden; }
 
-/* ================= HEADER CONTAINER (SINKRON TOTAL) ================= */
+/* ================= HEADER CONTAINER ================= */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
 .nav-top { height: 48px; background: #000; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #fff; padding: 0 15px; }
 .logo-main img { height: 46px; cursor: pointer; transition: 0.3s; }
@@ -27,24 +27,26 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .menu-links a { color: #fff; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 0 15px; transition: 0.2s; cursor: pointer; } 
 .menu-links a:hover { color: #888; }
 
+/* SEARCH BAR FIX - PENDEK DI AWAL, PANJANG PAS DIKLIK */
 .search-container { display: flex; align-items: center; padding-left: 15px; margin-left: 5px; height: 24px; border-left: 1px solid #fff; }
 .search-wrapper { display: flex; align-items: center; gap: 8px; }
 
-/* SEARCH INPUT: PERBAIKAN TOTAL SESUAI GAMBAR */
 .search-input { 
     background: transparent; 
     border: none; 
     border-bottom: 1px solid #fff; 
     color: #fff; 
     font-size: 12px; 
-    width: 60px; /* Pendek saat awal */
+    width: 30px; /* SANGAT PENDEK DI AWAL SESUAI GAMBAR */
     outline: none; 
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+    padding: 0;
+    transition: width 0.4s ease-in-out; 
     -webkit-user-select: text; 
     user-select: text; 
 }
+
 .search-input:focus { 
-    width: 140px; /* Memanjang saat diklik */
+    width: 140px !important; /* MEMANJANG PAS DIKLIK */
 }
 
 .search-icon { width: 13px; height: 13px; border: 1.5px solid #fff; border-radius: 50%; position: relative; cursor: pointer; }
@@ -66,12 +68,13 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .section-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; display: block; opacity: 0.5; }
 .form-group { margin-bottom: 50px; max-width: 750px; }
 
-input[type="text"], input[type="email"], textarea {
+/* INPUT FORM BIASA (TIDAK TERPENGARUH SEARCH) */
+.form-group input[type="text"], .form-group input[type="email"], .form-group textarea {
     width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.3);
     color: #fff; padding: 12px 0; font-size: 16px; font-weight: 500; text-transform: uppercase; outline: none; transition: 0.3s;
     -webkit-user-select: text; user-select: text;
 }
-input:focus, textarea:focus { border-bottom: 1px solid #fff; }
+.form-group input:focus, .form-group textarea:focus { border-bottom: 1px solid #fff; }
 
 textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3); padding: 15px; text-transform: none; }
 .help-text { font-size: 10px; opacity: 0.4; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
@@ -199,9 +202,7 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 </main>
 
 <div class="player-fixed" id="main-player">
-  <div class="progress-container" id="p-cont" title="Seek">
-      <div class="progress-bar" id="p-bar"></div>
-  </div>
+  <div class="progress-container" id="p-cont" title="Seek"><div class="progress-bar" id="p-bar"></div></div>
   <div class="player-left">
     <div class="btn-toggle-bottom" id="toggle-bottom" title="Play/Pause">▶</div>
     <div class="track-box">
@@ -226,7 +227,6 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 </div>
 
 <script>
-  // PLAYER & HEADER LOGIC SINKRON 100%
   const smallBtn = document.getElementById('toggle-small');
   const bottomBtn = document.getElementById('toggle-bottom');
   const playerBar = document.getElementById('main-player');
@@ -241,66 +241,25 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
   let currentProgress = 0; let progressInterval; let isDragging = false;
   const liveData = { title: liveLabelText, sub: "LIVE NOW", img: "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg" };
 
-  function startProgress() {
-      clearInterval(progressInterval);
-      progressInterval = setInterval(() => {
-          if (isPlaying && currentProgress < 100 && !isDragging) {
-              currentProgress += 0.1; progressBar.style.width = currentProgress + "%";
-          }
-      }, 100);
-  }
-
-  function seek(amount) {
-      currentProgress += (amount / 2); 
-      currentProgress = Math.max(0, Math.min(100, currentProgress));
-      progressBar.style.width = currentProgress + "%";
-  }
-
-  function updateFromMouse(e) {
-      const rect = pContainer.getBoundingClientRect();
-      let pos = (e.clientX - rect.left) / rect.width;
-      currentProgress = Math.max(0, Math.min(1, pos)) * 100;
-      progressBar.style.width = currentProgress + "%";
-  }
-
+  function startProgress() { clearInterval(progressInterval); progressInterval = setInterval(() => { if (isPlaying && currentProgress < 100 && !isDragging) { currentProgress += 0.1; progressBar.style.width = currentProgress + "%"; } }, 100); }
+  function seek(amount) { currentProgress += (amount / 2); currentProgress = Math.max(0, Math.min(100, currentProgress)); progressBar.style.width = currentProgress + "%"; }
+  function updateFromMouse(e) { const rect = pContainer.getBoundingClientRect(); let pos = (e.clientX - rect.left) / rect.width; currentProgress = Math.max(0, Math.min(1, pos)) * 100; progressBar.style.width = currentProgress + "%"; }
+  
   pContainer.addEventListener('mousedown', (e) => { isDragging = true; updateFromMouse(e); });
   window.addEventListener('mousemove', (e) => { if (isDragging) updateFromMouse(e); });
   window.addEventListener('mouseup', () => { isDragging = false; });
-
-  function showPlayer() {
-    if (!playerVisible) {
-        playerBar.style.display = 'flex';
-        setTimeout(() => { playerBar.style.transform = 'translateY(0)'; }, 10);
-        playerVisible = true;
-    }
+  
+  function showPlayer() { if (!playerVisible) { playerBar.style.display = 'flex'; setTimeout(() => { playerBar.style.transform = 'translateY(0)'; }, 10); playerVisible = true; } }
+  function updatePlayIcons() { 
+      bottomBtn.innerHTML = isPlaying ? '<div class="stop-square-bottom"></div>' : '▶'; 
+      smallBtn.innerHTML = (isPlaying && isLiveMode) ? '<div class="stop-square-small"></div>' : '▶'; 
+      if (isPlaying) startProgress(); else clearInterval(progressInterval); 
   }
 
-  function updatePlayIcons() {
-    bottomBtn.innerHTML = isPlaying ? '<div class="stop-square-bottom"></div>' : '▶';
-    smallBtn.innerHTML = (isPlaying && isLiveMode) ? '<div class="stop-square-small"></div>' : '▶';
-    if (isPlaying) startProgress(); else clearInterval(progressInterval);
-  }
-
-  smallBtn.addEventListener('click', () => {
-    if (!isLiveMode || !isPlaying) {
-        playerTitle.innerText = liveData.title; playerSub.innerText = liveData.sub; bottomCover.src = liveData.img;
-        isPlaying = true; isLiveMode = true; showPlayer();
-    } else { isPlaying = false; isLiveMode = false; }
-    updatePlayIcons();
-  });
-
+  smallBtn.addEventListener('click', () => { if (!isLiveMode || !isPlaying) { playerTitle.innerText = liveData.title; playerSub.innerText = liveData.sub; bottomCover.src = liveData.img; isPlaying = true; isLiveMode = true; showPlayer(); } else { isPlaying = false; isLiveMode = false; } updatePlayIcons(); });
   bottomBtn.addEventListener('click', () => { isPlaying = !isPlaying; if (!isPlaying) isLiveMode = false; updatePlayIcons(); });
-
-  const likeBtn = document.getElementById('like-btn');
-  let isLiked = false;
-  likeBtn.addEventListener('click', function() {
-    isLiked = !isLiked; this.innerHTML = isLiked ? '♥' : '♡';
-  });
-
-  document.getElementById('close-player').addEventListener('click', () => {
-    playerBar.style.transform = 'translateY(100%)';
-    setTimeout(() => { playerBar.style.display = 'none'; playerVisible = false; isPlaying = false; updatePlayIcons(); }, 400);
-  });
+  document.getElementById('like-btn').addEventListener('click', function() { this.innerHTML = this.innerHTML === '♡' ? '♥' : '♡'; });
+  document.getElementById('close-player').addEventListener('click', () => { playerBar.style.transform = 'translateY(100%)'; setTimeout(() => { playerBar.style.display = 'none'; playerVisible = false; isPlaying = false; updatePlayIcons(); }, 400); });
 </script>
 </body>
 </html>
