@@ -6,7 +6,7 @@
 <title>Submit Proposal | RAT Radio</title>
 
 <style>
-/* CSS RESET & ANTI-BLOK (SAMAIN PERSIS) */
+/* CSS RESET & ANTI-BLOK */
 *{ 
     margin:0; padding:0; box-sizing:border-box; 
     font-family: 'Inter', Helvetica, Arial, sans-serif; 
@@ -17,7 +17,7 @@
 html { scroll-behavior: smooth; }
 body{ background:#000; color:#fff; overflow-x: hidden; }
 
-/* ================= HEADER CONTAINER (SAMAIN PERSIS) ================= */
+/* ================= HEADER CONTAINER (COPY-PASTE DARI CONTOH) ================= */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
 .nav-top { height: 48px; background: #000; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #fff; padding: 0 15px; }
 .logo-main img { height: 46px; cursor: pointer; transition: 0.3s; }
@@ -43,7 +43,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .btn-toggle-small:hover { opacity: 0.6; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
-/* ================= CONTENT SUBMISSION (STYLE EXPLORE GORE) ================= */
+/* ================= FORM CONTENT (TETAP SAMA) ================= */
 .form-content { padding: 140px 60px 140px 60px; max-width: 900px; }
 .form-header h1 { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 60px; line-height: 0.8; }
 
@@ -77,12 +77,13 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 }
 .progress-container { position: absolute; top: -3px; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.1); cursor: pointer; display: flex; align-items: center; }
 .progress-bar { height: 100%; background: #fff; width: 0%; position: relative; }
-.progress-bar::after { content: ""; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: #fff; border-radius: 50%; }
+.progress-bar::after { content: ""; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 100px; height: 10px; background: #fff; border-radius: 50%; }
 
 .player-left { display: flex; align-items: center; padding-left: 20px; gap: 15px; }
 .btn-toggle-bottom { cursor: pointer; font-size: 22px; width: 25px; display: flex; justify-content: center; transition: 0.2s; }
 .btn-toggle-bottom:hover { opacity: 0.6; }
 .stop-square-bottom { width: 14px; height: 14px; background: #fff; } 
+
 .track-box { display: flex; align-items: center; gap: 12px; }
 .track-box img { width: 38px; height: 38px; border: 1px solid #fff; filter: grayscale(100%); }
 .title-info b { font-size: 12.5px; display: block; text-transform: uppercase; font-weight: 700; line-height: 1.2; }
@@ -203,6 +204,7 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 </div>
 
 <script>
+  // Script Sesuai Contoh About.html
   const smallBtn = document.getElementById('toggle-small');
   const bottomBtn = document.getElementById('toggle-bottom');
   const playerBar = document.getElementById('main-player');
