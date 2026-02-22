@@ -5,64 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Submit Proposal | RAT Radio</title>
 <style>
-/* CSS RESET & HEADER SINKRON */
-* { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', Helvetica, Arial, sans-serif; -webkit-user-select: none; user-select: none; }
-body { background:#000; color:#fff; overflow-x: hidden; }
+/* CSS RESET & SINKRON TOTAL */
+*{ margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', Helvetica, Arial, sans-serif; -webkit-user-select: none; user-select: none; }
+body{ background:#000; color:#fff; overflow-x: hidden; }
 
+/* ================= HEADER CONTAINER (IDENTIK) ================= */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
 .nav-top { height: 48px; background: #000; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #fff; padding: 0 15px; }
-.logo-main img { height: 46px; cursor: pointer; }
+.logo-main img { height: 46px; cursor: pointer; transition: 0.3s; }
 .nav-right-side { display: flex; align-items: center; }
-.menu-links a { color: #fff; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 0 15px; }
+.menu-links a { color: #fff; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 0 15px; transition: 0.2s; }
+.menu-links a:hover { color: #888; }
+
+.search-container { display: flex; align-items: center; padding-left: 15px; margin-left: 5px; height: 24px; border-left: 1px solid #fff; }
+.search-wrapper { display: flex; align-items: center; gap: 8px; }
+.search-input { background: transparent; border: none; border-bottom: 1px solid #fff; color: #fff; font-size: 12px; width: 80px; outline: none; transition: 0.4s; -webkit-user-select: text; user-select: text; }
+.search-input:focus { width: 140px; }
+.search-icon { width: 13px; height: 13px; border: 1.5px solid #fff; border-radius: 50%; position: relative; cursor: pointer; }
+.search-icon::after { content: ""; position: absolute; width: 1.5px; height: 5px; background: #fff; bottom: -3px; right: -2px; transform: rotate(-45deg); }
+
 .nav-live { height: 32px; background: #000; display: flex; align-items: center; border-bottom: 1px solid #fff; }
 .live-label { background: #fff; color: #000; height: 100%; padding: 0 12px; font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 6px; text-transform: uppercase; }
-.live-label span { color: #ff0000; animation: blink 1.5s infinite; }
+.live-label span { color: #ff0000; font-size: 14px; animation: blink 1.5s infinite; } 
 @keyframes blink { 0%, 100% {opacity:1;} 50% {opacity:0.2;} }
+.current-show { padding: 0 15px; font-size: 11px; font-weight: 700; display: flex; align-items: center; text-transform: uppercase; }
 
-/* ================= FORM STYLE ================= */
-.form-container { padding: 140px 60px 150px 60px; max-width: 700px; margin: 0; }
+/* ================= FORM CONTENT ================= */
+.form-container { padding: 140px 60px 150px 60px; max-width: 750px; }
 .form-title { font-size: 24px; font-weight: 900; text-transform: uppercase; margin-bottom: 40px; letter-spacing: 1px; }
-
-.section-label { font-size: 14px; font-weight: 700; margin-bottom: 25px; display: block; }
+.section-label { font-size: 14px; font-weight: 700; margin-bottom: 25px; display: block; text-transform: none; }
 .form-group { margin-bottom: 45px; }
 
 input[type="text"], input[type="email"], textarea {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(255,255,255,0.3);
-    color: #fff;
-    padding: 10px 0;
-    font-size: 13px;
-    text-transform: uppercase;
-    outline: none;
-    transition: 0.3s;
+    width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.3);
+    color: #fff; padding: 10px 0; font-size: 13px; text-transform: uppercase; outline: none; transition: 0.3s;
     -webkit-user-select: text; user-select: text;
 }
 input:focus, textarea:focus { border-bottom: 1px solid #fff; }
-
 textarea { height: 100px; resize: none; border: 1px solid rgba(255,255,255,0.3); padding: 15px; text-transform: none; }
 .help-text { font-size: 10px; opacity: 0.5; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
 
-.btn-send {
-    background: #555;
-    color: #000;
-    border: none;
-    padding: 15px 40px;
-    font-weight: 900;
-    font-size: 14px;
-    text-transform: uppercase;
-    cursor: pointer;
-    float: right;
-    margin-top: 20px;
-    transition: 0.3s;
-}
+.btn-send { background: #555; color: #000; border: none; padding: 15px 40px; font-weight: 900; font-size: 14px; text-transform: uppercase; cursor: pointer; float: right; transition: 0.3s; }
 .btn-send:hover { background: #fff; }
 
-/* PLAYER FIXED */
-.player-fixed { position: fixed; bottom: 0; width: 100%; height: 55px; background: #000; display: flex; align-items: center; justify-content: space-between; z-index: 1000; border-top: 1px solid rgba(255,255,255,0.2); }
-.close-btn { padding: 0 20px; cursor: pointer; opacity: 0.4; border-left: 1px solid #fff; height: 100%; display: flex; align-items: center; }
-.close-btn:hover { background: rgba(255,255,255,0.1); opacity: 1; }
+/* ================= PLAYER FIXED (IDENTIK) ================= */
+.player-fixed { position: fixed; bottom: 0; width: 100%; height: 55px; background: #000; display: none; align-items: center; justify-content: space-between; z-index: 1000; border-top: 1px solid rgba(255,255,255,0.2); }
+.progress-container { position: absolute; top: -3px; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.1); cursor: pointer; }
+.progress-bar { height: 100%; background: #fff; width: 0%; }
+.player-left { display: flex; align-items: center; padding-left: 20px; gap: 15px; }
+.track-box { display: flex; align-items: center; gap: 12px; }
+.track-box img { width: 38px; height: 38px; border: 1px solid #fff; filter: grayscale(100%); }
+.player-right { display: flex; align-items: center; height: 100%; }
+.icon-group { display: flex; align-items: center; gap: 20px; padding: 0 20px; }
+.icon-group span { cursor: pointer; font-weight: 700; transition: 0.2s; }
+.close-btn { padding: 0 20px; border-left: 1px solid #fff; opacity: 0.4; height: 100%; display: flex; align-items: center; cursor: pointer; }
+.close-btn:hover { opacity: 1; background: rgba(255,255,255,0.1); }
 </style>
 </head>
 <body>
@@ -77,11 +74,17 @@ textarea { height: 100px; resize: none; border: 1px solid rgba(255,255,255,0.3);
                 <a href="shop.html">Shop</a>
                 <a href="about.html">About</a>
             </div>
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" class="search-input">
+                    <div class="search-icon"></div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="nav-live">
         <div class="live-label">Live Now <span>●</span></div>
-        <div class="current-show"><span style="padding-left:15px; font-size:11px; font-weight:700;">BASEMENT SESSIONS W/ DIRTY CAT</span></div>
+        <div class="current-show"><div style="cursor:pointer; margin-right:12px;">▶</div>BASEMENT SESSIONS W/ DIRTY CAT</div>
     </div>
 </div>
 
@@ -100,7 +103,7 @@ textarea { height: 100px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 
     <div class="form-group">
         <label class="section-label">Audio links</label>
-        <p class="help-text" style="margin-bottom: 15px; font-size: 11px; opacity: 0.9;">Include a weblink to your show demo. Please use only Soundcloud, Mixcloud or Youtube.</p>
+        <p class="help-text" style="margin-bottom:15px; font-size:11px; opacity:0.9; text-transform:none;">Include a weblink to your show demo. Please use only Soundcloud, Mixcloud or Youtube.</p>
         <input type="text" placeholder="LINK TO DEMO AUDIO *">
     </div>
 
@@ -122,13 +125,32 @@ textarea { height: 100px; resize: none; border: 1px solid rgba(255,255,255,0.3);
     <button class="btn-send">SEND</button>
 </main>
 
-<div class="player-fixed">
-    <div style="padding-left:20px; display:flex; align-items:center;">
-        <div style="font-size:22px; margin-right:15px;">▶</div>
-        <b style="font-size:12.5px; text-transform: uppercase;">Submission Mode</b>
+<div class="player-fixed" id="main-player">
+    <div class="progress-container"><div class="progress-bar"></div></div>
+    <div class="player-left">
+        <div style="font-size:22px; cursor:pointer;">▶</div>
+        <div class="track-box">
+            <img src="https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg">
+            <div class="title-info"><b style="font-size:12.5px;">BASEMENT SESSIONS</b><span style="font-size:10px; opacity:0.7;">LIVE NOW</span></div>
+        </div>
     </div>
-    <div class="close-btn" onclick="window.location.href='about.html'">✕</div>
+    <div class="player-right">
+        <div class="icon-group">
+            <span>⟲ 30</span><span>⟳ 30</span><span style="font-size:24px">☁</span>
+            <span style="font-size:22px">♡</span><span style="filter:invert(1);">🔗</span><span>☰</span>
+        </div>
+        <div class="close-btn" onclick="window.location.href='about.html'">✕</div>
+    </div>
 </div>
 
+<script>
+    // Script sederhana buat munculin player biar sama kayak halaman lain
+    document.addEventListener('click', (e) => {
+        if(e.target.innerText === '▶') {
+            const p = document.getElementById('main-player');
+            p.style.display = 'flex';
+        }
+    });
+</script>
 </body>
 </html>
