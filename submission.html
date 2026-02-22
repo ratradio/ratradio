@@ -45,18 +45,19 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 
 /* ================= SUBMISSION FORM STYLES ================= */
 .about-content { padding: 140px 60px 140px 60px; max-width: 900px; }
-.about-slogan { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 50px; line-height: 0.8; }
+.about-slogan { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 20px; line-height: 0.8; }
+.sub-description { font-size: 14px; font-weight: 500; line-height: 1.5; opacity: 0.7; max-width: 600px; margin-bottom: 40px; }
 
 .section-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; display: block; opacity: 0.5; margin-top: 50px; }
 .form-group { margin-bottom: 30px; max-width: 750px; }
 
 .rat-input, .rat-textarea {
     width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2);
-    color: #fff; padding: 12px 0; font-size: 18px; font-weight: 500; text-transform: uppercase; outline: none; transition: 0.3s;
+    color: #fff; padding: 10px 0; font-size: 14px; font-weight: 500; text-transform: uppercase; outline: none; transition: 0.3s;
     -webkit-user-select: text; user-select: text;
 }
 .rat-input:focus, .rat-textarea:focus { border-bottom: 1px solid #fff; }
-.rat-textarea { height: 100px; resize: none; }
+.rat-textarea { height: 80px; resize: none; }
 
 .custom-file-label { 
     border: 1px solid rgba(255,255,255,0.2); padding: 20px; display: block; 
@@ -143,6 +144,9 @@ input[type="file"] { display: none; }
 
 <main class="about-content">
     <h1 class="about-slogan">RAT<br>SUBMISSION</h1>
+    <p class="sub-description">
+        We are always looking for new sounds and obscure archives. Submit your mixtape or show proposal below. Please ensure your recording meets our quality standards and duration requirements.
+    </p>
 
     <form action="#" method="POST" enctype="multipart/form-data">
         <label class="section-label">Mixtape Data</label>
@@ -206,7 +210,7 @@ input[type="file"] { display: none; }
       });
   });
 
-  // LOGIKA HEADER & PLAYER (FIX SINKRONISASI TOTAL)
+  // LOGIKA HEADER & PLAYER (SINKRON TOTAL)
   const smallBtn = document.getElementById('toggle-small');
   const bottomBtn = document.getElementById('toggle-bottom');
   const playerBar = document.getElementById('main-player');
@@ -232,11 +236,8 @@ input[type="file"] { display: none; }
   }
 
   function updateIcons() { 
-      // Update Tombol Footer
       bottomBtn.innerHTML = isPlaying ? '<div class="stop-square-bottom"></div>' : '▶'; 
-      // Update Tombol Header (Sinkron dengan Footer)
       smallBtn.innerHTML = isPlaying ? '<div class="stop-square-small"></div>' : '▶'; 
-      
       if (isPlaying) startProgress(); else clearInterval(progressInterval); 
   }
 
