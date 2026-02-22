@@ -6,7 +6,7 @@
 <title>Submit | RAT Radio</title>
 
 <style>
-/* CSS RESET & ANTI-BLOK (DARI KODE ASLI) */
+/* CSS RESET & ANTI-BLOK (ASLI) */
 *{ 
     margin:0; padding:0; box-sizing:border-box; 
     font-family: 'Inter', Helvetica, Arial, sans-serif; 
@@ -17,7 +17,7 @@
 html { scroll-behavior: smooth; }
 body{ background:#000; color:#fff; overflow-x: hidden; }
 
-/* ================= HEADER CONTAINER (ASLI) ================= */
+/* ================= HEADER CONTAINER (ASLI - TIDAK DISENTUH) ================= */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
 .nav-top { height: 48px; background: #000; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #fff; padding: 0 15px; }
 .logo-main img { height: 46px; cursor: pointer; transition: 0.3s; }
@@ -43,34 +43,41 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .btn-toggle-small:hover { opacity: 0.6; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
-/* ================= RAT SUBMISSION CONTENT (FORM) ================= */
-.submission-content { padding: 140px 60px 140px 60px; max-width: 900px; }
-.sub-header { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 50px; line-height: 0.8; }
+/* ================= FORM STYLES (SESUAI VIBE ABOUT) ================= */
+.about-content { padding: 140px 60px 140px 60px; max-width: 900px; }
+.about-slogan { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 50px; line-height: 0.8; }
 
 .section-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; display: block; opacity: 0.5; margin-top: 50px; }
 .form-group { margin-bottom: 30px; max-width: 750px; }
 
-input[type="text"], input[type="email"], input[type="tel"], textarea {
-    width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.3);
-    color: #fff; padding: 12px 0; font-size: 16px; font-weight: 500; text-transform: uppercase; outline: none; transition: 0.3s;
+/* Input fields matching the aesthetic */
+.rat-input, .rat-textarea {
+    width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2);
+    color: #fff; padding: 12px 0; font-size: 18px; font-weight: 500; text-transform: uppercase; outline: none; transition: 0.3s;
     -webkit-user-select: text; user-select: text;
 }
-input:focus, textarea:focus { border-bottom: 1px solid #fff; }
-textarea { height: 80px; resize: none; }
+.rat-input:focus, .rat-textarea:focus { border-bottom: 1px solid #fff; }
+.rat-textarea { height: 100px; resize: none; }
 
-.custom-file-btn { border: 1px dashed rgba(255,255,255,0.3); padding: 15px; display: block; text-align: center; font-size: 10px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.2s; margin-top: 10px; }
-.custom-file-btn:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
+/* File Upload styling matching Contact buttons */
+.custom-file-label { 
+    border: 1px solid rgba(255,255,255,0.2); padding: 20px; display: block; 
+    text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; 
+    cursor: pointer; transition: 0.2s; margin-top: 10px;
+}
+.custom-file-label:hover { background: rgba(255,255,255,0.05); border-color: #fff; }
 input[type="file"] { display: none; }
 
-.help-text { font-size: 10px; opacity: 0.4; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-
-.btn-send-wrapper { width: 100%; max-width: 750px; display: flex; justify-content: flex-end; margin-top: 60px; }
-.btn-send { border: 1px solid #fff; background: transparent; color: #fff; padding: 12px 50px; font-size: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
+.btn-send { 
+    background: transparent; border: 1px solid #fff; color: #fff; 
+    padding: 15px 60px; font-size: 11px; font-weight: 800; text-transform: uppercase; 
+    cursor: pointer; transition: 0.2s; margin-top: 40px;
+}
 .btn-send:hover { background: #fff; color: #000; }
 
 .about-footer-note { margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase; opacity: 0.4; letter-spacing: 1px; padding-bottom: 100px; }
 
-/* ================= PLAYER FIXED (ASLI 100%) ================= */
+/* ================= PLAYER FIXED (ASLI - TIDAK DISENTUH) ================= */
 .player-fixed {
   position: fixed; bottom: 0; width: 100%; height: 55px; 
   background: #000; color: #fff; display: none; 
@@ -136,50 +143,27 @@ input[type="file"] { display: none; }
   </div>
 </div>
 
-<main class="submission-content">
-    <h1 class="sub-header">RAT<br>SUBMISSION</h1>
+<main class="about-content">
+    <h1 class="about-slogan">RAT<br>SUBMISSION</h1>
 
     <form action="#" method="POST" enctype="multipart/form-data">
         <label class="section-label">Mixtape Data</label>
-        <div class="form-group"><input type="text" name="mixtape_title" placeholder="MIXTAPE TITLE *" required></div>
-        <div class="form-group"><input type="text" name="genres" placeholder="GENRES (MAX 5) *" required></div>
-        <div class="form-group"><input type="text" name="ambient_tags" placeholder="AMBIENT / TAGS"></div>
-        <div class="form-group">
-            <input type="text" name="duration" placeholder="DURATION *">
-            <p class="help-text">Min 50 mins - Max 2 hours</p>
-        </div>
+        <div class="form-group"><input type="text" class="rat-input" name="mixtape_title" placeholder="MIXTAPE TITLE *" required></div>
+        <div class="form-group"><input type="text" class="rat-input" name="genres" placeholder="GENRES (MAX 5) *" required></div>
+        <div class="form-group"><input type="text" class="rat-input" name="duration" placeholder="DURATION (50 MIN - 2 HR) *" required></div>
 
         <label class="section-label">The Person Behind</label>
-        <div class="form-group"><input type="text" name="name_alias" placeholder="NAME / ALIAS *" required></div>
-        <div class="form-group"><input type="text" name="location" placeholder="COUNTRY & CITY *" required></div>
-        <div class="form-group"><textarea name="about_you" placeholder="TELL US ABOUT YOURSELF *" required></textarea></div>
-        <div class="form-group"><input type="tel" name="contact" placeholder="CONTACT NUMBER (WHATSAPP) *" required></div>
-        <div class="form-group"><input type="text" name="instagram" placeholder="INSTAGRAM ACCOUNT"></div>
-        <div class="form-group"><input type="text" name="mixcloud" placeholder="MIXCLOUD ACCOUNT"></div>
+        <div class="form-group"><input type="text" class="rat-input" name="name_alias" placeholder="NAME / ALIAS *" required></div>
+        <div class="form-group"><textarea class="rat-textarea" name="about_you" placeholder="TELL US ABOUT YOURSELF *" required></textarea></div>
+        <div class="form-group"><input type="tel" class="rat-input" name="contact" placeholder="CONTACT (WHATSAPP) *" required></div>
 
-        <label class="section-label">Attach File</label>
+        <label class="section-label">Files</label>
         <div class="form-group">
-            <label class="custom-file-btn">
-                <input type="file" id="mixtape_file" name="mixtape_file" accept=".mp3" required>
-                <span>Upload Mixtape [MP3] *</span>
-            </label>
-        </div>
-        <div class="form-group">
-            <label class="custom-file-btn">
-                <input type="file" id="profile_pic" name="profile_pic" accept="image/*" required>
-                <span>Profile Picture *</span>
-            </label>
-        </div>
-        <div class="form-group">
-            <label class="custom-file-btn">
-                <input type="file" id="cover_alts" name="cover_alts" accept="image/*" multiple required>
-                <span>Two picture alternatives for show cover *</span>
-            </label>
+            <label class="custom-file-label"><input type="file" name="file_mp3" accept=".mp3" required><span>+ Upload Mixtape (MP3)</span></label>
+            <label class="custom-file-label"><input type="file" name="file_img" accept="image/*" required><span>+ Profile Picture</span></label>
         </div>
 
-        <div class="btn-send-wrapper">
-            <button type="submit" class="btn-send">SEND</button>
-        </div>
+        <button type="submit" class="btn-send">SEND</button>
     </form>
 
     <div class="about-footer-note">
@@ -214,15 +198,15 @@ input[type="file"] { display: none; }
 </div>
 
 <script>
-  // Script Nama File (Feedback Visual saat pilih file)
+  // Script Nama File
   document.querySelectorAll('input[type="file"]').forEach(input => {
       input.addEventListener('change', function() {
-          const fileName = this.files.length > 1 ? `${this.files.length} FILES SELECTED` : this.files[0].name.toUpperCase();
+          const fileName = this.files[0].name.toUpperCase();
           this.nextElementSibling.innerText = fileName;
       });
   });
 
-  // LOGIKA HEADER & PLAYER (ASLI 100% SESUAI KODE ANDA)
+  // LOGIKA HEADER & PLAYER (ASLI - TIDAK DISENTUH)
   const smallBtn = document.getElementById('toggle-small');
   const bottomBtn = document.getElementById('toggle-bottom');
   const playerBar = document.getElementById('main-player');
