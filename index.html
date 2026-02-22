@@ -113,63 +113,43 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .close-btn { padding: 0 20px; font-size: 18px; cursor: pointer; border-left: 1px solid #fff; opacity: 0.4; height: 100%; display: flex; align-items: center; transition: 0.3s; }
 .close-btn:hover { opacity: 1; background: rgba(255,255,255,0.1); }
     /* --- FOOTER CSS UNTUK INDEX --- */
-footer {
-    background: #000;
-    color: #fff;
-    padding: 60px 20px 40px 20px;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    margin-top: 50px;
-}
-.footer-top {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto 80px auto;
-    flex-wrap: wrap;
-    gap: 40px;
-}
-.footer-suggestion { flex: 1; min-width: 300px; }
-.footer-suggestion h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
-.suggestion-box { display: flex; flex-direction: column; gap: 15px; }
-.suggestion-box textarea {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #fff;
-    padding: 12px;
-    font-size: 13px;
-    resize: none;
-    outline: none;
-    height: 80px;
-    -webkit-user-select: text; /* Penting: agar bisa ngetik */
-    user-select: text; 
-}
-.suggestion-box textarea:focus { border-color: #fff; }
-.btn-send {
-    background: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    cursor: pointer;
-    width: fit-content;
-    transition: 0.3s;
-}
-.btn-send:hover { background: #fff; color: #000; }
-.footer-nav { text-align: right; }
-.footer-nav h2 { font-size: 24px; font-weight: 900; letter-spacing: -1px; margin-bottom: 20px; }
-.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-links a { color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; opacity: 0.7; transition: 0.3s; }
-.footer-links a:hover { opacity: 1; text-decoration: underline; }
-.footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 60px; }
-.footer-logo { background: #fff; color: #000; display: inline-block; padding: 5px 10px; font-weight: 900; font-size: 22px; margin-bottom: 15px; }
-.footer-slogan { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 25px; display: block; opacity: 0.9; }
-.footer-socials { display: flex; justify-content: center; gap: 25px; margin-bottom: 30px; }
-.footer-socials a { display: inline-block; cursor: pointer; transition: 0.3s; }
-.footer-socials a:hover { opacity: 0.5; transform: scale(1.1); }
-.footer-socials img { width: 22px; filter: invert(1); }
-.copyright { font-size: 10px; color: #555; letter-spacing: 1px; }
+<footer>
+    <div class="footer-top">
+        <div class="footer-suggestion">
+            <h4>Suggestions / Feedback</h4>
+            <div class="suggestion-box">
+                <textarea id="saranText" placeholder="Write your message here..."></textarea>
+                <button class="btn-send" onclick="sendSaran()">Send</button>
+            </div>
+        </div>
+
+        <div class="footer-nav">
+            <h2>RAT RADIO</h2>
+            <ul class="footer-links">
+                <li><a href="about.html">About</a></li>
+                <li><a href="submission.html">Submissions</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="#archive-section">Archive</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <img src="New Project (3).png" class="footer-logo-img" alt="RAT Logo">
+        <span class="footer-slogan">PERPETUALLY UNDER EVERYTHING</span>
+        
+        <div class="footer-socials">
+            <a href="https://www.instagram.com/ratradio_/" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384031.png" alt="IG">
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/542/542689.png" alt="Email">
+            </a>
+        </div>
+        
+        <div class="copyright">2026</div>
+    </div>
+</footer>
 </style>
 </head>
 <body>
@@ -228,6 +208,7 @@ footer {
         <div class="archive-item" onclick="changeTrack('UNDERGROUND ECHO', 'LOST SIGNAL — 28 JAN 2026', 'https://i.pinimg.com/736x/b9/99/c9/b999c9c9da549cc9525a78911676c70e.jpg')">
             <div class="img-box"><img src="https://i.pinimg.com/736x/b9/99/c9/b999c9c9da549cc9525a78911676c70e.jpg" alt="Archive"></div>
             <div class="archive-info"><b>Underground Echo</b><span>Lost Signal — 28 Jan 2026</span></div>
+   </div>
         </div>
     </div>
 </section>
