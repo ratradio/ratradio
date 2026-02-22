@@ -6,7 +6,7 @@
 <title>About | RAT Radio</title>
 
 <style>
-/* CSS RESET & ANTI-BLOK (LOCKED SINKRON INDEX) */
+/* CSS RESET & ANTI-BLOK (LOCKED SINKRON) */
 *{ 
     margin:0; padding:0; box-sizing:border-box; 
     font-family: 'Inter', Helvetica, Arial, sans-serif; 
@@ -40,10 +40,24 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 /* ================= ABOUT CONTENT (NEW VIBE) ================= */
 .about-content { padding: 140px 60px 140px 60px; max-width: 900px; }
 .about-slogan { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 50px; line-height: 0.8; }
-.about-text { margin-bottom: 60px; }
+.about-text { margin-bottom: 80px; }
 .about-text h2 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; opacity: 0.5; }
 .about-text p { font-size: 18px; font-weight: 500; line-height: 1.5; margin-bottom: 40px; letter-spacing: -0.5px; max-width: 700px; }
-.about-footer-note { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase; opacity: 0.4; letter-spacing: 1px; }
+
+/* ================= CONTACT DROPDOWN (NTS STYLE) ================= */
+.contact-wrapper { margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.2); }
+.contact-item { border-bottom: 1px solid rgba(255,255,255,0.2); }
+.contact-header { padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.contact-header h3 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; }
+.contact-header span { font-size: 14px; font-weight: 400; opacity: 0.5; }
+.contact-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.contact-inner { padding: 5px 0 30px 0; max-width: 600px; }
+.contact-inner p { font-size: 13px; line-height: 1.6; opacity: 0.7; margin-bottom: 15px; }
+.contact-link { font-size: 12px; font-weight: 700; color: #fff; text-decoration: none; border-bottom: 1px solid #fff; padding-bottom: 2px; transition: 0.2s; }
+.contact-link:hover { opacity: 0.5; }
+.contact-item.active .contact-content { max-height: 500px; }
+
+.about-footer-note { margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase; opacity: 0.4; letter-spacing: 1px; padding-bottom: 100px; }
 
 /* ================= PLAYER FIXED (LOCKED) ================= */
 .player-fixed { position: fixed; bottom: 0; width: 100%; height: 55px; background: #000; color: #fff; display: none; align-items: center; justify-content: space-between; z-index: 1000; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-top: 1px solid rgba(255,255,255,0.2); }
@@ -105,13 +119,51 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
         
         <h2>The Selection</h2>
         <p>Selection is an art form. We reject the comfort of algorithms in favor of raw human instinct. RAT Radio connects the dots between global movements and forgotten sub-cultures, ensuring that even what is hidden remains heard.</p>
-        
-        <h2>Presence</h2>
-        <p>We do not seek the spotlight, we are the shadow that defines it. Based nowhere, broadcasting everywhere</p>
+    </div>
+
+    <div class="contact-wrapper">
+        <div class="contact-item">
+            <div class="contact-header" onclick="toggleContact(this)">
+                <h3>Submissions</h3>
+                <span>+</span>
+            </div>
+            <div class="contact-content">
+                <div class="contact-inner">
+                    <p>RAT Radio is always open for new show submissions. To send in a show proposal, please reach out with your pilot or archive.</p>
+                    <a href="mailto:submissions@ratradio.com" class="contact-link">SUBMIT SHOW PROPOSAL ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-header" onclick="toggleContact(this)">
+                <h3>Press</h3>
+                <span>+</span>
+            </div>
+            <div class="contact-content">
+                <div class="contact-inner">
+                    <p>For all press-related inquiries, including interviews, images, and additional information about RAT Radio, please contact our media team.</p>
+                    <a href="mailto:press@ratradio.com" class="contact-link">PRESS@RATRADIO.COM</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-header" onclick="toggleContact(this)">
+                <h3>Work With Us</h3>
+                <span>+</span>
+            </div>
+            <div class="contact-content">
+                <div class="contact-inner">
+                    <p>For all creative projects, brand partnerships, and advertising opportunities, please contact our team.</p>
+                    <a href="mailto:hello@ratradio.com" class="contact-link">HELLO@RATRADIO.COM</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="about-footer-note">
-        RAT RADIO. 2026. PERPETUALLY UNDER EVERYTHING.
+        RAT RADIO. ESTABLISHED 2026. PERPETUALLY UNDER EVERYTHING.
     </div>
 </main>
 
@@ -134,7 +186,15 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 </div>
 
 <script>
-  // SEMUA SCRIPT PLAYER SAMA PERSIS DENGAN INDEX/EXPLORE/SHOP (SINKRON 100%)
+  // ACCORDION LOGIC
+  function toggleContact(element) {
+      const parent = element.parentElement;
+      parent.classList.toggle('active');
+      const icon = element.querySelector('span');
+      icon.innerText = parent.classList.contains('active') ? '-' : '+';
+  }
+
+  // PLAYER SCRIPT (SINKRON 100% INDEX/EXPLORE)
   const smallBtn = document.getElementById('toggle-small');
   const bottomBtn = document.getElementById('toggle-bottom');
   const playerBar = document.getElementById('main-player');
@@ -147,7 +207,6 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 
   let isPlaying = false; let playerVisible = false; let isLiveMode = false;
   let currentProgress = 0; let progressInterval; let isDragging = false;
-
   const liveData = { title: liveLabelText, sub: "LIVE NOW", img: "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg" };
 
   function startProgress() { clearInterval(progressInterval); progressInterval = setInterval(() => { if (isPlaying && currentProgress < 100 && !isDragging) { currentProgress += 0.1; progressBar.style.width = currentProgress + "%"; } }, 100); }
