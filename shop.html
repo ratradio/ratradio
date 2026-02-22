@@ -15,7 +15,14 @@
 }
 
 html { scroll-behavior: smooth; }
-body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: flex; flex-direction: column; }
+body { 
+    background: #000; 
+    color: #fff; 
+    overflow-x: hidden; 
+    min-height: 100vh; /* Gunakan min-height, bukan height biasa */
+    display: flex; 
+    flex-direction: column; 
+}
 
 /* ================= HEADER CONTAINER (SINKRON) ================= */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
@@ -46,7 +53,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: f
 /* ================= CONTENT (MINIMALIS) ================= */
 .shop-hero { 
     width: 100%;
-    height: 100vh; /* Full layar */
+    min-height: 100vh; /* MEMAKSA tinggi sesuai layar agar footer terdorong ke bawah */
     display: flex; 
     align-items: center; 
     justify-content: center;
@@ -58,9 +65,8 @@ body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: f
     font-weight: 700;            
     text-transform: uppercase;   
     letter-spacing: 2px;         
-    color: #888; /* Warna abu-abu */
+    color: #888; /* Warna abu-abu sesuai permintaan */
 }
-
 /* ================= PLAYER FIXED (SINKRON 100%) ================= */
 .player-fixed {
   position: fixed; bottom: 0; width: 100%; height: 55px; 
