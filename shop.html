@@ -288,6 +288,15 @@ footer {
   });
 
   document.getElementById('close-player').addEventListener('click', () => { playerBar.style.transform = 'translateY(100%)'; setTimeout(() => { playerBar.style.display = 'none'; playerVisible = false; isPlaying = false; updateIcons(); }, 400); });
+    function sendSaran() {
+    const pesan = document.getElementById('saranText').value;
+    if (pesan.trim() === "") {
+        alert("Please write something first.");
+        return;
+    }
+    const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
+    window.open(mailUrl, '_blank');
+}
 </script>
 </body>
 </html>
