@@ -15,14 +15,7 @@
 }
 
 html { scroll-behavior: smooth; }
-body { 
-    background:#000; 
-    color:#fff; 
-    overflow-x: hidden; 
-    display: flex; 
-    flex-direction: column; 
-    min-height: 100vh; 
-}
+body{ background:#000; color:#fff; overflow-x: hidden; }
 
 /* ================= HEADER CONTAINER ================= */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
@@ -51,13 +44,11 @@ body {
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
 /* ================= ABOUT CONTENT ================= */
-.about-content { 
-    padding: 140px 60px 80px 60px; 
-    max-width: 1200px; /* Diperlebar agar tidak terlalu sempit */
-    margin: 0 auto;    /* Mengetengahkan konten */
-    flex: 1;           /* Mendorong footer ke bawah */
-    width: 100%;
-}
+.about-content { padding: 140px 60px 140px 60px; max-width: 900px; }
+.about-slogan { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 50px; line-height: 0.8; }
+.about-text { margin-bottom: 60px; }
+.about-text h2 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; opacity: 0.5; }
+.about-text p { font-size: 18px; font-weight: 500; line-height: 1.5; margin-bottom: 40px; letter-spacing: -0.5px; max-width: 750px; }
 
 /* ================= CONTACT DROPDOWN ================= */
 .contact-wrapper { margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.2); }
@@ -109,62 +100,6 @@ body {
 
 .close-btn { padding: 0 20px; font-size: 18px; cursor: pointer; border-left: 1px solid #fff; opacity: 0.4; height: 100%; display: flex; align-items: center; transition: 0.3s; }
 .close-btn:hover { opacity: 1; background: rgba(255,255,255,0.1); }
-    /* ================= FOOTER SECTION (SINKRON ABOUT) ================= */
-footer {
-    background: #000;
-    color: #fff;
-    padding: 80px 60px 60px 60px;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    width: 100%; /* PENTING: Agar footer memenuhi lebar layar */
-    margin-top: auto;
-}
-.footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    max-width: 1200px;
-    margin: 0 auto 80px auto;
-}
-.footer-suggestion { width: 350px; }
-.footer-suggestion h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
-.suggestion-box { display: flex; flex-direction: column; gap: 15px; }
-.suggestion-box textarea {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #fff;
-    padding: 12px;
-    font-size: 13px;
-    resize: none;
-    outline: none;
-    height: 80px;
-    -webkit-user-select: text;
-    user-select: text;
-}
-.btn-send {
-    background: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    cursor: pointer;
-    width: fit-content;
-    transition: all 0.3s ease;
-}
-.btn-send:hover { background: #fff; color: #000; }
-.footer-nav { text-align: right; }
-.footer-nav h2 { font-size: 24px; font-weight: 900; letter-spacing: -1px; margin-bottom: 20px; font-style: normal; }
-.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-links a { color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; opacity: 0.7; transition: 0.3s; }
-.footer-links a:hover { opacity: 1; text-decoration: underline; }
-.footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 60px; }
-.footer-logo-img { height: 85px; width: auto; margin-bottom: 10px; }
-.footer-slogan { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #888; display: block; margin-bottom: 25px; }
-.footer-social-text { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; }
-.footer-social-text a { color: #fff; text-decoration: none; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; transition: 0.3s; }
-.footer-social-text a:hover { opacity: 1; text-decoration: underline; }
-.copyright { font-size: 10px; color: #444; margin-bottom: 60px; }
 </style>
 </head>
 <body>
@@ -232,7 +167,7 @@ footer {
             <div class="contact-content">
                 <div class="contact-inner">
                     <p>For all press-related inquiries, including interviews, images, and additional information about RAT Radio, please contact our media team.</p>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com" target="_blank" class="contact-link">RATRATRADIO@GMAIL.COM</a>
+                    <a href="mailto:ratratradio@gmail.com" class="contact-link">RATRATRADIO@GMAIL.COM</a>
                 </div>
             </div>
         </div>
@@ -245,41 +180,15 @@ footer {
             <div class="contact-content">
                 <div class="contact-inner">
                     <p>For all creative projects, brand partnerships, and advertising opportunities, please contact our team.</p>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com" target="_blank" class="contact-link">RATRATRADIO@GMAIL.COM</a>
+                    <a href="mailto:ratratradio@gmail.com" class="contact-link">RATRATRADIO@GMAIL.COM</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer>
-    <div class="footer-top">
-        <div class="footer-suggestion">
-            <h4>Suggestions / Feedback</h4>
-            <div class="suggestion-box">
-                <textarea id="saranText" placeholder="Write your message here..."></textarea>
-                <button class="btn-send" onclick="sendSaran()">Send</button>
-            </div>
-        </div>
-        <div class="footer-nav">
-            <h2>RAT RADIO</h2>
-            <ul class="footer-links">
-                <li><a href="about.html">About</a></li>
-                <li><a href="submission.html">Submissions</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="index.html#archive-section">Archive</a></li>
-            </ul>
-        </div>
+    <div class="about-footer-note">
+        RAT RADIO. ESTABLISHED 2026. PERPETUALLY UNDER EVERYTHING.
     </div>
-    <div class="footer-bottom">
-        <img src="New Project (3).png" class="footer-logo-img" alt="RAT Logo">
-        <span class="footer-slogan">PERPETUALLY UNDER EVERYTHING</span>
-        <div class="footer-social-text">
-            <a href="https://www.instagram.com/ratradio_/" target="_blank">Instagram</a>
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com" target="_blank">Gmail</a>
-        </div>
-        <div class="copyright">2026</div>
-    </div>
-</footer>
 </main>
 
 <div class="player-fixed" id="main-player">
@@ -357,15 +266,6 @@ footer {
   });
 
   document.getElementById('close-player').addEventListener('click', () => { playerBar.style.transform = 'translateY(100%)'; setTimeout(() => { playerBar.style.display = 'none'; playerVisible = false; isPlaying = false; updateIcons(); }, 400); });
-  function sendSaran() {
-    const pesan = document.getElementById('saranText').value;
-    if (pesan.trim() === "") {
-        alert("Please write something first.");
-        return;
-    }
-    const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
-    window.open(mailUrl, '_blank');
-}  
 </script>
 </body>
 </html>
