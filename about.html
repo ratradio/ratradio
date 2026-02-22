@@ -15,7 +15,7 @@
 }
 
 html { scroll-behavior: smooth; }
-body{ background:#000; color:#fff; overflow-x: hidden; }
+body{ background:#000; color:#fff; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
 
 /* ================= HEADER CONTAINER ================= */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
@@ -44,7 +44,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
 /* ================= ABOUT CONTENT ================= */
-.about-content { padding: 140px 60px 80px 60px; max-width: 900px; }
+.about-content { padding: 140px 60px 80px 60px; max-width: 900px; width: 100%; margin: 0; }
 .about-slogan { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 50px; line-height: 0.8; }
 .about-text { margin-bottom: 60px; }
 .about-text h2 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; opacity: 0.5; }
@@ -63,20 +63,21 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .contact-link:hover { opacity: 0.5; }
 .contact-item.active .contact-content { max-height: 500px; }
 
-/* ================= FOOTER SECTION ================= */
+/* ================= FOOTER SECTION (SINKRON SHOP) ================= */
 footer {
     background: #000;
     color: #fff;
-    padding: 80px 60px 120px 60px;
+    padding: 80px 60px 60px 60px;
     border-top: 1px solid rgba(255,255,255,0.2);
     width: 100%;
+    margin-top: auto; /* Mendorong footer ke bawah jika konten sedikit */
 }
 .footer-top {
     display: flex;
-    justify-content: flex-start;
-    gap: 100px;
-    max-width: 900px;
-    margin-bottom: 80px;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto 80px 0; /* Rata kiri agar sejajar dengan .about-content */
 }
 .footer-suggestion { width: 350px; }
 .footer-suggestion h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
@@ -103,26 +104,23 @@ footer {
     text-transform: uppercase;
     cursor: pointer;
     width: fit-content;
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
 .btn-send:hover { background: #fff; color: #000; }
 
-.footer-nav h2 { font-size: 24px; font-weight: 900; margin-bottom: 20px; font-style: italic; }
+.footer-nav { text-align: right; margin-left: auto; } /* Navigasi dipaksa ke kanan */
+.footer-nav h2 { font-size: 24px; font-weight: 900; letter-spacing: -1px; margin-bottom: 20px; }
 .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-links a { color: #fff; text-decoration: none; font-size: 13px; opacity: 0.7; transition: 0.3s; }
+.footer-links a { color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; opacity: 0.7; transition: 0.3s; }
 .footer-links a:hover { opacity: 1; text-decoration: underline; }
 
-.footer-bottom { 
-    text-align: left; 
-    border-top: 1px solid rgba(255,255,255,0.1); 
-    padding-top: 60px; 
-    max-width: 900px;
-}
-.footer-logo-img { height: 85px; margin-bottom: 10px; }
-.footer-slogan { font-size: 10px; letter-spacing: 3px; color: #888; display: block; margin-bottom: 25px; }
-.footer-social-text { display: flex; gap: 25px; margin-bottom: 25px; }
-.footer-social-text a { color: #fff; text-decoration: none; font-size: 11px; opacity: 0.6; text-transform: uppercase; }
-.copyright { font-size: 10px; color: #444; }
+.footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 60px; }
+.footer-logo-img { height: 85px; width: auto; margin-bottom: 10px; }
+.footer-slogan { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #888; display: block; margin-bottom: 25px; }
+.footer-social-text { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; }
+.footer-social-text a { color: #fff; text-decoration: none; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; transition: 0.3s; }
+.footer-social-text a:hover { opacity: 1; text-decoration: underline; }
+.copyright { font-size: 10px; color: #444; margin-bottom: 60px; }
 
 /* ================= PLAYER FIXED ================= */
 .player-fixed {
