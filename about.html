@@ -6,7 +6,7 @@
 <title>About | RAT Radio</title>
 
 <style>
-/* CSS RESET & ANTI-BLOK (LOCKED SINKRON) */
+/* CSS RESET & ANTI-BLOK (SINKRON INDEX) */
 *{ 
     margin:0; padding:0; box-sizing:border-box; 
     font-family: 'Inter', Helvetica, Arial, sans-serif; 
@@ -37,7 +37,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .btn-toggle-small { cursor: pointer; margin-right: 12px; width: 14px; display: flex; justify-content: center; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
-/* ================= ABOUT CONTENT (IDENTITY THEME) ================= */
+/* ================= ABOUT CONTENT ================= */
 .about-content { padding: 140px 60px 140px 60px; max-width: 900px; }
 .about-slogan { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 50px; line-height: 0.8; }
 .about-text { margin-bottom: 60px; }
@@ -59,7 +59,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 
 .about-footer-note { margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase; opacity: 0.4; letter-spacing: 1px; padding-bottom: 100px; }
 
-/* ================= PLAYER FIXED (LOCKED) ================= */
+/* ================= PLAYER FIXED (LOCKED - IDENTICAL TO INDEX) ================= */
 .player-fixed { position: fixed; bottom: 0; width: 100%; height: 55px; background: #000; color: #fff; display: none; align-items: center; justify-content: space-between; z-index: 1000; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-top: 1px solid rgba(255,255,255,0.2); }
 .progress-container { position: absolute; top: -3px; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.1); cursor: pointer; display: flex; align-items: center; }
 .progress-bar { height: 100%; background: #fff; width: 0%; position: relative; }
@@ -118,10 +118,10 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
         <p>RAT Radio is an independent broadcasting platform and digital archive dedicated to the uncompromised exploration of sound. We operate as a fluid space for musical exploration, connecting the dots between obscure sub-genres and global movements.</p>
         
         <h2>Curation</h2>
-        <p>We prioritize human curation over algorithms. Every broadcast is a documented session, focusing on the preservation and transmission of sounds that exist outside the commercial spectrum.</p>
+        <p>We prioritize human curation over algorithms. Every broadcast is a documented session, focusing on the preservation and transmission of sounds that exist outside the commercial spectrum. From the deepest archives to the newest underground releases.</p>
 
         <h2>Presence</h2>
-        <p>We do not seek the spotlight, we are the shadow that defines it. Moving beneath the surface of the mainstream, we are the foundation for the uncompromising, the obscure, and the essential.</p>
+        <p>We do not seek the spotlight; we are the shadow that defines it. Moving beneath the surface of the mainstream, we are the foundation for the uncompromising, the obscure, and the essential.</p>
     </div>
 
     <div class="contact-wrapper">
@@ -189,6 +189,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 </div>
 
 <script>
+  // ACCORDION
   function toggleContact(element) {
       const parent = element.parentElement;
       parent.classList.toggle('active');
@@ -196,7 +197,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
       icon.innerText = parent.classList.contains('active') ? '-' : '+';
   }
 
-  // PLAYER SCRIPT (SINKRON)
+  // PLAYER SCRIPT (SINKRON SAMA INDEX)
   const smallBtn = document.getElementById('toggle-small');
   const bottomBtn = document.getElementById('toggle-bottom');
   const playerBar = document.getElementById('main-player');
@@ -218,10 +219,22 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
   window.addEventListener('mousemove', (e) => { if (isDragging) updatePos(e); });
   window.addEventListener('mouseup', () => { isDragging = false; });
   function showPlayer() { if (!playerVisible) { playerBar.style.display = 'flex'; setTimeout(() => { playerBar.style.transform = 'translateY(0)'; }, 10); playerVisible = true; } }
-  function updateIcons() { bottomBtn.innerHTML = isPlaying ? '<div class="stop-square-bottom"></div>' : '▶'; smallBtn.innerHTML = (isPlaying && isLiveMode) ? '<div class="stop-square-small"></div>' : '▶'; if (isPlaying) startProgress(); else clearInterval(progressInterval); }
+  
+  // Update Icons (Tanpa ganti warna Love jadi merah)
+  function updateIcons() { 
+      bottomBtn.innerHTML = isPlaying ? '<div class="stop-square-bottom"></div>' : '▶'; 
+      smallBtn.innerHTML = (isPlaying && isLiveMode) ? '<div class="stop-square-small"></div>' : '▶'; 
+      if (isPlaying) startProgress(); else clearInterval(progressInterval); 
+  }
+
   smallBtn.addEventListener('click', () => { if (!isLiveMode || !isPlaying) { playerTitle.innerText = liveData.title; playerSub.innerText = liveData.sub; bottomCover.src = liveData.img; isPlaying = true; isLiveMode = true; showPlayer(); } else { isPlaying = false; isLiveMode = false; } updateIcons(); });
   bottomBtn.addEventListener('click', () => { isPlaying = !isPlaying; if (!isPlaying) isLiveMode = false; updateIcons(); });
-  document.getElementById('like-btn').addEventListener('click', function() { const isL = this.innerText === '♡'; this.innerHTML = isL ? '♥' : '♡'; this.style.color = isL ? '#ff0000' : '#fff'; });
+
+  // Like Button Identik Index (Hanya ganti simbol, bukan warna merah)
+  document.getElementById('like-btn').addEventListener('click', function() { 
+      this.innerText = (this.innerText === '♡') ? '♥' : '♡'; 
+  });
+
   document.getElementById('close-player').addEventListener('click', () => { playerBar.style.transform = 'translateY(100%)'; setTimeout(() => { playerBar.style.display = 'none'; playerVisible = false; isPlaying = false; updateIcons(); }, 400); });
 </script>
 </body>
