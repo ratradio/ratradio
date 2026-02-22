@@ -15,7 +15,14 @@
 }
 
 html { scroll-behavior: smooth; }
-body{ background:#000; color:#fff; overflow-x: hidden; }
+body { 
+    background:#000; 
+    color:#fff; 
+    overflow-x: hidden; 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+}
 
 /* ================= HEADER CONTAINER ================= */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
@@ -44,11 +51,13 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
 /* ================= ABOUT CONTENT ================= */
-.about-content { padding: 140px 60px 140px 60px; max-width: 900px; }
-.about-slogan { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 50px; line-height: 0.8; }
-.about-text { margin-bottom: 60px; }
-.about-text h2 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; opacity: 0.5; }
-.about-text p { font-size: 18px; font-weight: 500; line-height: 1.5; margin-bottom: 40px; letter-spacing: -0.5px; max-width: 750px; }
+.about-content { 
+    padding: 140px 60px 80px 60px; 
+    max-width: 1200px; /* Diperlebar agar tidak terlalu sempit */
+    margin: 0 auto;    /* Mengetengahkan konten */
+    flex: 1;           /* Mendorong footer ke bawah */
+    width: 100%;
+}
 
 /* ================= CONTACT DROPDOWN ================= */
 .contact-wrapper { margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.2); }
@@ -106,7 +115,8 @@ footer {
     color: #fff;
     padding: 80px 60px 60px 60px;
     border-top: 1px solid rgba(255,255,255,0.2);
-    margin-top: 50px;
+    width: 100%; /* PENTING: Agar footer memenuhi lebar layar */
+    margin-top: auto;
 }
 .footer-top {
     display: flex;
