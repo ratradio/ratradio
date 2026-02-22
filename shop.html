@@ -6,7 +6,7 @@
 <title>Shop | RAT Radio</title>
 
 <style>
-/* CSS RESET & STYLE (SINKRON EXPLORE) */
+/* CSS RESET & ANTI-BLOK BIRU (SINKRON EXPLORE) */
 *{ 
     margin:0; padding:0; box-sizing:border-box; 
     font-family: 'Inter', Helvetica, Arial, sans-serif; 
@@ -17,7 +17,7 @@
 html { scroll-behavior: smooth; }
 body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: flex; flex-direction: column; }
 
-/* ================= HEADER CONTAINER (SINKRON EXPLORE) ================= */
+/* ================= HEADER CONTAINER (SINKRON) ================= */
 .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
 .nav-top { height: 48px; background: #000; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #fff; padding: 0 15px; }
 .logo-main img { height: 46px; cursor: pointer; transition: 0.3s; }
@@ -43,7 +43,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: f
 .btn-toggle-small:hover { opacity: 0.6; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
-/* ================= CONTENT (SHOP VERSI MINIMALIS) ================= */
+/* ================= CONTENT (MINIMALIS) ================= */
 .shop-hero { 
     flex: 1; 
     display: flex; 
@@ -58,7 +58,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: f
     opacity: 0.5;
 }
 
-/* ================= PLAYER FIXED (SINKRON DENGAN INTERAKSI) ================= */
+/* ================= PLAYER FIXED (SINKRON 100%) ================= */
 .player-fixed {
   position: fixed; bottom: 0; width: 100%; height: 55px; 
   background: #000; color: #fff; display: none; 
@@ -73,9 +73,8 @@ body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: f
 
 .player-left { display: flex; align-items: center; padding-left: 20px; gap: 15px; }
 .btn-toggle-bottom { cursor: pointer; font-size: 22px; width: 25px; display: flex; justify-content: center; transition: 0.2s; }
-.btn-toggle-bottom:hover { transform: scale(1.2); } /* INTERAKSI GERAK */
+.btn-toggle-bottom:hover { transform: scale(1.2); } 
 .stop-square-bottom { width: 14px; height: 14px; background: #fff; } 
-
 .track-box { display: flex; align-items: center; gap: 12px; }
 .track-box img { width: 38px; height: 38px; border: 1px solid #fff; filter: grayscale(100%); }
 .title-info b { font-size: 12.5px; display: block; text-transform: uppercase; font-weight: 700; line-height: 1.2; }
@@ -85,8 +84,12 @@ body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: f
 .icon-group { display: flex; align-items: center; gap: 20px; padding: 0 20px; }
 .icon-group span { cursor: pointer; color: #fff; font-weight: 700; transition: 0.2s; display: flex; align-items: center; }
 
-/* HOVER INTERACTION YANG LO MAU */
-.icon-group span:hover { opacity: 0.6; transform: translateY(-3px); } 
+/* INTERAKSI GERAK ICON */
+.icon-group span:hover { opacity: 0.5; transform: translateY(-3px) scale(1.1); }
+
+/* UKURAN ICON SESUAI EXPLORE */
+#like-btn { font-size: 22px; } 
+.share-icon { font-size: 18px; filter: brightness(0) invert(1); }
 
 .divider { width: 1px; height: 100%; background: #fff; opacity: 0.2; } 
 .up-next-btn { display: flex; align-items: center; gap: 6px; padding: 0 20px; font-weight: 700; font-size: 11px; color: #fff; text-decoration: none; transition: 0.2s; cursor: pointer; }
@@ -94,6 +97,11 @@ body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: f
 
 .close-btn { padding: 0 20px; font-size: 18px; cursor: pointer; border-left: 1px solid #fff; opacity: 0.4; height: 100%; display: flex; align-items: center; transition: 0.3s; }
 .close-btn:hover { opacity: 1; background: #ff0000; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #fff; }
 </style>
 </head>
 <body>
@@ -156,7 +164,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: f
 </div>
 
 <script>
-  // SCRIPT SINKRON DENGAN EXPLORE
+  // SCRIPT LOGIC (SINKRON EXPLORE)
   const smallBtn = document.getElementById('toggle-small');
   const bottomBtn = document.getElementById('toggle-bottom');
   const playerBar = document.getElementById('main-player');
