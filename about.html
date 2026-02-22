@@ -37,14 +37,14 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .btn-toggle-small { cursor: pointer; margin-right: 12px; width: 14px; display: flex; justify-content: center; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
-/* ================= ABOUT CONTENT (NEW VIBE) ================= */
+/* ================= ABOUT CONTENT (MOTO THEME) ================= */
 .about-content { padding: 140px 60px 140px 60px; max-width: 900px; }
 .about-slogan { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 50px; line-height: 0.8; }
-.about-text { margin-bottom: 80px; }
+.about-text { margin-bottom: 60px; }
 .about-text h2 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; opacity: 0.5; }
 .about-text p { font-size: 18px; font-weight: 500; line-height: 1.5; margin-bottom: 40px; letter-spacing: -0.5px; max-width: 700px; }
 
-/* ================= CONTACT DROPDOWN (NTS STYLE) ================= */
+/* ================= CONTACT DROPDOWN ================= */
 .contact-wrapper { margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.2); }
 .contact-item { border-bottom: 1px solid rgba(255,255,255,0.2); }
 .contact-header { padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
@@ -114,11 +114,14 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
     <h1 class="about-slogan">UNDER<br>EVERYTHING</h1>
     
     <div class="about-text">
-        <h2>Foundation</h2>
-        <p>RAT Radio is not just a station. It is the soil. Moving beneath the surface of the mainstream, we operate as a digital archive and broadcasting platform for the sounds that breathe "Under Everything". We are the foundation for the uncompromising, the obscure, and the essential.</p>
+        <h2>Mission</h2>
+        <p>RAT Radio is an independent broadcasting platform and digital archive dedicated to the uncompromised exploration of sound. We operate as a fluid space for musical exploration, connecting the dots between obscure sub-genres and global movements.</p>
         
-        <h2>The Selection</h2>
-        <p>Selection is an art form. We reject the comfort of algorithms in favor of raw human instinct. RAT Radio connects the dots between global movements and forgotten sub-cultures, ensuring that even what is hidden remains heard.</p>
+        <h2>Curation</h2>
+        <p>We prioritize human curation over algorithms. Every broadcast is a curated journey, providing a platform for the sounds that traditional radio ignores. Based nowhere, broadcasting everywhere.</p>
+        
+        <h2>Presence</h2>
+        <p>We do not seek the spotlight; we are the shadow that defines it. Moving beneath the surface of the mainstream, we are the foundation for the uncompromising, the obscure, and the essential.</p>
     </div>
 
     <div class="contact-wrapper">
@@ -186,7 +189,6 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 </div>
 
 <script>
-  // ACCORDION LOGIC
   function toggleContact(element) {
       const parent = element.parentElement;
       parent.classList.toggle('active');
@@ -194,7 +196,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
       icon.innerText = parent.classList.contains('active') ? '-' : '+';
   }
 
-  // PLAYER SCRIPT (SINKRON 100% INDEX/EXPLORE)
+  // PLAYER SCRIPT (SINKRON)
   const smallBtn = document.getElementById('toggle-small');
   const bottomBtn = document.getElementById('toggle-bottom');
   const playerBar = document.getElementById('main-player');
@@ -212,14 +214,11 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
   function startProgress() { clearInterval(progressInterval); progressInterval = setInterval(() => { if (isPlaying && currentProgress < 100 && !isDragging) { currentProgress += 0.1; progressBar.style.width = currentProgress + "%"; } }, 100); }
   function seek(amount) { currentProgress += (amount / 2); currentProgress = Math.max(0, Math.min(100, currentProgress)); progressBar.style.width = currentProgress + "%"; }
   function updatePos(e) { const rect = pContainer.getBoundingClientRect(); let pos = (e.clientX - rect.left) / rect.width; currentProgress = Math.max(0, Math.min(1, pos)) * 100; progressBar.style.width = currentProgress + "%"; }
-  
   pContainer.addEventListener('mousedown', (e) => { isDragging = true; updatePos(e); });
   window.addEventListener('mousemove', (e) => { if (isDragging) updatePos(e); });
   window.addEventListener('mouseup', () => { isDragging = false; });
-
   function showPlayer() { if (!playerVisible) { playerBar.style.display = 'flex'; setTimeout(() => { playerBar.style.transform = 'translateY(0)'; }, 10); playerVisible = true; } }
   function updateIcons() { bottomBtn.innerHTML = isPlaying ? '<div class="stop-square-bottom"></div>' : '▶'; smallBtn.innerHTML = (isPlaying && isLiveMode) ? '<div class="stop-square-small"></div>' : '▶'; if (isPlaying) startProgress(); else clearInterval(progressInterval); }
-
   smallBtn.addEventListener('click', () => { if (!isLiveMode || !isPlaying) { playerTitle.innerText = liveData.title; playerSub.innerText = liveData.sub; bottomCover.src = liveData.img; isPlaying = true; isLiveMode = true; showPlayer(); } else { isPlaying = false; isLiveMode = false; } updateIcons(); });
   bottomBtn.addEventListener('click', () => { isPlaying = !isPlaying; if (!isPlaying) isLiveMode = false; updateIcons(); });
   document.getElementById('like-btn').addEventListener('click', function() { const isL = this.innerText === '♡'; this.innerHTML = isL ? '♥' : '♡'; this.style.color = isL ? '#ff0000' : '#fff'; });
