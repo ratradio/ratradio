@@ -43,30 +43,31 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .btn-toggle-small:hover { opacity: 0.6; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
-/* ================= SUBMISSION FORM CONTENT ================= */
-.form-content { padding: 140px 60px 50px 60px; max-width: 900px; }
-.form-title { font-size: 32px; font-weight: 800; text-transform: uppercase; margin-bottom: 60px; letter-spacing: -1px; }
+/* ================= CONTENT SUBMISSION (STYLE EXPLORE) ================= */
+.form-content { padding: 140px 60px 140px 60px; max-width: 900px; }
+/* Font disamain dengan Explore Genres */
+.form-header h1 { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 60px; line-height: 0.8; }
 
-.section-title { font-size: 16px; font-weight: 800; text-transform: uppercase; margin-bottom: 30px; }
-.form-group { margin-bottom: 40px; max-width: 600px; }
+.section-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; display: block; opacity: 0.5; }
+.form-group { margin-bottom: 50px; max-width: 750px; }
 
 input[type="text"], input[type="email"], textarea {
     width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.3);
-    color: #fff; padding: 12px 0; font-size: 14px; text-transform: uppercase; outline: none; transition: 0.3s;
+    color: #fff; padding: 12px 0; font-size: 16px; font-weight: 500; text-transform: uppercase; outline: none; transition: 0.3s;
     -webkit-user-select: text; user-select: text;
 }
 input:focus, textarea:focus { border-bottom: 1px solid #fff; }
 
 textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3); padding: 15px; text-transform: none; }
-.help-text { font-size: 10px; opacity: 0.5; margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.help-text { font-size: 10px; opacity: 0.4; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
 
-.btn-send-wrapper { width: 100%; max-width: 600px; display: flex; justify-content: flex-end; margin-top: 20px; }
-.btn-send { background: #333; color: #fff; border: none; padding: 15px 45px; font-weight: 800; font-size: 13px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+.btn-send-wrapper { width: 100%; max-width: 750px; display: flex; justify-content: flex-end; margin-top: 40px; }
+.btn-send { border: 1px solid #fff; background: transparent; color: #fff; padding: 12px 40px; font-size: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
 .btn-send:hover { background: #fff; color: #000; }
 
-.about-footer-note { margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase; opacity: 0.4; letter-spacing: 1px; padding-bottom: 120px; }
+.about-footer-note { margin-top: 100px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase; opacity: 0.4; letter-spacing: 1px; padding-bottom: 120px; }
 
-/* ================= PLAYER FIXED (IDENTIK 100%) ================= */
+/* ================= PLAYER FIXED (SINKRON) ================= */
 .player-fixed {
   position: fixed; bottom: 0; width: 100%; height: 55px; 
   background: #000; color: #fff; display: none; 
@@ -77,7 +78,7 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 }
 .progress-container { position: absolute; top: -3px; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.1); cursor: pointer; display: flex; align-items: center; }
 .progress-bar { height: 100%; background: #fff; width: 0%; position: relative; }
-.progress-bar::after { content: ""; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: #fff; border-radius: 50%; }
+.progress-bar::after { content: ""; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: #fff; border-radius: 50%; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
 
 .player-left { display: flex; align-items: center; padding-left: 20px; gap: 15px; }
 .btn-toggle-bottom { cursor: pointer; font-size: 22px; width: 25px; display: flex; justify-content: center; transition: 0.2s; }
@@ -95,7 +96,6 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 .icon-group span:hover { opacity: 0.5; transform: scale(1.1); }
 #like-btn { font-size: 22px; } 
 .share-icon { font-size: 18px; filter: brightness(0) invert(1); }
-
 .divider { width: 1px; height: 100%; background: #fff; opacity: 0.2; } 
 .up-next-btn { display: flex; align-items: center; gap: 6px; padding: 0 20px; font-weight: 700; font-size: 11px; color: #fff; text-decoration: none; transition: 0.2s; cursor: pointer; }
 .up-next-btn:hover { opacity: 0.6; }
@@ -134,41 +134,42 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 </div>
 
 <main class="form-content">
-    <h1 class="form-title">Radio Show Proposal</h1>
+    <div class="form-header"><h1>SHOW<br>PROPOSAL</h1></div>
     
     <div class="form-group">
-        <label class="section-title">What's your proposal for a radio show?</label>
+        <label class="section-label">Show Identity</label>
         <input type="text" placeholder="PROPOSED SHOW TITLE">
     </div>
 
     <div class="form-group">
-        <textarea placeholder="DESCRIBE THE SHOW *" maxlength="600"></textarea>
-        <div class="help-text">600 characters left.</div>
+        <textarea placeholder="DESCRIBE THE SHOW CONCEPT *" maxlength="600"></textarea>
+        <div class="help-text">Max 600 characters.</div>
     </div>
 
     <div class="form-group">
-        <label class="section-title">Audio links</label>
-        <p class="help-text" style="margin-bottom:15px; font-size:11px; opacity:0.8; text-transform:none;">Include a weblink to your show demo. Please use only Soundcloud, Mixcloud or Youtube.</p>
+        <label class="section-label">Audio & Genres</label>
+        <p class="help-text" style="margin-bottom:15px; opacity:0.8; text-transform:none;">Include a weblink to your show demo (Soundcloud, Mixcloud or Youtube).</p>
         <input type="text" placeholder="LINK TO DEMO AUDIO *">
     </div>
 
     <div class="form-group">
         <input type="text" placeholder="GENRES">
-        <div class="help-text">Max 5, please separate genres by comma.</div>
+        <div class="help-text">Please separate genres by comma.</div>
     </div>
 
-    <div class="form-group" style="margin-top: 60px;">
-        <label class="section-title">Please tell us something about you:</label>
-        <input type="text" placeholder="FULL NAME *" style="margin-bottom: 25px;">
-        <input type="text" placeholder="ARTIST NAME" style="margin-bottom: 25px;">
-        <input type="email" placeholder="EMAIL *" style="margin-bottom: 25px;">
-        <input type="text" placeholder="SOCIAL MEDIA LINKS" style="margin-bottom: 5px;">
-        <div class="help-text" style="margin-bottom: 25px;">Please separate links by comma.</div>
-        <input type="text" placeholder="CITY *">
+    <div class="form-group" style="margin-top: 80px;">
+        <label class="section-label">Tell us about yourself</label>
+        <input type="text" placeholder="FULL NAME / ARTIST NAME *" style="margin-bottom: 25px;">
+        <input type="email" placeholder="EMAIL ADDRESS *" style="margin-bottom: 25px;">
+        
+        <textarea placeholder="TELL US WHO YOU ARE / BIOGRAPHY *" style="height: 100px; margin-bottom: 25px;"></textarea>
+        
+        <input type="text" placeholder="SOCIAL MEDIA / PORTFOLIO LINKS">
+        <div class="help-text">Separate links by comma.</div>
     </div>
 
     <div class="btn-send-wrapper">
-        <button class="btn-send">SEND</button>
+        <button class="btn-send">SUBMIT PROPOSAL</button>
     </div>
 
     <div class="about-footer-note">
@@ -203,7 +204,7 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 </div>
 
 <script>
-  // PLAYER LOGIC (COPIED FROM ABOUT.HTML)
+  // PLAYER SCRIPT (SINKRON)
   const smallBtn = document.getElementById('toggle-small');
   const bottomBtn = document.getElementById('toggle-bottom');
   const playerBar = document.getElementById('main-player');
@@ -235,14 +236,6 @@ textarea { height: 120px; resize: none; border: 1px solid rgba(255,255,255,0.3);
 
   smallBtn.addEventListener('click', () => { if (!isLiveMode || !isPlaying) { playerTitle.innerText = liveData.title; playerSub.innerText = liveData.sub; bottomCover.src = liveData.img; isPlaying = true; isLiveMode = true; showPlayer(); } else { isPlaying = false; isLiveMode = false; } updateIcons(); });
   bottomBtn.addEventListener('click', () => { isPlaying = !isPlaying; if (!isPlaying) isLiveMode = false; updateIcons(); });
-
-  const likeBtn = document.getElementById('like-btn');
-  let isLiked = false;
-  likeBtn.addEventListener('click', function() {
-    isLiked = !isLiked; 
-    this.innerHTML = isLiked ? '♥' : '♡';
-    this.style.color = '#fff';
-  });
 
   document.getElementById('close-player').addEventListener('click', () => { playerBar.style.transform = 'translateY(100%)'; setTimeout(() => { playerBar.style.display = 'none'; playerVisible = false; isPlaying = false; updateIcons(); }, 400); });
 </script>
