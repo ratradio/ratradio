@@ -45,10 +45,12 @@ body{ background:#000; color:#fff; overflow-x: hidden; height: 100vh; display: f
 
 /* ================= CONTENT (MINIMALIS) ================= */
 .shop-hero { 
-    flex: 1; 
+    flex: 1; /* Ini akan mendorong footer ke paling bawah */
     display: flex; 
     align-items: center; 
-    justify-content: center; 
+    justify-content: center;
+    min-height: 80vh; /* Memberikan ruang minimal agar teks tetap di tengah layar */
+}
 }
 .not-ready-msg { 
     font-size: 11px; 
