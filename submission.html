@@ -74,7 +74,40 @@ input[type="file"] { display: none; }
 }
 .btn-send:hover { background: #fff; color: #000; }
 
-.about-footer-note { margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase; opacity: 0.4; letter-spacing: 1px; padding-bottom: 100px; }
+/* ================= FOOTER SECTION (SINKRON) ================= */
+footer {
+    background: #000; color: #fff; padding: 80px 60px 60px 60px;
+    border-top: 1px solid rgba(255,255,255,0.2); width: 100%; margin-top: auto; 
+}
+.footer-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    max-width: 1200px; margin: 0 auto 80px 0; 
+}
+.footer-suggestion { width: 350px; }
+.footer-suggestion h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+.suggestion-box { display: flex; flex-direction: column; gap: 15px; }
+.suggestion-box textarea {
+    background: transparent; border: 1px solid rgba(255,255,255,0.3);
+    color: #fff; padding: 12px; font-size: 13px; resize: none; outline: none; height: 80px;
+}
+.btn-footer-send {
+    background: #333; color: #fff; border: none; padding: 10px 20px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; cursor: pointer;
+    width: fit-content; transition: all 0.3s ease;
+}
+.btn-footer-send:hover { background: #fff; color: #000; }
+.footer-nav { text-align: right; margin-left: auto; } 
+.footer-nav h2 { font-size: 24px; font-weight: 900; letter-spacing: -1px; margin-bottom: 20px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; opacity: 0.7; transition: 0.3s; }
+.footer-links a:hover { opacity: 1; text-decoration: underline; }
+.footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 60px; }
+.footer-logo-img { height: 85px; width: auto; margin-bottom: 10px; cursor: pointer; }
+.footer-slogan { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #888; display: block; margin-bottom: 25px; }
+.footer-social-text { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; }
+.footer-social-text a { color: #fff; text-decoration: none; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; transition: 0.3s; }
+.footer-social-text a:hover { opacity: 1; text-decoration: underline; }
+.copyright { font-size: 10px; color: #444; margin-bottom: 60px; }
 
 /* ================= PLAYER FIXED (ASLI) ================= */
 .player-fixed {
@@ -168,8 +201,35 @@ input[type="file"] { display: none; }
         <button type="submit" class="btn-send">SEND</button>
     </form>
 
-    <div class="about-footer-note">
-        RAT RADIO. ESTABLISHED 2026. PERPETUALLY UNDER EVERYTHING.
+    <footer>
+    <div class="footer-top">
+        <div class="footer-suggestion">
+            <h4>Suggestions / Feedback</h4>
+            <div class="suggestion-box">
+                <textarea id="saranText" placeholder="Write your message here..."></textarea>
+                <button class="btn-footer-send" onclick="sendSaran()">Send</button>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <h2>RAT RADIO</h2>
+            <ul class="footer-links">
+                <li><a href="about.html">About</a></li>
+                <li><a href="submission.html">Submissions</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="index.html#archive-section">Archive</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <img src="New Project (3).png" class="footer-logo-img" onclick="window.location.href='index.html'">
+        <span class="footer-slogan">PERPETUALLY UNDER EVERYTHING</span>
+        <div class="footer-social-text">
+            <a href="https://www.instagram.com/ratradio_/" target="_blank">Instagram</a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com" target="_blank">Gmail</a>
+        </div>
+        <div class="copyright">2026</div>
+    </div>
+</footer>
     </div>
 </main>
 
@@ -286,6 +346,16 @@ input[type="file"] { display: none; }
           updateIcons(); 
       }, 400); 
   });
+    // Fungsi Kirim Saran Footer (Tambahkan ini)
+  function sendSaran() {
+    const pesan = document.getElementById('saranText').value;
+    if (pesan.trim() === "") {
+        alert("Please write something first.");
+        return;
+    }
+    const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
+    window.open(mailUrl, '_blank');
+  }
 </script>
 </body>
 </html>
