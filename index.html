@@ -189,6 +189,87 @@ footer {
 .footer-social-text a:hover { opacity: 1; text-decoration: underline; }
 
 .copyright { font-size: 10px; color: #444; }
+    /* TRACKLIST DRAWER - GAYA LAYAR KACA UJUNG KE UJUNG */
+#tracklist-drawer {
+    position: fixed;
+    bottom: 55px; /* Pas di atas player */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 135px); /* Potong Header & Player */
+    background: #000;
+    z-index: 999;
+    display: none; /* Sembunyi awal */
+    overflow-y: auto;
+}
+
+.drawer-bg-photo {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.drawer-overlay-dark {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8); /* Background digelapin */
+    z-index: 1;
+}
+
+.drawer-wide-shape {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 100%;
+    background: rgba(255, 255, 255, 0.05); /* Shape transparan ujung ke ujung */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.drawer-content-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Kolom kiri info, kanan tracklist */
+    gap: 80px;
+    padding: 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.drawer-info-side h2 {
+    font-size: 60px;
+    font-weight: 900;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+    line-height: 0.9;
+    margin-bottom: 20px;
+}
+
+.drawer-info-side p {
+    font-size: 14px;
+    opacity: 0.6;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.drawer-tracklist-side h3 {
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 10px;
+}
+
+.close-drawer-text {
+    text-align: right;
+    padding: 20px 60px;
+    font-size: 10px;
+    font-weight: 800;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
 </style>
 </head>
 <body>
@@ -283,6 +364,32 @@ footer {
         <div class="copyright">2026</div>
     </div>
 </footer>
+    <div id="tracklist-drawer">
+    <div id="drawer-bg" class="drawer-bg-photo"></div>
+    <div class="drawer-overlay-dark"></div>
+    
+    <div class="drawer-wide-shape">
+        <div class="close-drawer-text" onclick="toggleDrawer()">✕ CLOSE</div>
+        
+        <div class="drawer-content-inner">
+            <div class="drawer-info-side">
+                <h2 id="drawer-title-big">TITLE</h2>
+                <p id="drawer-desc">This broadcast is part of the RAT Radio global archive. Selected sounds for musical exploration.</p>
+                <br>
+                <a href="https://instagram.com/ratradio_" target="_blank" style="color:#fff; font-size:12px; text-decoration:none; border:1px solid #fff; padding:5px 10px;">INSTAGRAM</a>
+            </div>
+
+            <div class="drawer-tracklist-side">
+                <h3>TRACKLIST</h3>
+                <div id="list-container" style="font-size: 13px; opacity: 0.8; line-height: 2;">
+                    01. ARTIST — TRACK NAME<br>
+                    02. ARTIST — TRACK NAME<br>
+                    03. ARTIST — TRACK NAME
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="player-fixed" id="main-player">
   <div class="progress-container" id="p-cont" title="Seek">
       <div class="progress-bar" id="p-bar"></div>
@@ -448,6 +555,29 @@ footer {
     const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
     window.open(mailUrl, '_blank');
 }
+    function toggleDrawer() {
+    const drawer = document.getElementById('tracklist-drawer');
+    const isHidden = drawer.style.display === 'none' || drawer.style.display === '';
+    
+    if (isHidden) {
+        // Ambil data dari player yang sedang aktif
+        const currentTitle = document.getElementById('player-title').innerText;
+        const currentImg = document.getElementById('bottom-cover').src;
+        
+        // Masukkan ke panel
+        document.getElementById('drawer-title-big').innerText = currentTitle;
+        document.getElementById('drawer-bg').style.backgroundImage = `url('${currentImg}')`;
+        
+        drawer.style.display = 'block';
+    } else {
+        drawer.style.display = 'none';
+    }
+}
+
+// Menghubungkan icon menu (garis tiga) ke fungsi di atas
+document.querySelector('.menu-icon').addEventListener('click', function() {
+    toggleDrawer();
+});
 </script>
 
 </body>
