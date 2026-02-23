@@ -50,24 +50,7 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .hero h2 { font-size: 85px; font-weight: 800; line-height: 0.8; letter-spacing: -5px; text-transform: uppercase; margin-bottom: 10px; margin-left: -4px; }
 .worldwide-label { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 0px; margin-bottom: 25px; }
 .hero-description { font-size: 13px; line-height: 1.6; opacity: 0.6; font-weight: 400; max-width: 420px; }
-<section id="show-detail-section" style="display:none; position:relative; width:100%; min-height:500px; background:#000; overflow:hidden; border-bottom: 1px solid rgba(255,255,255,0.2);">
-    <div id="detail-bg-image" style="position:absolute; inset:0; background-size:cover; background-position:center; filter: brightness(0.2); transition: 0.5s;"></div>
-    
-    <div class="detail-full-wrapper">
-        <div class="close-detail-btn" onclick="closeDetail()">CLOSE ✕</div>
-        
-        <div class="detail-main-shape-wide">
-            <div id="detail-ig-link"></div>
-            <h1 id="detail-title">TITLE</h1>
-            <p id="detail-artist">ARTIST NAME</p>
-            
-            <div class="detail-tracklist-mini">
-                <div id="detail-tracks-list">
-                    </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 /* ================= ARCHIVE SECTION ================= */
 .archive-section { padding: 80px 60px 140px 60px; background: #000; }
 .archive-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 40px; }
@@ -206,70 +189,6 @@ footer {
 .footer-social-text a:hover { opacity: 1; text-decoration: underline; }
 
 .copyright { font-size: 10px; color: #444; }
-
-.detail-full-wrapper {
-    position: relative;
-    width: 100%;
-    padding: 60px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.detail-main-shape-wide {
-    width: 100%; /* Ujung ke ujung */
-    padding: 40px 60px;
-    background: rgba(255,255,255,0);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    text-align: center;
-    transition: all 0.5s ease;
-}
-
-/* Hover Shape Penegas */
-.detail-main-shape-wide:hover {
-    background: rgba(255,255,255,0.03);
-    border-color: rgba(255,255,255,0.4);
-}
-
-.detail-main-shape-wide h1 {
-    font-size: 60px; /* Ukuran lebih terkontrol */
-    font-weight: 900;
-    letter-spacing: -2px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-}
-
-.detail-main-shape-wide p {
-    font-size: 14px;
-    opacity: 0.6;
-    letter-spacing: 1px;
-    margin-bottom: 30px;
-}
-
-.close-detail-btn {
-    position: absolute;
-    top: 20px;
-    right: 60px;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    cursor: pointer;
-    opacity: 0.5;
-    z-index: 10;
-}
-.close-detail-btn:hover { opacity: 1; }
-
-.detail-tracklist-mini {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: left;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 20px;
-}
 </style>
 </head>
 <body>
@@ -313,7 +232,7 @@ footer {
 <section class="archive-section" id="archive-section">
     <div class="archive-header"><h3>Archive</h3><a href="#" title="View all archives">View All ↗</a></div>
     <div class="archive-grid">
-        <div class="archive-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE — 12 FEB 2026', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg'); openDetail('THE SEWER GHOST', 'GHOSTFACE — 12 FEB 2026', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
+        <div class="archive-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE — 12 FEB 2026', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
             <div class="img-box"><img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" alt="Archive"></div>
             <div class="archive-info"><b>The Sewer Ghost</b><span>Ghostface — 12 Feb 2026</span></div>
         </div>
@@ -363,25 +282,6 @@ footer {
         
         <div class="copyright">2026</div>
     </div>
-    <section id="show-detail-overlay" style="display:none; position:fixed; inset:0; z-index:9999; background:#000; overflow-y:auto; color:#fff;">
-    <div id="detail-bg-image" style="position:fixed; inset:0; background-size:cover; background-position:center; filter: brightness(0.3); transition: 0.5s;"></div>
-    
-    <div class="detail-content-wrapper">
-        <div class="close-detail" onclick="closeDetail()">✕</div>
-        
-        <div class="detail-main-shape">
-            <div id="detail-ig-link"></div>
-            <h1 id="detail-title">TITLE</h1>
-            <p id="detail-artist">ARTIST NAME</p>
-            
-            <div class="detail-tracklist-section">
-                <h4>TRACKLIST</h4>
-                <div id="detail-tracks-list">
-                    </div>
-            </div>
-        </div>
-    </div>
-</section>
 </footer>
 <div class="player-fixed" id="main-player">
   <div class="progress-container" id="p-cont" title="Seek">
@@ -547,30 +447,6 @@ footer {
     }
     const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
     window.open(mailUrl, '_blank');
-}
-   
-function openDetail(title, artistInfo, imgSrc) {
-    const section = document.getElementById('show-detail-section');
-    const bgImage = document.getElementById('detail-bg-image');
-    
-    document.getElementById('detail-title').innerText = title;
-    document.getElementById('detail-artist').innerText = artistInfo;
-    bgImage.style.backgroundImage = `url('${imgSrc}')`;
-    
-    // Tracklist statis
-    document.getElementById('detail-tracks-list').innerHTML = `
-        <div class="track-item">01. ARTIST - TRACK TITLE</div>
-        <div class="track-item">02. ARTIST - TRACK TITLE</div>
-    `;
-
-    section.style.display = 'block';
-    
-    // Otomatis scroll ke section ini supaya kelihatan
-    section.scrollIntoView({ behavior: 'smooth' });
-}
-
-function closeDetail() {
-    document.getElementById('show-detail-section').style.display = 'none';
 }
 </script>
 
