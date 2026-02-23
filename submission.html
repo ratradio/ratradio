@@ -44,7 +44,12 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
 /* ================= SUBMISSION FORM STYLES ================= */
-.about-content { padding: 140px 60px 140px 60px; max-width: 900px; }
+.about-content { 
+    padding: 140px 60px 80px 60px; 
+    max-width: 900px; 
+    width: 100%; 
+    margin: 0; 
+}
 .about-slogan { font-size: 80px; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; margin-bottom: 20px; line-height: 0.8; }
 .sub-description { font-size: 14px; font-weight: 500; line-height: 1.5; opacity: 0.7; max-width: 600px; margin-bottom: 40px; }
 
@@ -76,12 +81,19 @@ input[type="file"] { display: none; }
 
 /* ================= FOOTER SECTION (SINKRON) ================= */
 footer {
-    background: #000; color: #fff; padding: 80px 60px 60px 60px;
-    border-top: 1px solid rgba(255,255,255,0.2); width: 100%; margin-top: auto; 
+    background: #000;
+    color: #fff;
+    padding: 80px 60px 60px 60px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    width: 100%;
+    margin-top: auto; 
 }
 .footer-top {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    max-width: 1200px; margin: 0 auto 80px 0; 
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto 80px 0; /* Angka 0 terakhir ini yang bikin rata kiri */
 }
 .footer-suggestion { width: 350px; }
 .footer-suggestion h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
@@ -190,7 +202,7 @@ footer {
         <label class="section-label">The Person Behind</label>
         <div class="form-group"><input type="text" class="rat-input" name="name_alias" placeholder="NAME / ALIAS *" required></div>
         <div class="form-group"><textarea class="rat-textarea" name="about_you" placeholder="TELL US ABOUT YOURSELF *" required></textarea></div>
-        <div class="form-group"><input type="tel" class="rat-input" name="contact" placeholder=INSTAGRAM ACCOUNT *" required></div>
+        <div class="form-group"><input type="tel" class="rat-input" name="contact" placeholder="INSTAGRAM ACCOUNT *" required></div>
 
         <label class="section-label">Files</label>
         <div class="form-group">
@@ -200,6 +212,35 @@ footer {
 
         <button type="submit" class="btn-send">SEND</button>
     </form>
+</main> <footer>
+    <div class="footer-top">
+        <div class="footer-suggestion">
+            <h4>Suggestions / Feedback</h4>
+            <div class="suggestion-box">
+                <textarea id="saranText" placeholder="Write your message here..." title="Type your message here"></textarea>
+                <button class="btn-send" onclick="sendSaran()" title="Submit Suggestion">Send</button>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <h2>RAT RADIO</h2>
+            <ul class="footer-links">
+                <li><a href="about.html" title="About Us">About</a></li>
+                <li><a href="submission.html" title="Submit your pilot">Submissions</a></li>
+                <li><a href="shop.html" title="Visit Store">Shop</a></li>
+                <li><a href="index.html#archive-section" title="Go to Archive">Archive</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <img src="New Project (3).png" class="footer-logo-img" onclick="window.location.href='index.html'" title="Back to Top">
+        <span class="footer-slogan">PERPETUALLY UNDER EVERYTHING</span>
+        <div class="footer-social-text">
+            <a href="https://www.instagram.com/ratradio_/" target="_blank" title="Follow Instagram">Instagram</a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com" target="_blank" title="Contact us on Gmail">Gmail</a>
+        </div>
+        <div class="copyright">2026</div>
+    </div>
+</footer>
 
     <footer>
     <div class="footer-top">
