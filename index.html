@@ -189,6 +189,70 @@ footer {
 .footer-social-text a:hover { opacity: 1; text-decoration: underline; }
 
 .copyright { font-size: 10px; color: #444; }
+
+.detail-content-wrapper {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 20px;
+}
+.detail-main-shape {
+    width: 100%;
+    max-width: 800px;
+    padding: 60px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0);
+    text-align: center;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(0px);
+}
+.detail-main-shape:hover {
+    background: rgba(255,255,255,0.05); /* Efek penegas saat hover */
+    border-color: rgba(255,255,255,0.5);
+    backdrop-filter: blur(5px);
+}
+.detail-main-shape h1 {
+    font-size: 8vw;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -5px;
+    margin: 20px 0;
+    text-transform: uppercase;
+}
+.detail-main-shape p {
+    font-size: 18px;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    margin-bottom: 40px;
+}
+.close-detail {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 100;
+    opacity: 0.5;
+    transition: 0.3s;
+}
+.close-detail:hover { opacity: 1; }
+.detail-tracklist-section {
+    margin-top: 60px;
+    text-align: left;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 30px;
+}
+.track-item {
+    font-size: 13px;
+    margin-bottom: 8px;
+    opacity: 0.7;
+    text-transform: uppercase;
+}
 </style>
 </head>
 <body>
@@ -232,7 +296,7 @@ footer {
 <section class="archive-section" id="archive-section">
     <div class="archive-header"><h3>Archive</h3><a href="#" title="View all archives">View All ↗</a></div>
     <div class="archive-grid">
-        <div class="archive-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE — 12 FEB 2026', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
+        <div class="archive-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE — 12 FEB 2026', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg'); openDetail('THE SEWER GHOST', 'GHOSTFACE — 12 FEB 2026', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
             <div class="img-box"><img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" alt="Archive"></div>
             <div class="archive-info"><b>The Sewer Ghost</b><span>Ghostface — 12 Feb 2026</span></div>
         </div>
@@ -282,6 +346,25 @@ footer {
         
         <div class="copyright">2026</div>
     </div>
+    <section id="show-detail-overlay" style="display:none; position:fixed; inset:0; z-index:9999; background:#000; overflow-y:auto; color:#fff;">
+    <div id="detail-bg-image" style="position:fixed; inset:0; background-size:cover; background-position:center; filter: brightness(0.3); transition: 0.5s;"></div>
+    
+    <div class="detail-content-wrapper">
+        <div class="close-detail" onclick="closeDetail()">✕</div>
+        
+        <div class="detail-main-shape">
+            <div id="detail-ig-link"></div>
+            <h1 id="detail-title">TITLE</h1>
+            <p id="detail-artist">ARTIST NAME</p>
+            
+            <div class="detail-tracklist-section">
+                <h4>TRACKLIST</h4>
+                <div id="detail-tracks-list">
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>
 </footer>
 <div class="player-fixed" id="main-player">
   <div class="progress-container" id="p-cont" title="Seek">
@@ -447,6 +530,30 @@ footer {
     }
     const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
     window.open(mailUrl, '_blank');
+}
+   
+function openDetail(title, artistInfo, imgSrc) {
+    const overlay = document.getElementById('show-detail-overlay');
+    const bgImage = document.getElementById('detail-bg-image');
+    
+    document.getElementById('detail-title').innerText = title;
+    document.getElementById('detail-artist').innerText = artistInfo;
+    bgImage.style.backgroundImage = `url('${imgSrc}')`;
+    
+    // Tracklist dummy sementara
+    document.getElementById('detail-tracks-list').innerHTML = `
+        <div class="track-item">01. ARTIST NAME - TRACK TITLE</div>
+        <div class="track-item">02. ARTIST NAME - TRACK TITLE</div>
+        <div class="track-item">03. ARTIST NAME - TRACK TITLE</div>
+    `;
+
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden'; 
+}
+function closeDetail() {
+    const overlay = document.getElementById('show-detail-overlay');
+    overlay.style.display = 'none';
+    document.body.style.overflow = 'auto'; 
 }
 </script>
 
