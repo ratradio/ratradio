@@ -189,7 +189,7 @@ footer {
 .footer-social-text a:hover { opacity: 1; text-decoration: underline; }
 
 .copyright { font-size: 10px; color: #444; }
-/* ================= TRACKLIST DRAWER - FIXED LAYOUT ================= */
+/* ================= TRACKLIST DRAWER - FINAL FIXED ================= */
 #tracklist-drawer {
     display: none;
     position: fixed;
@@ -200,16 +200,21 @@ footer {
     background: #000; 
     z-index: 998;
     overflow-y: auto;
-    pointer-events: none;
+    pointer-events: none; /* Default mati */
+    opacity: 0;
     transition: opacity 0.3s ease;
-    
-    /* SCROLLBAR HITAM (Firefox) */
     scrollbar-width: thin;
-    scrollbar-color: #222 #000; 
+    scrollbar-color: #333 #000;
 }
 
-/* SCROLLBAR HITAM (Chrome, Safari, Edge) */
-#tracklist-drawer::-webkit-scrollbar { width: 6px; }
+#tracklist-drawer.active {
+    display: block;
+    opacity: 1;
+    pointer-events: auto; /* Aktif saat terbuka biar bisa di-scroll */
+}
+
+/* Scrollbar Hitam Chrome/Safari */
+#tracklist-drawer::-webkit-scrollbar { width: 8px; }
 #tracklist-drawer::-webkit-scrollbar-track { background: #000; }
 #tracklist-drawer::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
 
@@ -219,35 +224,27 @@ footer {
     min-height: 100%;
     padding: 80px 60px;
     display: flex;
-    align-items: center; /* Konten di tengah vertikal */
+    align-items: center;
 }
 
 .drawer-content-inner {
-    display: flex; /* Bikin konten jajar ke samping */
-    align-items: flex-start;
-    gap: 80px;
+    display: flex;
+    gap: 70px;
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
 }
 
-/* COVER SISI KIRI (BERWARNA) */
-.drawer-cover-side {
-    flex: 0 0 380px; /* Lebar tetap untuk cover */
-}
+.drawer-cover-side { flex: 0 0 380px; }
 .drawer-cover-side img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
     border: 1px solid rgba(255,255,255,0.1);
-    filter: none; /* Menghapus efek hitam putih */
+    filter: none; /* Cover Berwarna */
 }
 
-/* SISI KANAN: TEXT & TRACKLIST */
-.drawer-text-side {
-    flex: 1;
-    text-align: left;
-}
+.drawer-text-side { flex: 1; text-align: left; }
 
 .drawer-title-big { 
     font-size: 60px; 
@@ -260,7 +257,7 @@ footer {
 
 .track-list-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Membagi tracklist jadi 2 kolom */
+    grid-template-columns: 1fr 1fr;
     gap: 15px 50px;
     margin-top: 30px;
 }
@@ -273,18 +270,12 @@ footer {
 .track-row-drawer b { display: block; text-transform: uppercase; font-weight: 800; }
 .track-row-drawer span { opacity: 0.5; text-transform: uppercase; }
 
-/* Tombol Close di pojok kanan atas drawer */
 .close-drawer-btn {
     position: absolute;
-    top: 40px;
-    right: 60px;
+    top: 40px; right: 60px;
     cursor: pointer;
-    font-size: 11px;
-    font-weight: 800;
-    opacity: 0.5;
-    transition: 0.3s;
+    font-size: 11px; font-weight: 800; opacity: 0.5;
 }
-.close-drawer-btn:hover { opacity: 1; }
 </style>
 </head>
 <body>
@@ -383,21 +374,17 @@ footer {
 <div id="tracklist-drawer">
     <div class="drawer-wide-shape">
         <div class="close-drawer-btn" onclick="toggleDrawer()">✕ CLOSE</div>
-        
         <div class="drawer-content-inner">
             <div class="drawer-cover-side">
                 <img id="drawer-cover-img" src="" alt="Cover">
             </div>
-
             <div class="drawer-text-side">
                 <div style="font-size:11px; opacity:0.5; font-weight:700; margin-bottom:10px; letter-spacing:1px;">ARCHIVE SELECTION</div>
                 <h2 id="drawer-title-big" class="drawer-title-big">TITLE</h2>
                 <p style="font-size:13px; opacity:0.6; line-height:1.6; max-width:500px; margin-bottom:30px;">
                     Broadcasting live sounds and archived sessions from the underground.
                 </p>
-
                 <div class="tracklist-header" style="font-size:11px; opacity:0.3; letter-spacing:2px; font-weight:800; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">TRACKLIST (15)</div>
-                
                 <div class="track-list-grid">
                     <div class="track-row-drawer"><b>Dorisburg</b><span>Void Pyramid</span></div>
                     <div class="track-row-drawer"><b>Arkajo</b><span>Earth Sign</span></div>
@@ -466,11 +453,11 @@ footer {
     let isDragging = false;
 
     // 2. FUNGSI DRAWER
-   function toggleDrawer() {
+  function toggleDrawer() {
     if (!drawer) return;
-    const isHidden = (drawer.style.display === 'none' || drawer.style.display === '');
-    if (isHidden) {
-        // Update data di dalam drawer sebelum tampil
+    const isActive = drawer.classList.contains('active');
+    if (!isActive) {
+        // Update konten
         document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
         document.getElementById('drawer-cover-img').src = bottomCover.src; 
         
