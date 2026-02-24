@@ -576,14 +576,13 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   smallBtn.addEventListener('click', () => {
-    if (!isLiveMode || !isPlaying) {
-        updatePlayerContent(liveData.title, liveData.sub, liveData.img);
-        isPlaying = true; isLiveMode = true; showPlayer();
-    } else {
-        isPlaying = false; isLiveMode = false;
-    }
-    updatePlayIcons();
-  });
+    // Ambil data live (sesuaikan dengan variabel liveData kamu)
+    const liveTitle = document.getElementById('live-text-source').innerText;
+    const liveImg = "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg";
+
+    // Panggil fungsi changeTrack agar player muncul
+    changeTrack(liveTitle, "LIVE NOW", liveImg);
+});
 
   bottomBtn.addEventListener('click', () => {
     isPlaying = !isPlaying;
@@ -592,10 +591,28 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function changeTrack(title, sub, imgSrc) {
-    updatePlayerContent(title, sub, imgSrc);
-    isPlaying = true; isLiveMode = false; showPlayer();
+    // 1. Update Konten Player
+    playerTitle.innerText = title;
+    playerSub.innerText = sub;
+    bottomCover.src = imgSrc;
+    
+    // 2. Munculkan Player (PENTING)
+    playerBar.style.display = 'flex'; 
+    // Beri jeda sedikit agar transisi CSS jalan
+    setTimeout(() => { 
+        playerBar.style.transform = 'translateY(0)'; 
+    }, 10);
+    
+    // 3. Set Status Play
+    isPlaying = true;
     updatePlayIcons();
-  }
+    
+    // 4. Tutup Drawer kalau sedang terbuka
+    if (drawer) {
+        drawer.style.display = 'none';
+        drawer.classList.remove('active');
+    }
+}
 
   const likeBtn = document.getElementById('like-btn');
   let isLiked = false;
