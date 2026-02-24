@@ -190,6 +190,7 @@ footer {
 
 .copyright { font-size: 10px; color: #444; }
    /* ================= TRACKLIST DRAWER - NEW LAYOUT ================= */
+/* ================= TRACKLIST DRAWER (SCROLLBAR & COLOR) ================= */
 #tracklist-drawer {
     display: none;
     position: fixed;
@@ -197,42 +198,36 @@ footer {
     left: 0;
     width: 100%;
     height: calc(100vh - 135px); 
-    background: #000; /* Hitam Polos */
+    background: #000; 
     z-index: 998;
     overflow-y: auto;
     pointer-events: none;
+    
+    /* CUSTOM SCROLLBAR BIAR ITEM */
+    scrollbar-width: thin;
+    scrollbar-color: #333 #000; /* Bar abu gelap, track hitam */
 }
 
-#tracklist-drawer.active {
-    display: block;
-    pointer-events: auto;
+/* Scrollbar untuk Chrome, Safari, Edge */
+#tracklist-drawer::-webkit-scrollbar {
+    width: 8px;
+}
+#tracklist-drawer::-webkit-scrollbar-track {
+    background: #000; 
+}
+#tracklist-drawer::-webkit-scrollbar-thumb {
+    background: #222; /* Warna scroll gelap */
+    border-radius: 10px;
 }
 
-.drawer-wide-shape {
-    position: relative;
-    width: 100%;
-    min-height: 100%;
-    padding: 60px;
-    display: flex;
-    align-items: center; /* Konten di tengah vertikal */
-}
-
-.drawer-content-inner {
-    display: grid;
-    grid-template-columns: 350px 1fr; /* Kiri cover, Kanan teks */
-    gap: 80px;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-/* SISI KIRI: COVER */
+/* COVER SISI KIRI (TIDAK BNW) */
 .drawer-cover-side img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
-    border: 1px solid rgba(255,255,255,0.2);
-    filter: grayscale(100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    /* Filter grayscale dihapus biar berwarna */
+    filter: none; 
 }
 
 /* SISI KANAN: KETERANGAN & TRACKLIST */
