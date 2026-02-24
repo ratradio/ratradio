@@ -456,8 +456,8 @@ footer {
     <div class="close-btn" id="close-player" title="Close Player">✕</div>
   </div>
 </div>
- <script>
-    // 1. DEFINISI VARIABEL (Hanya satu kali)
+<script>
+    // 1. DEFINISI VARIABEL
     const smallBtn = document.getElementById('toggle-small');
     const bottomBtn = document.getElementById('toggle-bottom');
     const playerBar = document.getElementById('main-player');
@@ -474,11 +474,10 @@ footer {
     let progressInterval;
     let isDragging = false;
 
-    // 2. FUNGSI DRAWER (Buka/Tutup Panel)
+    // 2. FUNGSI DRAWER
     function toggleDrawer() {
         if (!drawer) return;
         const isHidden = (drawer.style.display === 'none' || drawer.style.display === '');
-        
         if (isHidden) {
             document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
             document.getElementById('drawer-bg').style.backgroundImage = `url('${bottomCover.src}')`;
@@ -496,36 +495,27 @@ footer {
         playerSub.innerText = sub;
         bottomCover.src = imgSrc;
         
-        // Munculkan player
         playerBar.style.display = 'flex';
-        setTimeout(() => { 
-            playerBar.style.transform = 'translateY(0)'; 
-        }, 10);
+        setTimeout(() => { playerBar.style.transform = 'translateY(0)'; }, 10);
         
         playerVisible = true;
         isPlaying = true;
         currentProgress = 0;
         progressBar.style.width = "0%";
-        
         updatePlayIcons();
-        
-        // Tutup drawer jika terbuka saat ganti lagu
         if (drawer.style.display === 'block') toggleDrawer();
     }
 
-    // 4. UPDATE ICON PLAY/STOP
+    // 4. UPDATE ICON
     function updatePlayIcons() {
         const stopS = '<div class="stop-square-small"></div>';
         const stopB = '<div class="stop-square-bottom"></div>';
-        
         bottomBtn.innerHTML = isPlaying ? stopB : '▶';
-        // Icon di header ikut berubah jika sedang memainkan live
         if(playerSub.innerText === "LIVE NOW") {
             smallBtn.innerHTML = isPlaying ? stopS : '▶';
         } else {
             smallBtn.innerHTML = '▶';
         }
-        
         if (isPlaying) startProgress();
         else clearInterval(progressInterval);
     }
@@ -540,30 +530,27 @@ footer {
         }, 100);
     }
 
-    // 5. EVENT LISTENERS
+    // 5. EVENT LISTENERS (DIBALUT DOMContentLoaded)
     document.addEventListener('DOMContentLoaded', function() {
-        // Klik Menu (Garis Tiga)
+        // Menu Icon
         const menuIcon = document.querySelector('.menu-icon');
         if (menuIcon) {
-            menuIcon.onclick = function(e) {
-                e.preventDefault();
-                toggleDrawer();
-            };
+            menuIcon.onclick = (e) => { e.preventDefault(); toggleDrawer(); };
         }
 
-        // Klik Play di Header (Live)
+        // Header Play
         smallBtn.addEventListener('click', () => {
             const liveTitle = document.getElementById('live-text-source').innerText;
             changeTrack(liveTitle, "LIVE NOW", "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg");
         });
 
-        // Klik Play di Player Bawah
+        // Bottom Play
         bottomBtn.addEventListener('click', () => {
             isPlaying = !isPlaying;
             updatePlayIcons();
         });
 
-        // Tombol Close Player
+        // Close Player
         document.getElementById('close-player').addEventListener('click', () => {
             playerBar.style.transform = 'translateY(100%)';
             setTimeout(() => { 
@@ -574,16 +561,17 @@ footer {
             }, 400);
         });
 
-        // Like Button - Tetap Putih
-const likeBtn = document.getElementById('like-btn');
-let isLiked = false;
-likeBtn.onclick = function() {
-    isLiked = !isLiked;
-    // Hanya ganti simbol, tidak ganti warna ke merah
-    this.innerHTML = isLiked ? '♥' : '♡';
-    this.style.color = '#fff'; 
-};
-    // 6. SEEK & DRAG PROGRESS
+        // Like Button (Tetap Putih)
+        const likeBtn = document.getElementById('like-btn');
+        let isLiked = false;
+        likeBtn.onclick = function() {
+            isLiked = !isLiked;
+            this.innerHTML = isLiked ? '♥' : '♡';
+            this.style.color = '#fff'; 
+        };
+    }); // <--- PENUTUP YANG TADI HILANG
+
+    // 6. SEEK & DRAG
     function seek(amount) {
         currentProgress += (amount / 2); 
         if (currentProgress < 0) currentProgress = 0;
@@ -599,20 +587,11 @@ likeBtn.onclick = function() {
         progressBar.style.width = currentProgress + "%";
     }
 
-    pContainer.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        updateFromMouse(e);
-    });
+    pContainer.addEventListener('mousedown', (e) => { isDragging = true; updateFromMouse(e); });
+    window.addEventListener('mousemove', (e) => { if (isDragging) updateFromMouse(e); });
+    window.addEventListener('mouseup', () => { isDragging = false; });
 
-    window.addEventListener('mousemove', (e) => {
-        if (isDragging) updateFromMouse(e);
-    });
-
-    window.addEventListener('mouseup', () => {
-        isDragging = false;
-    });
-
-    // 7. FEEDBACK
+    // 7. FOOTER SARAN (Fungsi tetap sama)
     function sendSaran() {
         const pesan = document.getElementById('saranText').value;
         if (pesan.trim() === "") {
