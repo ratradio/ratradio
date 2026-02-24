@@ -456,211 +456,173 @@ footer {
     <div class="close-btn" id="close-player" title="Close Player">✕</div>
   </div>
 </div>
-   <script>
-       function toggleDrawer() {
-    const drawer = document.getElementById('tracklist-drawer');
+ <script>
+    // 1. DEFINISI VARIABEL (Hanya satu kali)
+    const smallBtn = document.getElementById('toggle-small');
+    const bottomBtn = document.getElementById('toggle-bottom');
+    const playerBar = document.getElementById('main-player');
     const playerTitle = document.getElementById('player-title');
+    const playerSub = document.getElementById('player-sub');
     const bottomCover = document.getElementById('bottom-cover');
-
-    if (drawer.style.display === 'none' || drawer.style.display === '') {
-        // Sinkronisasi data ke Drawer
-        document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
-        document.getElementById('drawer-bg').style.backgroundImage = `url('${bottomCover.src}')`;
-        
-        drawer.style.display = 'block';
-        setTimeout(() => drawer.classList.add('active'), 10);
-    } else {
-        drawer.style.display = 'none';
-        drawer.classList.remove('active');
-    }
-}
-
-// Inisialisasi klik Menu Icon
-document.addEventListener('DOMContentLoaded', function() {
-    const menuIcon = document.querySelector('.menu-icon');
-    if (menuIcon) {
-        menuIcon.onclick = function(e) {
-            e.preventDefault();
-            toggleDrawer();
-        };
-    }
-});
-<script>
-  const smallBtn = document.getElementById('toggle-small');
-  const bottomBtn = document.getElementById('toggle-bottom');
-  const playerBar = document.getElementById('main-player');
-  const playerTitle = document.getElementById('player-title');
-  const playerSub = document.getElementById('player-sub');
-  const bottomCover = document.getElementById('bottom-cover');
-  const liveLabelText = document.getElementById('live-text-source').innerText;
-  
-  const progressBar = document.getElementById('p-bar');
-  const pContainer = document.getElementById('p-cont');
-
-  let isPlaying = false; 
-  let playerVisible = false;
-  let isLiveMode = false; 
-  let currentProgress = 0; 
-  let progressInterval;
-  let isDragging = false; // Flag untuk drag
-
-  const liveData = {
-    title: liveLabelText,
-    sub: "LIVE NOW",
-    img: "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg"
-  };
-
-  function startProgress() {
-      clearInterval(progressInterval);
-      progressInterval = setInterval(() => {
-          if (isPlaying && currentProgress < 100 && !isDragging) {
-              currentProgress += 0.1; 
-              progressBar.style.width = currentProgress + "%";
-          }
-      }, 100);
-  }
-
-  function seek(amount) {
-      currentProgress += (amount / 2); 
-      if (currentProgress < 0) currentProgress = 0;
-      if (currentProgress > 100) currentProgress = 100;
-      progressBar.style.width = currentProgress + "%";
-  }
-
-  // --- REAL-TIME DRAG LOGIC ---
-  function updateFromMouse(e) {
-      const rect = pContainer.getBoundingClientRect();
-      let pos = (e.clientX - rect.left) / rect.width;
-      pos = Math.max(0, Math.min(1, pos)); // Clamp antara 0 dan 1
-      currentProgress = pos * 100;
-      progressBar.style.width = currentProgress + "%";
-  }
-
-  pContainer.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      updateFromMouse(e);
-  });
-
-  window.addEventListener('mousemove', (e) => {
-      if (isDragging) updateFromMouse(e);
-  });
-
-  window.addEventListener('mouseup', () => {
-      isDragging = false;
-  });
-
-  function showPlayer() {
-    if (!playerVisible) {
-        playerBar.style.display = 'flex';
-        setTimeout(() => { playerBar.style.transform = 'translateY(0)'; }, 10);
-        playerVisible = true;
-    }
-  }
-
-  function updatePlayIcons() {
-    const stopS = '<div class="stop-square-small"></div>';
-    const stopB = '<div class="stop-square-bottom"></div>';
-    bottomBtn.innerHTML = isPlaying ? stopB : '▶';
-    smallBtn.innerHTML = (isPlaying && isLiveMode) ? stopS : '▶';
-    
-    if (isPlaying) startProgress();
-    else clearInterval(progressInterval);
-  }
-
-  function updatePlayerContent(title, sub, img) {
-    playerTitle.innerText = title;
-    playerSub.innerText = sub;
-    bottomCover.src = img;
-    currentProgress = 0; 
-    progressBar.style.width = "0%";
-  }
-
-  smallBtn.addEventListener('click', () => {
-    // Ambil data live (sesuaikan dengan variabel liveData kamu)
-    const liveTitle = document.getElementById('live-text-source').innerText;
-    const liveImg = "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg";
-
-    // Panggil fungsi changeTrack agar player muncul
-    changeTrack(liveTitle, "LIVE NOW", liveImg);
-});
-
-  bottomBtn.addEventListener('click', () => {
-    isPlaying = !isPlaying;
-    if (!isPlaying) isLiveMode = false;
-    updatePlayIcons();
-  });
-
-  function changeTrack(title, sub, imgSrc) {
-    // 1. Update Konten Player
-    playerTitle.innerText = title;
-    playerSub.innerText = sub;
-    bottomCover.src = imgSrc;
-    
-    // 2. Munculkan Player (PENTING)
-    playerBar.style.display = 'flex'; 
-    // Beri jeda sedikit agar transisi CSS jalan
-    setTimeout(() => { 
-        playerBar.style.transform = 'translateY(0)'; 
-    }, 10);
-    
-    // 3. Set Status Play
-    isPlaying = true;
-    updatePlayIcons();
-    
-    // 4. Tutup Drawer kalau sedang terbuka
-    if (drawer) {
-        drawer.style.display = 'none';
-        drawer.classList.remove('active');
-    }
-}
-
-  const likeBtn = document.getElementById('like-btn');
-  let isLiked = false;
-  likeBtn.addEventListener('click', function() {
-    isLiked = !isLiked; this.innerHTML = isLiked ? '♥' : '♡';
-  });
-
-  const closeBtn = document.getElementById('close-player');
-  closeBtn.addEventListener('click', function() {
-    playerBar.style.transform = 'translateY(100%)';
-    setTimeout(() => { 
-        playerBar.style.display = 'none'; playerVisible = false;
-        isPlaying = false; isLiveMode = false;
-        updatePlayIcons();
-    }, 400);
-  });
-    function sendSaran() {
-    const pesan = document.getElementById('saranText').value;
-    if (pesan.trim() === "") {
-        alert("Please write something first.");
-        return;
-    }
-    const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
-    window.open(mailUrl, '_blank');
-}
-    function toggleDrawer() {
+    const progressBar = document.getElementById('p-bar');
+    const pContainer = document.getElementById('p-cont');
     const drawer = document.getElementById('tracklist-drawer');
-    const isHidden = drawer.style.display === 'none' || drawer.style.display === '';
-    
-    if (isHidden) {
-        // Ambil data dari player yang sedang aktif
-        const currentTitle = document.getElementById('player-title').innerText;
-        const currentImg = document.getElementById('bottom-cover').src;
-        
-        // Masukkan ke panel
-        document.getElementById('drawer-title-big').innerText = currentTitle;
-        document.getElementById('drawer-bg').style.backgroundImage = `url('${currentImg}')`;
-        
-        drawer.style.display = 'block';
-    } else {
-        drawer.style.display = 'none';
-    }
-}
 
-// Menghubungkan icon menu (garis tiga) ke fungsi di atas
-document.querySelector('.menu-icon').addEventListener('click', function() {
-    toggleDrawer();
-});
+    let isPlaying = false; 
+    let playerVisible = false;
+    let currentProgress = 0; 
+    let progressInterval;
+    let isDragging = false;
+
+    // 2. FUNGSI DRAWER (Buka/Tutup Panel)
+    function toggleDrawer() {
+        if (!drawer) return;
+        const isHidden = (drawer.style.display === 'none' || drawer.style.display === '');
+        
+        if (isHidden) {
+            document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
+            document.getElementById('drawer-bg').style.backgroundImage = `url('${bottomCover.src}')`;
+            drawer.style.display = 'block';
+            setTimeout(() => drawer.classList.add('active'), 10);
+        } else {
+            drawer.style.display = 'none';
+            drawer.classList.remove('active');
+        }
+    }
+
+    // 3. FUNGSI GANTI LAGU & MUNCULKAN PLAYER
+    function changeTrack(title, sub, imgSrc) {
+        playerTitle.innerText = title;
+        playerSub.innerText = sub;
+        bottomCover.src = imgSrc;
+        
+        // Munculkan player
+        playerBar.style.display = 'flex';
+        setTimeout(() => { 
+            playerBar.style.transform = 'translateY(0)'; 
+        }, 10);
+        
+        playerVisible = true;
+        isPlaying = true;
+        currentProgress = 0;
+        progressBar.style.width = "0%";
+        
+        updatePlayIcons();
+        
+        // Tutup drawer jika terbuka saat ganti lagu
+        if (drawer.style.display === 'block') toggleDrawer();
+    }
+
+    // 4. UPDATE ICON PLAY/STOP
+    function updatePlayIcons() {
+        const stopS = '<div class="stop-square-small"></div>';
+        const stopB = '<div class="stop-square-bottom"></div>';
+        
+        bottomBtn.innerHTML = isPlaying ? stopB : '▶';
+        // Icon di header ikut berubah jika sedang memainkan live
+        if(playerSub.innerText === "LIVE NOW") {
+            smallBtn.innerHTML = isPlaying ? stopS : '▶';
+        } else {
+            smallBtn.innerHTML = '▶';
+        }
+        
+        if (isPlaying) startProgress();
+        else clearInterval(progressInterval);
+    }
+
+    function startProgress() {
+        clearInterval(progressInterval);
+        progressInterval = setInterval(() => {
+            if (isPlaying && currentProgress < 100 && !isDragging) {
+                currentProgress += 0.1; 
+                progressBar.style.width = currentProgress + "%";
+            }
+        }, 100);
+    }
+
+    // 5. EVENT LISTENERS
+    document.addEventListener('DOMContentLoaded', function() {
+        // Klik Menu (Garis Tiga)
+        const menuIcon = document.querySelector('.menu-icon');
+        if (menuIcon) {
+            menuIcon.onclick = function(e) {
+                e.preventDefault();
+                toggleDrawer();
+            };
+        }
+
+        // Klik Play di Header (Live)
+        smallBtn.addEventListener('click', () => {
+            const liveTitle = document.getElementById('live-text-source').innerText;
+            changeTrack(liveTitle, "LIVE NOW", "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg");
+        });
+
+        // Klik Play di Player Bawah
+        bottomBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            updatePlayIcons();
+        });
+
+        // Tombol Close Player
+        document.getElementById('close-player').addEventListener('click', () => {
+            playerBar.style.transform = 'translateY(100%)';
+            setTimeout(() => { 
+                playerBar.style.display = 'none'; 
+                playerVisible = false;
+                isPlaying = false;
+                updatePlayIcons();
+            }, 400);
+        });
+
+        // Like Button
+        const likeBtn = document.getElementById('like-btn');
+        let isLiked = false;
+        likeBtn.onclick = function() {
+            isLiked = !isLiked;
+            this.innerHTML = isLiked ? '♥' : '♡';
+            this.style.color = isLiked ? '#ff0000' : '#fff';
+        };
+    });
+
+    // 6. SEEK & DRAG PROGRESS
+    function seek(amount) {
+        currentProgress += (amount / 2); 
+        if (currentProgress < 0) currentProgress = 0;
+        if (currentProgress > 100) currentProgress = 100;
+        progressBar.style.width = currentProgress + "%";
+    }
+
+    function updateFromMouse(e) {
+        const rect = pContainer.getBoundingClientRect();
+        let pos = (e.clientX - rect.left) / rect.width;
+        pos = Math.max(0, Math.min(1, pos));
+        currentProgress = pos * 100;
+        progressBar.style.width = currentProgress + "%";
+    }
+
+    pContainer.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        updateFromMouse(e);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (isDragging) updateFromMouse(e);
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    // 7. FEEDBACK
+    function sendSaran() {
+        const pesan = document.getElementById('saranText').value;
+        if (pesan.trim() === "") {
+            alert("Please write something first.");
+            return;
+        }
+        const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
+        window.open(mailUrl, '_blank');
+    }
 </script>
 
 </body>
