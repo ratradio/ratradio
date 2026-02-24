@@ -574,16 +574,15 @@ footer {
             }, 400);
         });
 
-        // Like Button
-        const likeBtn = document.getElementById('like-btn');
-        let isLiked = false;
-        likeBtn.onclick = function() {
-            isLiked = !isLiked;
-            this.innerHTML = isLiked ? '♥' : '♡';
-            this.style.color = isLiked ? '#ff0000' : '#fff';
-        };
-    });
-
+        // Like Button - Tetap Putih
+const likeBtn = document.getElementById('like-btn');
+let isLiked = false;
+likeBtn.onclick = function() {
+    isLiked = !isLiked;
+    // Hanya ganti simbol, tidak ganti warna ke merah
+    this.innerHTML = isLiked ? '♥' : '♡';
+    this.style.color = '#fff'; 
+};
     // 6. SEEK & DRAG PROGRESS
     function seek(amount) {
         currentProgress += (amount / 2); 
