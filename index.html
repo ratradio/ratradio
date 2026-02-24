@@ -189,18 +189,17 @@ footer {
 .footer-social-text a:hover { opacity: 1; text-decoration: underline; }
 
 .copyright { font-size: 10px; color: #444; }
-    /* TRACKLIST DRAWER - GAYA LAYAR KACA UJUNG KE UJUNG */
-/* RESET TOTAL DRAWER AREA */
+   /* ================= TRACKLIST DRAWER - NEW LAYOUT ================= */
 #tracklist-drawer {
     display: none;
     position: fixed;
-    bottom: 55px; /* Menempel tepat di atas player */
+    bottom: 55px; 
     left: 0;
     width: 100%;
-    height: calc(100vh - 135px); /* Header 80px + Player 55px */
-    background: #000;
-    z-index: 998; /* Di bawah player (1000) */
-    overflow: hidden;
+    height: calc(100vh - 135px); 
+    background: #000; /* Hitam Polos */
+    z-index: 998;
+    overflow-y: auto;
     pointer-events: none;
 }
 
@@ -209,89 +208,74 @@ footer {
     pointer-events: auto;
 }
 
-#drawer-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    filter: grayscale(100%) brightness(0.3); /* Gelapkan foto biar teks terbaca */
-    z-index: 1;
-}
-
-/* CONTAINER UTAMA (Shape transparan) */
 .drawer-wide-shape {
     position: relative;
-    z-index: 2;
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Overlay gelap */
+    min-height: 100%;
+    padding: 60px;
     display: flex;
-    flex-direction: column;
+    align-items: center; /* Konten di tengah vertikal */
 }
 
-/* HEADER DALAM DRAWER (Tombol Close) */
-.drawer-header-internal {
-    padding: 20px 40px;
-    display: flex;
-    justify-content: flex-end;
+.drawer-content-inner {
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Kiri cover, Kanan teks */
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
 }
+
+/* SISI KIRI: COVER */
+.drawer-cover-side img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.2);
+    filter: grayscale(100%);
+}
+
+/* SISI KANAN: KETERANGAN & TRACKLIST */
+.drawer-text-side {
+    text-align: left;
+}
+
+.drawer-title-big { 
+    font-size: 55px; 
+    font-weight: 800; 
+    letter-spacing: -3px; 
+    margin-bottom: 15px;
+    line-height: 0.9;
+    text-transform: uppercase;
+}
+
+.track-list-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Bagi jadi 2 kolom biar rapi */
+    gap: 15px 50px;
+    margin-top: 30px;
+}
+
+.track-row-drawer {
+    font-size: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 6px;
+}
+
+.track-row-drawer b { display: block; text-transform: uppercase; font-weight: 800; }
+.track-row-drawer span { opacity: 0.5; text-transform: uppercase; }
 
 .close-drawer-btn {
+    position: absolute;
+    top: 40px;
+    right: 60px;
     cursor: pointer;
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: 1px;
-    opacity: 0.6;
+    opacity: 0.5;
     transition: 0.3s;
 }
 .close-drawer-btn:hover { opacity: 1; }
-
-/* KONTEN: DIBAGI 2 KOLOM */
-.drawer-content-inner {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr; /* Sisi kiri lebih lebar sedikit */
-    gap: 100px;
-    padding: 0 60px 60px 60px;
-    max-width: 1400px;
-    margin: 0 auto;
-    align-items: start;
-}
-
-/* SISI KIRI (INFO) */
-.drawer-info-side * { font-style: normal !important; text-transform: uppercase; }
-.meta-info-drawer { font-size: 11px; font-weight: 700; opacity: 0.5; margin-bottom: 10px; }
-.drawer-info-side h2 { 
-    font-size: 42px; 
-    font-weight: 800; 
-    letter-spacing: -1px; 
-    margin-bottom: 20px;
-    line-height: 1;
-}
-.desc-text-drawer { 
-    text-transform: none !important; /* Deskripsi jangan uppercase semua biar enak dibaca */
-    font-size: 13px; 
-    line-height: 1.6; 
-    opacity: 0.6; 
-    max-width: 450px; 
-}
-
-/* SISI KANAN (TRACKLIST) */
-.drawer-tracklist-side h3 {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-    opacity: 0.4;
-}
-.track-row-drawer {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-    font-size: 12px;
-}
-.track-time-drawer { opacity: 0.3; font-family: monospace; width: 60px; }
-.track-meta-drawer b { display: block; font-weight: 800; }
-.track-meta-drawer span { opacity: 0.5; }
 </style>
 </head>
 <body>
@@ -388,42 +372,40 @@ footer {
 </footer>
 
 <div id="tracklist-drawer">
-    <div id="drawer-bg"></div>
-    
     <div class="drawer-wide-shape">
-        <div class="drawer-header-internal">
-            <div class="close-drawer-btn" onclick="toggleDrawer()">✕ CLOSE</div>
-        </div>
+        <div class="close-drawer-btn" onclick="toggleDrawer()">✕ CLOSE</div>
         
         <div class="drawer-content-inner">
-            <div class="drawer-info-side">
-                <div class="meta-info-drawer">
-                    <span id="drawer-date">24 FEB 2026</span> — BANDUNG
-                </div>
-                <h2 id="drawer-title-big">THE SEWER GHOST</h2>
-                <div style="display:flex; gap:10px; margin-bottom:25px;">
-                    <span style="border:1px solid #fff; padding:3px 8px; font-size:10px; font-weight:700;">EXPERIMENTAL</span>
-                    <span style="border:1px solid #fff; padding:3px 8px; font-size:10px; font-weight:700;">INDUSTRIAL</span>
-                </div>
-                <p id="drawer-desc" class="desc-text-drawer">
-                    A deep dive into the murky textures of the underground. This broadcast explores the intersection of industrial rhythms and atmospheric echoes.
-                </p>
-                <div style="margin-top:30px;">
-                    <a href="#" style="color:#fff; text-decoration:none; font-size:11px; font-weight:700; border-bottom:1px solid #fff; padding-bottom:2px;">INSTAGRAM ↗</a>
-                </div>
+            <div class="drawer-cover-side">
+                <img id="drawer-cover-img" src="" alt="Cover">
             </div>
 
-            <div class="drawer-tracklist-side">
-                <h3>TRACKLIST</h3>
-                <div id="list-container">
-                    <div class="track-row-drawer">
-                        <span class="track-time-drawer">0:00:00</span>
-                        <div class="track-meta-drawer">
-                            <b>DORISBURG & ARKAJO</b>
-                            <span>Void Pyramid</span>
-                        </div>
-                    </div>
-                    </div>
+            <div class="drawer-text-side">
+                <div style="font-size:11px; opacity:0.5; font-weight:700; margin-bottom:10px; letter-spacing:1px;">ARCHIVE SELECTION</div>
+                <h2 id="drawer-title-big" class="drawer-title-big">TITLE</h2>
+                <p style="font-size:13px; opacity:0.6; line-height:1.6; max-width:500px; margin-bottom:30px;">
+                    Broadcasting live sounds and archived sessions from the underground.
+                </p>
+
+                <div class="tracklist-header" style="font-size:11px; opacity:0.3; letter-spacing:2px; font-weight:800; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">TRACKLIST (15)</div>
+                
+                <div class="track-list-grid">
+                    <div class="track-row-drawer"><b>Dorisburg</b><span>Void Pyramid</span></div>
+                    <div class="track-row-drawer"><b>Arkajo</b><span>Earth Sign</span></div>
+                    <div class="track-row-drawer"><b>Skee Mask</b><span>Routine</span></div>
+                    <div class="track-row-drawer"><b>Aphex Twin</b><span>Xtal</span></div>
+                    <div class="track-row-drawer"><b>Burial</b><span>Archangel</span></div>
+                    <div class="track-row-drawer"><b>Moderat</b><span>A New Error</span></div>
+                    <div class="track-row-drawer"><b>Four Tet</b><span>Lush</span></div>
+                    <div class="track-row-drawer"><b>Floating Points</b><span>Bias</span></div>
+                    <div class="track-row-drawer"><b>Overmono</b><span>So U Kno</span></div>
+                    <div class="track-row-drawer"><b>Bicep</b><span>Atlas</span></div>
+                    <div class="track-row-drawer"><b>Kelly Lee Owens</b><span>Melt</span></div>
+                    <div class="track-row-drawer"><b>Jon Hopkins</b><span>Emerald Rush</span></div>
+                    <div class="track-row-drawer"><b>Actress</b><span>R.I.P.</span></div>
+                    <div class="track-row-drawer"><b>Andy Stott</b><span>Faith in Strangers</span></div>
+                    <div class="track-row-drawer"><b>Forest Drive West</b><span>Recursion</span></div>
+                </div>
             </div>
         </div>
     </div>
@@ -475,19 +457,21 @@ footer {
     let isDragging = false;
 
     // 2. FUNGSI DRAWER
-    function toggleDrawer() {
-        if (!drawer) return;
-        const isHidden = (drawer.style.display === 'none' || drawer.style.display === '');
-        if (isHidden) {
-            document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
-            document.getElementById('drawer-bg').style.backgroundImage = `url('${bottomCover.src}')`;
-            drawer.style.display = 'block';
-            setTimeout(() => drawer.classList.add('active'), 10);
-        } else {
-            drawer.style.display = 'none';
-            drawer.classList.remove('active');
-        }
+   function toggleDrawer() {
+    if (!drawer) return;
+    const isHidden = (drawer.style.display === 'none' || drawer.style.display === '');
+    if (isHidden) {
+        // Update data di dalam drawer sebelum tampil
+        document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
+        document.getElementById('drawer-cover-img').src = bottomCover.src; 
+        
+        drawer.style.display = 'block';
+        setTimeout(() => drawer.classList.add('active'), 10);
+    } else {
+        drawer.classList.remove('active');
+        setTimeout(() => { drawer.style.display = 'none'; }, 300);
     }
+}
 
     // 3. FUNGSI GANTI LAGU & MUNCULKAN PLAYER
     function changeTrack(title, sub, imgSrc) {
