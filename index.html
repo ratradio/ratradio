@@ -189,8 +189,7 @@ footer {
 .footer-social-text a:hover { opacity: 1; text-decoration: underline; }
 
 .copyright { font-size: 10px; color: #444; }
-   /* ================= TRACKLIST DRAWER - NEW LAYOUT ================= */
-/* ================= TRACKLIST DRAWER (SCROLLBAR & COLOR) ================= */
+/* ================= TRACKLIST DRAWER - FIXED LAYOUT ================= */
 #tracklist-drawer {
     display: none;
     position: fixed;
@@ -202,41 +201,56 @@ footer {
     z-index: 998;
     overflow-y: auto;
     pointer-events: none;
+    transition: opacity 0.3s ease;
     
-    /* CUSTOM SCROLLBAR BIAR ITEM */
+    /* SCROLLBAR HITAM (Firefox) */
     scrollbar-width: thin;
-    scrollbar-color: #333 #000; /* Bar abu gelap, track hitam */
+    scrollbar-color: #222 #000; 
 }
 
-/* Scrollbar untuk Chrome, Safari, Edge */
-#tracklist-drawer::-webkit-scrollbar {
-    width: 8px;
-}
-#tracklist-drawer::-webkit-scrollbar-track {
-    background: #000; 
-}
-#tracklist-drawer::-webkit-scrollbar-thumb {
-    background: #222; /* Warna scroll gelap */
-    border-radius: 10px;
+/* SCROLLBAR HITAM (Chrome, Safari, Edge) */
+#tracklist-drawer::-webkit-scrollbar { width: 6px; }
+#tracklist-drawer::-webkit-scrollbar-track { background: #000; }
+#tracklist-drawer::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+
+.drawer-wide-shape {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    padding: 80px 60px;
+    display: flex;
+    align-items: center; /* Konten di tengah vertikal */
 }
 
-/* COVER SISI KIRI (TIDAK BNW) */
+.drawer-content-inner {
+    display: flex; /* Bikin konten jajar ke samping */
+    align-items: flex-start;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* COVER SISI KIRI (BERWARNA) */
+.drawer-cover-side {
+    flex: 0 0 380px; /* Lebar tetap untuk cover */
+}
 .drawer-cover-side img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
     border: 1px solid rgba(255,255,255,0.1);
-    /* Filter grayscale dihapus biar berwarna */
-    filter: none; 
+    filter: none; /* Menghapus efek hitam putih */
 }
 
-/* SISI KANAN: KETERANGAN & TRACKLIST */
+/* SISI KANAN: TEXT & TRACKLIST */
 .drawer-text-side {
+    flex: 1;
     text-align: left;
 }
 
 .drawer-title-big { 
-    font-size: 55px; 
+    font-size: 60px; 
     font-weight: 800; 
     letter-spacing: -3px; 
     margin-bottom: 15px;
@@ -246,7 +260,7 @@ footer {
 
 .track-list-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Bagi jadi 2 kolom biar rapi */
+    grid-template-columns: 1fr 1fr; /* Membagi tracklist jadi 2 kolom */
     gap: 15px 50px;
     margin-top: 30px;
 }
@@ -256,10 +270,10 @@ footer {
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 6px;
 }
-
 .track-row-drawer b { display: block; text-transform: uppercase; font-weight: 800; }
 .track-row-drawer span { opacity: 0.5; text-transform: uppercase; }
 
+/* Tombol Close di pojok kanan atas drawer */
 .close-drawer-btn {
     position: absolute;
     top: 40px;
