@@ -198,19 +198,17 @@ footer {
     width: 100%;
     height: calc(100vh - 135px); 
     background: #000; 
-    z-index: 998;
+    z-index: 2000; /* Pastikan di atas archive tapi di bawah player */
     overflow-y: auto;
-    pointer-events: none;
     opacity: 0;
+    pointer-events: none; /* Penting: agar klik tembus ke footer saat drawer tutup */
     transition: opacity 0.3s ease;
-    scrollbar-width: thin;
-    scrollbar-color: #333 #000;
 }
 
 #tracklist-drawer.active {
     display: block;
     opacity: 1;
-    pointer-events: auto;
+    pointer-events: auto; /* Aktifkan klik kembali saat drawer muncul */
 }
 
 #tracklist-drawer::-webkit-scrollbar { width: 8px; }
@@ -250,25 +248,20 @@ footer {
     margin-bottom: 15px;
 }
 
-.genre-box {
-    display: inline-block;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: transparent;
-    color: #fff;
+color: #fff;
     padding: 6px 12px;
     font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.2s ease;
-    cursor: default;
+    cursor: pointer; /* Ubah ke pointer agar terasa bisa diklik */
 }
 
-/* Efek saat box "aktif" atau di-hover */
 .genre-box:hover, .genre-box.active {
-    background: #1a1a1a; /* Abu-abu sangat gelap seperti di gambar */
+    background: #fff; 
+    color: #000;
     border: 1px solid #fff;
-    color: #fff;
 }
 .artist-bio { font-size: 12px; line-height: 1.5; opacity: 0.6; }
 .artist-ig-link { 
@@ -507,19 +500,27 @@ footer {
     let isDragging = false;
 
     // 2. FUNGSI DRAWER
-  function toggleDrawer() {
+ function toggleDrawer() {
     if (!drawer) return;
     const isActive = drawer.classList.contains('active');
+    
     if (!isActive) {
-        // Update konten
+        // Update konten sebelum muncul
         document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
         document.getElementById('drawer-cover-img').src = bottomCover.src; 
         
         drawer.style.display = 'block';
-        setTimeout(() => drawer.classList.add('active'), 10);
+        // Delay kecil agar transisi opacity terlihat
+        setTimeout(() => {
+            drawer.classList.add('active');
+        }, 10);
     } else {
+        // Hilangkan class active dulu untuk animasi keluar
         drawer.classList.remove('active');
-        setTimeout(() => { drawer.style.display = 'none'; }, 300);
+        // Sembunyikan display setelah animasi selesai (300ms)
+        setTimeout(() => {
+            drawer.style.display = 'none';
+        }, 300);
     }
 }
 
