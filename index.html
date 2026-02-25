@@ -258,6 +258,20 @@ color: #fff;
     cursor: pointer; /* Ubah ke pointer agar terasa bisa diklik */
 }
 
+.genre-box {
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
 .genre-box:hover, .genre-box.active {
     background: #fff; 
     color: #000;
@@ -566,12 +580,17 @@ color: #fff;
     }
 
     // 5. EVENT LISTENERS (DIBALUT DOMContentLoaded)
-    document.addEventListener('DOMContentLoaded', function() {
-        // Menu Icon
-        const menuIcon = document.querySelector('.menu-icon');
-        if (menuIcon) {
-            menuIcon.onclick = (e) => { e.preventDefault(); toggleDrawer(); };
-        }
+   document.addEventListener('DOMContentLoaded', function() {
+        // ... semua kode inside ...
+        
+        const likeBtn = document.getElementById('like-btn');
+        let isLiked = false;
+        likeBtn.onclick = function() {
+            isLiked = !isLiked;
+            this.innerHTML = isLiked ? '♥' : '♡';
+            this.style.color = '#fff'; 
+        };
+    }); // <--- Pastikan ada kurung tutup dan semicolon ini
 
         // Header Play
         smallBtn.addEventListener('click', () => {
