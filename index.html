@@ -540,20 +540,33 @@ color: #fff;
 
     // 3. FUNGSI GANTI LAGU & MUNCULKAN PLAYER
     function changeTrack(title, sub, imgSrc) {
-        playerTitle.innerText = title;
-        playerSub.innerText = sub;
-        bottomCover.src = imgSrc;
-        
-        playerBar.style.display = 'flex';
-        setTimeout(() => { playerBar.style.transform = 'translateY(0)'; }, 10);
-        
-        playerVisible = true;
-        isPlaying = true;
-        currentProgress = 0;
-        progressBar.style.width = "0%";
-        updatePlayIcons();
-        if (drawer.style.display === 'block') toggleDrawer();
+    // 1. Update Konten Player
+    playerTitle.innerText = title;
+    playerSub.innerText = sub;
+    bottomCover.src = imgSrc;
+    
+    // 2. Tampilkan Elemen (Penting: Display Flex dulu baru Transform)
+    playerBar.style.display = 'flex'; 
+    
+    // Kasih delay 10ms supaya browser sempat "sadar" display sudah berubah, baru jalankan animasi naik
+    setTimeout(() => { 
+        playerBar.style.transform = 'translateY(0)'; 
+    }, 10);
+    
+    // 3. Status Play & Progress
+    playerVisible = true;
+    isPlaying = true;
+    currentProgress = 0;
+    progressBar.style.width = "0%";
+    
+    // 4. Update Icon & Jalankan Bar
+    updatePlayIcons();
+    
+    // 5. Tutup drawer kalau lagi kebuka biar nggak tumpang tindih
+    if (drawer.classList.contains('active')) {
+        toggleDrawer();
     }
+}
 
     // 4. UPDATE ICON
     function updatePlayIcons() {
