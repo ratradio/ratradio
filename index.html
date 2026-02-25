@@ -198,17 +198,19 @@ footer {
     width: 100%;
     height: calc(100vh - 135px); 
     background: #000; 
-    z-index: 2000; /* Pastikan di atas archive tapi di bawah player */
+    z-index: 998;
     overflow-y: auto;
+    pointer-events: none;
     opacity: 0;
-    pointer-events: none; /* Penting: agar klik tembus ke footer saat drawer tutup */
     transition: opacity 0.3s ease;
+    scrollbar-width: thin;
+    scrollbar-color: #333 #000;
 }
 
 #tracklist-drawer.active {
     display: block;
     opacity: 1;
-    pointer-events: auto; /* Aktifkan klik kembali saat drawer muncul */
+    pointer-events: auto;
 }
 
 #tracklist-drawer::-webkit-scrollbar { width: 8px; }
@@ -248,16 +250,6 @@ footer {
     margin-bottom: 15px;
 }
 
-color: #fff;
-    padding: 6px 12px;
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.2s ease;
-    cursor: pointer; /* Ubah ke pointer agar terasa bisa diklik */
-}
-
 .genre-box {
     display: inline-block;
     border: 1px solid rgba(255, 255, 255, 0.4);
@@ -269,13 +261,14 @@ color: #fff;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.2s ease;
-    cursor: pointer;
+    cursor: default;
 }
 
+/* Efek saat box "aktif" atau di-hover */
 .genre-box:hover, .genre-box.active {
-    background: #fff; 
-    color: #000;
+    background: #1a1a1a; /* Abu-abu sangat gelap seperti di gambar */
     border: 1px solid #fff;
+    color: #fff;
 }
 .artist-bio { font-size: 12px; line-height: 1.5; opacity: 0.6; }
 .artist-ig-link { 
@@ -514,24 +507,21 @@ color: #fff;
     let isDragging = false;
 
     // 2. FUNGSI DRAWER
-    function toggleDrawer() {
-        if (!drawer) return;
-        const isActive = drawer.classList.contains('active');
+  function toggleDrawer() {
+    if (!drawer) return;
+    const isActive = drawer.classList.contains('active');
+    if (!isActive) {
+        // Update konten
+        document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
+        document.getElementById('drawer-cover-img').src = bottomCover.src; 
         
-        if (!isActive) {
-            document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
-            document.getElementById('drawer-cover-img').src = bottomCover.src; 
-            drawer.style.display = 'block';
-            setTimeout(() => {
-                drawer.classList.add('active');
-            }, 10);
-        } else {
-            drawer.classList.remove('active');
-            setTimeout(() => {
-                drawer.style.display = 'none';
-            }, 300);
-        }
+        drawer.style.display = 'block';
+        setTimeout(() => drawer.classList.add('active'), 10);
+    } else {
+        drawer.classList.remove('active');
+        setTimeout(() => { drawer.style.display = 'none'; }, 300);
     }
+}
 
     // 3. FUNGSI GANTI LAGU & MUNCULKAN PLAYER
     function changeTrack(title, sub, imgSrc) {
@@ -539,38 +529,27 @@ color: #fff;
         playerSub.innerText = sub;
         bottomCover.src = imgSrc;
         
-        playerBar.style.display = 'flex'; 
-        
-        setTimeout(() => { 
-            playerBar.style.transform = 'translateY(0)'; 
-        }, 10);
+        playerBar.style.display = 'flex';
+        setTimeout(() => { playerBar.style.transform = 'translateY(0)'; }, 10);
         
         playerVisible = true;
         isPlaying = true;
         currentProgress = 0;
         progressBar.style.width = "0%";
-        
         updatePlayIcons();
-        
-        if (drawer.classList.contains('active')) {
-            toggleDrawer();
-        }
+        if (drawer.style.display === 'block') toggleDrawer();
     }
 
-    // 4. UPDATE ICON & PROGRESS
+    // 4. UPDATE ICON
     function updatePlayIcons() {
         const stopS = '<div class="stop-square-small"></div>';
         const stopB = '<div class="stop-square-bottom"></div>';
-        
         bottomBtn.innerHTML = isPlaying ? stopB : '▶';
-        
-        // Cek jika yang sedang diputar adalah LIVE
         if(playerSub.innerText === "LIVE NOW") {
             smallBtn.innerHTML = isPlaying ? stopS : '▶';
         } else {
             smallBtn.innerHTML = '▶';
         }
-
         if (isPlaying) startProgress();
         else clearInterval(progressInterval);
     }
@@ -585,16 +564,21 @@ color: #fff;
         }, 100);
     }
 
-    // 5. EVENT LISTENERS
+    // 5. EVENT LISTENERS (DIBALUT DOMContentLoaded)
     document.addEventListener('DOMContentLoaded', function() {
-        
-        // Header Play (Live Now)
+        // Menu Icon
+        const menuIcon = document.querySelector('.menu-icon');
+        if (menuIcon) {
+            menuIcon.onclick = (e) => { e.preventDefault(); toggleDrawer(); };
+        }
+
+        // Header Play
         smallBtn.addEventListener('click', () => {
             const liveTitle = document.getElementById('live-text-source').innerText;
             changeTrack(liveTitle, "LIVE NOW", "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg");
         });
 
-        // Bottom Play/Pause
+        // Bottom Play
         bottomBtn.addEventListener('click', () => {
             isPlaying = !isPlaying;
             updatePlayIcons();
@@ -611,22 +595,17 @@ color: #fff;
             }, 400);
         });
 
-        // Like Button
+        // Like Button (Tetap Putih)
         const likeBtn = document.getElementById('like-btn');
         let isLiked = false;
         likeBtn.onclick = function() {
             isLiked = !isLiked;
             this.innerHTML = isLiked ? '♥' : '♡';
+            this.style.color = '#fff'; 
         };
+    }); // <--- PENUTUP YANG TADI HILANG
 
-        // Up Next / Drawer Trigger
-        document.querySelector('.up-next-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleDrawer();
-        });
-    });
-
-    // 6. SEEK & DRAG (Di luar DOMContentLoaded agar bisa diakses HTML)
+    // 6. SEEK & DRAG
     function seek(amount) {
         currentProgress += (amount / 2); 
         if (currentProgress < 0) currentProgress = 0;
@@ -646,7 +625,7 @@ color: #fff;
     window.addEventListener('mousemove', (e) => { if (isDragging) updateFromMouse(e); });
     window.addEventListener('mouseup', () => { isDragging = false; });
 
-    // 7. FOOTER SARAN
+    // 7. FOOTER SARAN (Fungsi tetap sama)
     function sendSaran() {
         const pesan = document.getElementById('saranText').value;
         if (pesan.trim() === "") {
