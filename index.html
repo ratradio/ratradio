@@ -535,13 +535,12 @@ color: #fff;
 
     // 3. FUNGSI GANTI LAGU & MUNCULKAN PLAYER
     function changeTrack(title, sub, imgSrc) {
-        // Update Konten
         playerTitle.innerText = title;
         playerSub.innerText = sub;
         bottomCover.src = imgSrc;
         
-        // Tampilkan Player
         playerBar.style.display = 'flex'; 
+        
         setTimeout(() => { 
             playerBar.style.transform = 'translateY(0)'; 
         }, 10);
@@ -558,12 +557,14 @@ color: #fff;
         }
     }
 
-    // 4. UPDATE ICON
+    // 4. UPDATE ICON & PROGRESS
     function updatePlayIcons() {
         const stopS = '<div class="stop-square-small"></div>';
         const stopB = '<div class="stop-square-bottom"></div>';
+        
         bottomBtn.innerHTML = isPlaying ? stopB : '▶';
         
+        // Cek jika yang sedang diputar adalah LIVE
         if(playerSub.innerText === "LIVE NOW") {
             smallBtn.innerHTML = isPlaying ? stopS : '▶';
         } else {
@@ -584,15 +585,16 @@ color: #fff;
         }, 100);
     }
 
-    // 5. EVENT LISTENERS (Hanya satu DOMContentLoaded agar tidak bentrok)
+    // 5. EVENT LISTENERS
     document.addEventListener('DOMContentLoaded', function() {
-        // Header Play
+        
+        // Header Play (Live Now)
         smallBtn.addEventListener('click', () => {
             const liveTitle = document.getElementById('live-text-source').innerText;
             changeTrack(liveTitle, "LIVE NOW", "https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg");
         });
 
-        // Bottom Play
+        // Bottom Play/Pause
         bottomBtn.addEventListener('click', () => {
             isPlaying = !isPlaying;
             updatePlayIcons();
@@ -612,16 +614,19 @@ color: #fff;
         // Like Button
         const likeBtn = document.getElementById('like-btn');
         let isLiked = false;
-        if(likeBtn) {
-            likeBtn.onclick = function() {
-                isLiked = !isLiked;
-                this.innerHTML = isLiked ? '♥' : '♡';
-                this.style.color = '#fff'; 
-            };
-        }
+        likeBtn.onclick = function() {
+            isLiked = !isLiked;
+            this.innerHTML = isLiked ? '♥' : '♡';
+        };
+
+        // Up Next / Drawer Trigger
+        document.querySelector('.up-next-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleDrawer();
+        });
     });
 
-    // 6. SEEK & DRAG
+    // 6. SEEK & DRAG (Di luar DOMContentLoaded agar bisa diakses HTML)
     function seek(amount) {
         currentProgress += (amount / 2); 
         if (currentProgress < 0) currentProgress = 0;
