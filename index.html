@@ -514,70 +514,62 @@ color: #fff;
     let isDragging = false;
 
     // 2. FUNGSI DRAWER
- function toggleDrawer() {
-    if (!drawer) return;
-    const isActive = drawer.classList.contains('active');
-    
-    if (!isActive) {
-        // Update konten sebelum muncul
-        document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
-        document.getElementById('drawer-cover-img').src = bottomCover.src; 
+    function toggleDrawer() {
+        if (!drawer) return;
+        const isActive = drawer.classList.contains('active');
         
-        drawer.style.display = 'block';
-        // Delay kecil agar transisi opacity terlihat
-        setTimeout(() => {
-            drawer.classList.add('active');
-        }, 10);
-    } else {
-        // Hilangkan class active dulu untuk animasi keluar
-        drawer.classList.remove('active');
-        // Sembunyikan display setelah animasi selesai (300ms)
-        setTimeout(() => {
-            drawer.style.display = 'none';
-        }, 300);
+        if (!isActive) {
+            document.getElementById('drawer-title-big').innerText = playerTitle.innerText;
+            document.getElementById('drawer-cover-img').src = bottomCover.src; 
+            drawer.style.display = 'block';
+            setTimeout(() => {
+                drawer.classList.add('active');
+            }, 10);
+        } else {
+            drawer.classList.remove('active');
+            setTimeout(() => {
+                drawer.style.display = 'none';
+            }, 300);
+        }
     }
-}
 
     // 3. FUNGSI GANTI LAGU & MUNCULKAN PLAYER
     function changeTrack(title, sub, imgSrc) {
-    // 1. Update Konten Player
-    playerTitle.innerText = title;
-    playerSub.innerText = sub;
-    bottomCover.src = imgSrc;
-    
-    // 2. Tampilkan Elemen (Penting: Display Flex dulu baru Transform)
-    playerBar.style.display = 'flex'; 
-    
-    // Kasih delay 10ms supaya browser sempat "sadar" display sudah berubah, baru jalankan animasi naik
-    setTimeout(() => { 
-        playerBar.style.transform = 'translateY(0)'; 
-    }, 10);
-    
-    // 3. Status Play & Progress
-    playerVisible = true;
-    isPlaying = true;
-    currentProgress = 0;
-    progressBar.style.width = "0%";
-    
-    // 4. Update Icon & Jalankan Bar
-    updatePlayIcons();
-    
-    // 5. Tutup drawer kalau lagi kebuka biar nggak tumpang tindih
-    if (drawer.classList.contains('active')) {
-        toggleDrawer();
+        // Update Konten
+        playerTitle.innerText = title;
+        playerSub.innerText = sub;
+        bottomCover.src = imgSrc;
+        
+        // Tampilkan Player
+        playerBar.style.display = 'flex'; 
+        setTimeout(() => { 
+            playerBar.style.transform = 'translateY(0)'; 
+        }, 10);
+        
+        playerVisible = true;
+        isPlaying = true;
+        currentProgress = 0;
+        progressBar.style.width = "0%";
+        
+        updatePlayIcons();
+        
+        if (drawer.classList.contains('active')) {
+            toggleDrawer();
+        }
     }
-}
 
     // 4. UPDATE ICON
     function updatePlayIcons() {
         const stopS = '<div class="stop-square-small"></div>';
         const stopB = '<div class="stop-square-bottom"></div>';
         bottomBtn.innerHTML = isPlaying ? stopB : '▶';
+        
         if(playerSub.innerText === "LIVE NOW") {
             smallBtn.innerHTML = isPlaying ? stopS : '▶';
         } else {
             smallBtn.innerHTML = '▶';
         }
+
         if (isPlaying) startProgress();
         else clearInterval(progressInterval);
     }
@@ -592,19 +584,8 @@ color: #fff;
         }, 100);
     }
 
-    // 5. EVENT LISTENERS (DIBALUT DOMContentLoaded)
-   document.addEventListener('DOMContentLoaded', function() {
-        // ... semua kode inside ...
-        
-        const likeBtn = document.getElementById('like-btn');
-        let isLiked = false;
-        likeBtn.onclick = function() {
-            isLiked = !isLiked;
-            this.innerHTML = isLiked ? '♥' : '♡';
-            this.style.color = '#fff'; 
-        };
-    }); // <--- Pastikan ada kurung tutup dan semicolon ini
-
+    // 5. EVENT LISTENERS (Hanya satu DOMContentLoaded agar tidak bentrok)
+    document.addEventListener('DOMContentLoaded', function() {
         // Header Play
         smallBtn.addEventListener('click', () => {
             const liveTitle = document.getElementById('live-text-source').innerText;
@@ -628,15 +609,17 @@ color: #fff;
             }, 400);
         });
 
-        // Like Button (Tetap Putih)
+        // Like Button
         const likeBtn = document.getElementById('like-btn');
         let isLiked = false;
-        likeBtn.onclick = function() {
-            isLiked = !isLiked;
-            this.innerHTML = isLiked ? '♥' : '♡';
-            this.style.color = '#fff'; 
-        };
-    }); // <--- PENUTUP YANG TADI HILANG
+        if(likeBtn) {
+            likeBtn.onclick = function() {
+                isLiked = !isLiked;
+                this.innerHTML = isLiked ? '♥' : '♡';
+                this.style.color = '#fff'; 
+            };
+        }
+    });
 
     // 6. SEEK & DRAG
     function seek(amount) {
@@ -658,7 +641,7 @@ color: #fff;
     window.addEventListener('mousemove', (e) => { if (isDragging) updateFromMouse(e); });
     window.addEventListener('mouseup', () => { isDragging = false; });
 
-    // 7. FOOTER SARAN (Fungsi tetap sama)
+    // 7. FOOTER SARAN
     function sendSaran() {
         const pesan = document.getElementById('saranText').value;
         if (pesan.trim() === "") {
