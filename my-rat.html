@@ -40,12 +40,33 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
 /* ================= HERO ================= */
-.hero{ position:relative; height:100vh; background:url(https://i.pinimg.com/736x/bb/02/21/bb022133bdc7fcbea9b48e12a33d8160.jpg) center/cover; display:flex; align-items:flex-end; padding:60px; filter: grayscale(100%); }
-.overlay{ position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0.2)); }
-.hero-content { position: relative; margin-bottom: 80px; max-width: 500px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
-.hero h2 { font-size: 85px; font-weight: 800; line-height: 0.8; letter-spacing: -5px; text-transform: uppercase; margin-bottom: 10px; margin-left: -4px; }
-.worldwide-label { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 0px; margin-bottom: 25px; }
-.hero-description { font-size: 13px; line-height: 1.6; opacity: 0.6; font-weight: 400; max-width: 420px; }
+.my-rat-content { padding: 120px 60px; min-height: 100vh; }
+
+.list-item { 
+    display: flex; align-items: center; 
+    padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); 
+}
+
+/* Kiri: Cover B&W ukuran 100px */
+.item-cover { 
+    width: 100px; height: 100px; flex-shrink: 0; 
+    margin-right: 30px; filter: grayscale(100%); object-fit: cover; 
+}
+
+/* Tengah: Judul Bold & Tanggal Opacity 0.5 */
+.item-info { flex-grow: 1; }
+.item-info b { 
+    display: block; font-size: 18px; font-weight: 800; 
+    text-transform: uppercase; margin-bottom: 4px; 
+}
+.item-info span { font-size: 12px; opacity: 0.5; }
+
+/* Kanan: Trash & View */
+.item-actions { 
+    display: flex; flex-direction: column; 
+    justify-content: space-between; align-items: flex-end; 
+    height: 100px; padding: 5px 0; 
+}
 
 /* ================= ARCHIVE SECTION ================= */
 .archive-section { padding: 80px 60px 140px 60px; background: #000; }
@@ -53,15 +74,6 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .archive-header h3 { font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: -1px; }
 .archive-header a { font-size: 11px; font-weight: 700; color: #fff; text-decoration: none; opacity: 0.5; transition: 0.3s; }
 .archive-header a:hover { opacity: 1; }
-
-.archive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 40px 20px; }
-.archive-item { cursor: pointer; transition: 0.3s; }
-.archive-item .img-box { width: 100%; aspect-ratio: 1/1; background: #111; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
-.archive-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
-.archive-item:hover { transform: translateY(-8px); }
-.archive-item:hover img { filter: grayscale(0%); transform: scale(1.05); }
-.archive-info b { display: block; font-size: 14px; text-transform: uppercase; font-weight: 800; margin-bottom: 4px; color: #fff; }
-.archive-info span { font-size: 11px; opacity: 0.5; text-transform: uppercase; font-weight: 400; }
 
 /* ================= PLAYER FIXED ================= */
 .player-fixed {
@@ -298,35 +310,75 @@ footer {
   </div>
 </div>
 
-<div class="hero">
-    <div class="overlay"></div>
-    <div class="hero-content">
-        <h2>RAT<br>RADIO</h2>
-        <p class="worldwide-label">WORLDWIDE</p>
-        <p class="hero-description">RAT Radio is a global broadcasting platform and digital archive dedicated to the art of selection. We operate as a fluid space for musical exploration, connecting listeners with the most compelling sounds from across the spectrum.</p>
-    </div>
-</div>
+<main class="my-rat-content">
+    <div class="archive-header"><h3>Shows</h3></div>
+    <div id="shows-list">
+        
+        <div class="list-item">
+            <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="item-cover">
+            <div class="item-info">
+                <b>THE SEWER GHOST</b>
+                <span>12 FEB 2026</span>
+            </div>
+            <div class="item-actions">
+                <div class="trash-icon" onclick="removeItem(this)">🗑</div>
+                <div class="view-btn" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE — 12 FEB 2026', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">VIEW ↗</div>
+            </div>
+        </div>
 
-<section class="archive-section" id="archive-section">
-    <div class="archive-header"><h3>Archive</h3><a href="#" title="View all archives">View All ↗</a></div>
-    <div class="archive-grid">
-        <div class="archive-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE — 12 FEB 2026', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
-            <div class="img-box"><img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" alt="Archive"></div>
-            <div class="archive-info"><b>The Sewer Ghost</b><span>Ghostface — 12 Feb 2026</span></div>
+        <div class="list-item">
+            <img src="https://i.pinimg.com/1200x/53/07/9f/53079fd51d47cc2853837bca36065fd9.jpg" class="item-cover">
+            <div class="item-info">
+                <b>NIGHT SHIFT</b>
+                <span>08 FEB 2026</span>
+            </div>
+            <div class="item-actions">
+                <div class="trash-icon" onclick="removeItem(this)">🗑</div>
+                <div class="view-btn" onclick="changeTrack('NIGHT SHIFT', 'MALIK — 08 FEB 2026', 'https://i.pinimg.com/1200x/53/07/9f/53079fd51d47cc2853837bca36065fd9.jpg')">VIEW ↗</div>
+            </div>
         </div>
-        <div class="archive-item" onclick="changeTrack('NIGHT SHIFT', 'MALIK — 08 FEB 2026', 'https://i.pinimg.com/1200x/53/07/9f/53079fd51d47cc2853837bca36065fd9.jpg')">
-            <div class="img-box"><img src="https://i.pinimg.com/1200x/53/07/9f/53079fd51d47cc2853837bca36065fd9.jpg" alt="Archive"></div>
-            <div class="archive-info"><b>Night Shift</b><span>Malik — 08 Feb 2026</span></div>
+
+        <div class="list-item">
+            <img src="https://i.pinimg.com/736x/7c/bd/5b/7cbd5bb67223f8b541c2b5d7cc066b1d.jpg" class="item-cover">
+            <div class="item-info">
+                <b>CONCRETE JUNGLE</b>
+                <span>01 FEB 2026</span>
+            </div>
+            <div class="item-actions">
+                <div class="trash-icon" onclick="removeItem(this)">🗑</div>
+                <div class="view-btn" onclick="changeTrack('CONCRETE JUNGLE', 'VEX — 01 FEB 2026', 'https://i.pinimg.com/736x/7c/bd/5b/7cbd5bb67223f8b541c2b5d7cc066b1d.jpg')">VIEW ↗</div>
+            </div>
         </div>
-        <div class="archive-item" onclick="changeTrack('CONCRETE JUNGLE', 'VEX — 01 FEB 2026', 'https://i.pinimg.com/736x/7c/bd/5b/7cbd5bb67223f8b541c2b5d7cc066b1d.jpg')">
-            <div class="img-box"><img src="https://i.pinimg.com/736x/7c/bd/5b/7cbd5bb67223f8b541c2b5d7cc066b1d.jpg" alt="Archive"></div>
-            <div class="archive-info"><b>Concrete Jungle</b><span>Vex — 01 Feb 2026</span></div>
+
+        <div class="list-item">
+            <img src="https://i.pinimg.com/736x/b9/99/c9/b999c9c9da549cc9525a78911676c70e.jpg" class="item-cover">
+            <div class="item-info">
+                <b>UNDERGROUND ECHO</b>
+                <span>28 JAN 2026</span>
+            </div>
+            <div class="item-actions">
+                <div class="trash-icon" onclick="removeItem(this)">🗑</div>
+                <div class="view-btn" onclick="changeTrack('UNDERGROUND ECHO', 'LOST SIGNAL — 28 JAN 2026', 'https://i.pinimg.com/736x/b9/99/c9/b999c9c9da549cc9525a78911676c70e.jpg')">VIEW ↗</div>
+            </div>
         </div>
-        <div class="archive-item" onclick="changeTrack('UNDERGROUND ECHO', 'LOST SIGNAL — 28 JAN 2026', 'https://i.pinimg.com/736x/b9/99/c9/b999c9c9da549cc9525a78911676c70e.jpg')">
-            <div class="img-box"><img src="https://i.pinimg.com/736x/b9/99/c9/b999c9c9da549cc9525a78911676c70e.jpg" alt="Archive"></div>
-            <div class="archive-info"><b>Underground Echo</b><span>Lost Signal — 28 Jan 2026</span></div>
+
+    </div>
+
+    <div class="archive-header" style="margin-top: 60px;"><h3>History</h3></div>
+    <div id="history-list">
+        </div>
+</main>
+            <div class="item-actions">
+                <div class="trash-icon" style="cursor:pointer" onclick="this.closest('.list-item').remove()">🗑</div>
+                <div class="view-btn" style="cursor:pointer" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE — 12 FEB 2026', 'URL_FOTO_LO')">🔗 VIEW ↗</div>
+            </div>
         </div>
     </div>
+
+    <div class="archive-header" style="margin-top: 60px;"><h3>History</h3></div>
+    <div id="history-list">
+        </div>
+</main>
 </section>
 
 <footer>
@@ -447,19 +499,28 @@ footer {
         }
     }
 
-    function changeTrack(title, sub, imgSrc) {
-        playerTitle.innerText = title;
-        playerSub.innerText = sub;
-        bottomCover.src = imgSrc;
-        playerBar.style.display = 'flex';
-        setTimeout(() => { playerBar.style.transform = 'translateY(0)'; }, 10);
-        playerVisible = true;
-        isPlaying = true;
-        currentProgress = 0;
-        progressBar.style.width = "0%";
-        updatePlayIcons();
-        if (drawer.style.display === 'block') toggleDrawer();
-    }
+  function changeTrack(title, sub, imgSrc) {
+    // 1. Ambil elemen player (pastikan ID-nya sesuai di HTML)
+    const playerBar = document.getElementById('main-player');
+    const playerTitle = document.getElementById('player-title');
+    const playerSub = document.getElementById('player-sub');
+    const bottomCover = document.getElementById('bottom-cover');
+
+    // 2. Isi data dari list ke dalam player
+    playerTitle.innerText = title;
+    playerSub.innerText = sub;
+    bottomCover.src = imgSrc;
+
+    // 3. Munculkan player-nya
+    playerBar.style.display = 'flex';
+    setTimeout(() => { 
+        playerBar.style.transform = 'translateY(0)'; 
+    }, 10);
+    
+    // Set status playing (jika ada logika play/pause)
+    isPlaying = true;
+    updatePlayIcons(); 
+}
 
     function updatePlayIcons() {
         const stopS = '<div class="stop-square-small"></div>';
@@ -546,7 +607,20 @@ footer {
         }
         const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
         window.open(mailUrl, '_blank');
-    }
+// 1. Fungsi Hapus
+function removeItem(tombol) {
+    tombol.closest('.list-item').remove();
+}
+// 2. Fungsi Putar (Nampilin Player)
+function changeTrack(title, sub, imgSrc) {
+    document.getElementById('player-title').innerText = title;
+    document.getElementById('player-sub').innerText = sub;
+    document.getElementById('bottom-cover').src = imgSrc;
+    
+    const p = document.getElementById('main-player');
+    p.style.display = 'flex';
+    setTimeout(() => { p.style.transform = 'translateY(0)'; }, 10);
+}
 </script>
 
 </body>
