@@ -77,35 +77,89 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-top: 1px solid rgba(255,255,255,0.2);
 }
+
 .progress-container {
     position: absolute; top: -3px; left: 0; width: 100%; height: 6px;
-    background: rgba(255,255,255,0.1); cursor: pointer;
+    background: rgba(255,255,255,0.1); cursor: pointer; /* Kursor tangan untuk progress */
     display: flex; align-items: center;
 }
-.progress-bar { height: 100%; background: #fff; width: 0%; position: relative; }
+
+.progress-bar {
+    height: 100%; background: #fff; width: 0%; position: relative; 
+}
+
 .progress-bar::after {
     content: ""; position: absolute; right: -5px; top: 50%; 
     transform: translateY(-50%); width: 10px; height: 10px; 
     background: #fff; border-radius: 50%; box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
+
 .player-left { display: flex; align-items: center; padding-left: 20px; gap: 15px; }
-.btn-toggle-bottom { cursor: pointer; font-size: 22px; width: 25px; display: flex; justify-content: center; transition: 0.2s; }
+
+/* Tombol Play/Stop di Player */
+.btn-toggle-bottom { 
+    cursor: pointer; 
+    font-size: 22px; width: 25px; 
+    display: flex; justify-content: center; 
+    transition: 0.2s; 
+}
 .btn-toggle-bottom:hover { opacity: 0.6; }
+
 .stop-square-bottom { width: 14px; height: 14px; background: #fff; } 
+
 .track-box { display: flex; align-items: center; gap: 12px; }
 .track-box img { width: 38px; height: 38px; border: 1px solid #fff; filter: grayscale(100%); }
+
 .title-info b { font-size: 12.5px; display: block; text-transform: uppercase; font-weight: 700; line-height: 1.2; }
 .title-info span { font-size: 10px; opacity: 0.7; }
+
 .player-right { display: flex; align-items: center; height: 100%; }
+
 .icon-group { display: flex; align-items: center; gap: 20px; padding: 0 20px; }
-.icon-group span { cursor: pointer; color: #fff; font-weight: 700; transition: 0.2s; display: flex; align-items: center; }
+
+/* Menambah kursor tangan dan hover pada semua icon di kanan */
+.icon-group span { 
+    cursor: pointer; 
+    color: #fff; 
+    font-weight: 700; 
+    transition: 0.2s; 
+    display: flex; 
+    align-items: center; 
+}
 .icon-group span:hover { opacity: 0.5; transform: scale(1.1); }
+
 #like-btn { font-size: 22px; } 
-.share-icon { font-size: 18px; filter: brightness(0) invert(1); cursor: pointer; }
+
+/* Share icon butuh filter agar terlihat di background hitam */
+.share-icon { 
+    font-size: 18px; 
+    filter: brightness(0) invert(1); 
+    cursor: pointer; 
+}
+
 .divider { width: 1px; height: 100%; background: #fff; opacity: 0.2; } 
-.up-next-btn { display: flex; align-items: center; gap: 6px; padding: 0 20px; font-weight: 700; font-size: 11px; color: #fff; text-decoration: none; transition: 0.2s; }
+
+.up-next-btn { 
+    display: flex; align-items: center; 
+    gap: 6px; padding: 0 20px; 
+    font-weight: 700; font-size: 11px; 
+    color: #fff; text-decoration: none; 
+    transition: 0.2s; 
+    cursor: pointer;
+}
 .up-next-btn:hover { opacity: 0.6; }
-.close-btn { padding: 0 20px; font-size: 18px; cursor: pointer; border-left: 1px solid #fff; opacity: 0.4; height: 100%; display: flex; align-items: center; transition: 0.3s; }
+
+.close-btn { 
+    padding: 0 20px; 
+    font-size: 18px; 
+    cursor: pointer; 
+    border-left: 1px solid #fff; 
+    opacity: 0.4; 
+    height: 100%; 
+    display: flex; 
+    align-items: center; 
+    transition: 0.3s; 
+}
 .close-btn:hover { opacity: 1; background: rgba(255,255,255,0.1); }
 
 /* ================= TRACKLIST DRAWER (IDENTIK INDEX) ================= */
@@ -202,19 +256,19 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
   </div>
   <div class="player-right">
     <div class="icon-group">
-        <span onclick="seek(-30)">⟲ 30</span>
-        <span onclick="seek(30)">⟳ 30</span>
-        <span style="font-size:24px">☁</span>
+        <span title="Rewind 30s" onclick="seek(-30)">⟲ 30</span>
+        <span title="Forward 30s" onclick="seek(30)">⟳ 30</span>
+        <span style="font-size:24px" title="Soundcloud Mode">☁</span>
     </div>
-    <div class="divider"></div>
-    <div class="icon-group">
-        <span id="like-btn">♡</span>
-        <span class="share-icon">🔗</span>
-        <span class="menu-icon">☰</span>
+    
+    <div class="divider"></div> <div class="icon-group">
+        <span id="like-btn" title="Add to Favorites">♡</span>
+        <span class="share-icon" title="Share Track">🔗</span>
+        <span title="Menu" class="menu-icon" onclick="toggleDrawer()">☰</span>
     </div>
-    <a href="#" class="up-next-btn">UP NEXT ▲</a>
-    <div class="close-btn" id="close-player">✕</div>
-  </div>
+    
+    <a href="#" class="up-next-btn" title="Next Up">UP NEXT ▲</a>
+    <div class="close-btn" id="close-player" title="Close Player">✕</div>
 </div>
 
 <div id="tracklist-drawer">
@@ -278,11 +332,23 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
     }
 
     function updatePlayIcons() {
-        const stopB = '<div class="stop-square-bottom"></div>';
-        bottomBtn.innerHTML = isPlaying ? stopB : '▶';
-        if (isPlaying) startProgress();
-        else clearInterval(progressInterval);
+    const stopS = '<div class="stop-square-small"></div>';
+    const stopB = '<div class="stop-square-bottom"></div>';
+
+    // Update tombol di Footer Player
+    bottomBtn.innerHTML = isPlaying ? stopB : '▶';
+
+    // Update tombol di Header (Live Now)
+    // Kita cek apakah yang sedang diputar adalah "LIVE NOW"
+    if(playerSub.innerText === "LIVE NOW") {
+        smallBtn.innerHTML = isPlaying ? stopS : '▶';
+    } else {
+        smallBtn.innerHTML = '▶'; // Tetap Play jika bukan live
     }
+
+    if (isPlaying) startProgress();
+    else clearInterval(progressInterval);
+}
 
     function startProgress() {
         clearInterval(progressInterval);
