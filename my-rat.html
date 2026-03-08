@@ -76,30 +76,32 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 /* Update bagian ini di style kamu */
 .item-actions { 
     display: flex; 
-    gap: 15px; /* Jarak antar teks aksi */
+    flex-direction: row; /* Paksa horizontal */
+    gap: 20px;           /* Jarak antar teks */
     align-items: center; 
     justify-content: flex-end;
-    height: 80px; /* Samakan dengan tinggi foto agar presisi */
+    height: 80px; 
 }
 
 .action-text {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #888; /* Warna abu default */
+    color: #fff;
     cursor: pointer;
     text-decoration: none;
+    opacity: 0.5;
     transition: 0.2s;
-    line-height: 1; /* Mengunci posisi vertikal huruf */
     display: inline-flex;
     align-items: center;
+    line-height: 1; 
 }
 
 .action-text:hover { 
     color: #fff; /* Jadi putih bersih saat kursor ke situ */
     /* Feedback Copied */
 .action-text.copied {
-    color: #00ff00; /* Warna hijau biar kelihatan berhasil */
+    color: #ffffff; /* Warna putih biar kelihatan berhasil */
     opacity: 1;
 }
 }
@@ -381,17 +383,16 @@ footer {
 
 <section class="shows-section">
     <div class="history-list" id="history-container">
-    <div class="list-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
-        <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="item-cover">
-        <div class="item-info">
-            <b>THE SEWER GHOST</b>
-            <span>12 FEB 2026</span>
-        </div>
-        <div class="item-actions">
-            <span class="action-text" onclick="event.stopPropagation(); shareShow(this, 'THE SEWER GHOST')">SHARE</span>
-            <span class="action-text" onclick="event.stopPropagation(); openView('THE SEWER GHOST', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">VIEW ↗</span>
-            <span class="action-text" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">DELETE</span>
-        </div>
+  <div class="list-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
+    <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="item-cover">
+    <div class="item-info">
+        <b>THE SEWER GHOST</b>
+        <span>12 FEB 2026</span>
+    </div>
+    <div class="item-actions">
+        <span class="action-text" onclick="event.stopPropagation(); shareShow(this, 'THE SEWER GHOST')">SHARE</span>
+        <span class="action-text" onclick="event.stopPropagation(); openView('THE SEWER GHOST', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">VIEW ↗</span>
+        <span class="action-text" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">DELETE</span>
     </div>
 </div>
             <div class="item-actions">
@@ -553,25 +554,31 @@ footer {
     }
 
     // 3. FUNGSI SHARE & VIEW (FITUR BARU)
-    function shareShow(element, title) {
-        const dummyLink = window.location.origin + "/show/" + title.replace(/\s+/g, '-').toLowerCase();
-        navigator.clipboard.writeText(dummyLink).then(() => {
-            const originalText = element.innerText;
-            element.innerText = "COPIED";
-            element.classList.add('copied');
-            setTimeout(() => {
-                element.innerText = originalText;
-                element.classList.remove('copied');
-            }, 2000);
-        });
-    }
-
+   function shareShow(element, title) {
+    // Membuat link dummy
+    const dummyLink = window.location.origin + "/show/" + title.replace(/\s+/g, '-').toLowerCase();
+    
+    navigator.clipboard.writeText(dummyLink).then(() => {
+        const originalText = element.innerText;
+        element.innerText = "COPIED";
+        element.classList.add('copied'); // Mengaktifkan warna hijau
+        
+        setTimeout(() => {
+            element.innerText = originalText;
+            element.classList.remove('copied');
+        }, 2000);
+    });
+}
     function openView(title, img) {
-        document.getElementById('drawer-title-big').innerText = title;
-        document.getElementById('drawer-cover-img').src = img;
-        drawer.style.display = 'block';
-        setTimeout(() => drawer.classList.add('active'), 10);
+    // Mengisi data ke drawer yang sudah ada
+    document.getElementById('drawer-title-big').innerText = title.toUpperCase();
+    document.getElementById('drawer-cover-img').src = img;
+    
+    // Membuka drawer
+    if (typeof toggleDrawer === "function") {
+        toggleDrawer();
     }
+}
 
     // 4. FUNGSI LOAD & DELETE UNTUK SAVED SHOWS (LOCAL STORAGE)
     function loadSavedShows() {
