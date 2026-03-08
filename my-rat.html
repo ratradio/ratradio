@@ -97,6 +97,11 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 
 .action-text:hover { 
     color: #fff; /* Jadi putih bersih saat kursor ke situ */
+    /* Feedback Copied */
+.action-text.copied {
+    color: #00ff00; /* Warna hijau biar kelihatan berhasil */
+    opacity: 1;
+}
 }
 
 /* Kiri: Grayscale Cover */
@@ -471,6 +476,7 @@ footer {
 </div>
 
 <script>
+    // 1. DEFINISI VARIABLE UTAMA
     const smallBtn = document.getElementById('toggle-small');
     const bottomBtn = document.getElementById('toggle-bottom');
     const playerBar = document.getElementById('main-player');
@@ -486,6 +492,7 @@ footer {
     let progressInterval;
     let isDragging = false;
 
+    // 2. FUNGSI DRAWER & TRACK (SAMA SEPERTI INDEX)
     function toggleDrawer() {
         if (!drawer) return;
         const isActive = drawer.classList.contains('active');
@@ -513,23 +520,17 @@ footer {
     }
 
     function updatePlayIcons() {
-    const stopS = '<div class="stop-square-small"></div>';
-    const stopB = '<div class="stop-square-bottom"></div>';
-
-    // Update tombol di Footer Player
-    bottomBtn.innerHTML = isPlaying ? stopB : '▶';
-
-    // Update tombol di Header (Live Now)
-    // Kita cek apakah yang sedang diputar adalah "LIVE NOW"
-    if(playerSub.innerText === "LIVE NOW") {
-        smallBtn.innerHTML = isPlaying ? stopS : '▶';
-    } else {
-        smallBtn.innerHTML = '▶'; // Tetap Play jika bukan live
+        const stopS = '<div class="stop-square-small"></div>';
+        const stopB = '<div class="stop-square-bottom"></div>';
+        bottomBtn.innerHTML = isPlaying ? stopB : '▶';
+        if(playerSub.innerText === "LIVE NOW") {
+            smallBtn.innerHTML = isPlaying ? stopS : '▶';
+        } else {
+            smallBtn.innerHTML = '▶';
+        }
+        if (isPlaying) startProgress();
+        else clearInterval(progressInterval);
     }
-
-    if (isPlaying) startProgress();
-    else clearInterval(progressInterval);
-}
 
     function startProgress() {
         clearInterval(progressInterval);
@@ -541,7 +542,70 @@ footer {
         }, 100);
     }
 
+    // 3. FUNGSI SHARE & VIEW (FITUR BARU)
+    function shareShow(element, title) {
+        const dummyLink = window.location.origin + "/show/" + title.replace(/\s+/g, '-').toLowerCase();
+        navigator.clipboard.writeText(dummyLink).then(() => {
+            const originalText = element.innerText;
+            element.innerText = "COPIED";
+            element.classList.add('copied');
+            setTimeout(() => {
+                element.innerText = originalText;
+                element.classList.remove('copied');
+            }, 2000);
+        });
+    }
+
+    function openView(title, img) {
+        document.getElementById('drawer-title-big').innerText = title;
+        document.getElementById('drawer-cover-img').src = img;
+        drawer.style.display = 'block';
+        setTimeout(() => drawer.classList.add('active'), 10);
+    }
+
+    // 4. FUNGSI LOAD & DELETE UNTUK SAVED SHOWS (LOCAL STORAGE)
+    function loadSavedShows() {
+        const savedContainer = document.getElementById('saved-container');
+        const savedData = JSON.parse(localStorage.getItem('rat_saved')) || [];
+
+        if (savedData.length === 0) {
+            savedContainer.innerHTML = '<p style="font-size: 11px; opacity: 0.5;">No saved shows yet.</p>';
+            return;
+        }
+
+        savedContainer.innerHTML = '';
+        savedData.forEach((show, index) => {
+            const item = document.createElement('div');
+            item.className = 'list-item';
+            item.onclick = () => changeTrack(show.title, show.sub, show.img);
+            item.innerHTML = `
+                <img src="${show.img}" class="item-cover">
+                <div class="item-info">
+                    <b>${show.title}</b>
+                    <span>${show.date}</span>
+                </div>
+                <div class="item-actions">
+                    <span class="action-text" onclick="event.stopPropagation(); shareShow(this, '${show.title}')">SHARE</span>
+                    <span class="action-text" onclick="event.stopPropagation(); openView('${show.title}', '${show.img}')">VIEW ↗</span>
+                    <span class="action-text" onclick="event.stopPropagation(); removeSaved(${index})">DELETE</span>
+                </div>
+            `;
+            savedContainer.appendChild(item);
+        });
+    }
+
+    function removeSaved(index) {
+        let saved = JSON.parse(localStorage.getItem('rat_saved')) || [];
+        saved.splice(index, 1);
+        localStorage.setItem('rat_saved', JSON.stringify(saved));
+        loadSavedShows();
+    }
+
+    // 5. SEMUA EVENT LISTENER
     document.addEventListener('DOMContentLoaded', function() {
+        // Load data awal
+        loadSavedShows();
+
         const menuIcon = document.querySelector('.menu-icon');
         if (menuIcon) menuIcon.onclick = (e) => { e.preventDefault(); toggleDrawer(); };
 
@@ -560,29 +624,27 @@ footer {
             setTimeout(() => { playerBar.style.display = 'none'; isPlaying = false; updatePlayIcons(); }, 400);
         });
 
-        // EDIT DI SEMUA HTML (Index, Explore, dll)
-const likeBtn = document.getElementById('like-btn');
-likeBtn.onclick = function() {
-    this.innerHTML = (this.innerHTML === '♡') ? '♥' : '♡';
-    
-    // LOGIKA SAVED:
-    const showData = {
-        title: document.getElementById('player-title').innerText,
-        sub: document.getElementById('player-sub').innerText,
-        img: document.getElementById('bottom-cover').src,
-        date: new Date().toLocaleDateString('en-GB')
-    };
+        const likeBtn = document.getElementById('like-btn');
+        likeBtn.onclick = function() {
+            this.innerHTML = (this.innerHTML === '♡') ? '♥' : '♡';
+            const showData = {
+                title: document.getElementById('player-title').innerText,
+                sub: document.getElementById('player-sub').innerText,
+                img: document.getElementById('bottom-cover').src,
+                date: new Date().toLocaleDateString('en-GB')
+            };
+            let saved = JSON.parse(localStorage.getItem('rat_saved')) || [];
+            if(this.innerHTML === '♥') {
+                saved.push(showData);
+            } else {
+                saved = saved.filter(s => s.title !== showData.title);
+            }
+            localStorage.setItem('rat_saved', JSON.stringify(saved));
+            loadSavedShows(); // Update tampilan My RAT secara real-time
+        };
+    });
 
-    let saved = JSON.parse(localStorage.getItem('rat_saved')) || [];
-    
-    if(this.innerHTML === '♥') {
-        saved.push(showData);
-    } else {
-        saved = saved.filter(s => s.title !== showData.title);
-    }
-    localStorage.setItem('rat_saved', JSON.stringify(saved));
-};
-
+    // 6. FUNGSI PEMBANTU (PROGRESS BAR & SEEK)
     function seek(amount) {
         currentProgress += (amount / 2); 
         if (currentProgress < 0) currentProgress = 0;
@@ -603,62 +665,11 @@ likeBtn.onclick = function() {
     window.addEventListener('mouseup', () => { isDragging = false; });
     
     function sendSaran() {
-    const pesan = document.getElementById('saranText').value;
-    if (pesan.trim() === "") {
-        alert("Please write something first.");
-        return;
+        const pesan = document.getElementById('saranText').value;
+        if (pesan.trim() === "") { alert("Please write something first."); return; }
+        const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
+        window.open(mailUrl, '_blank');
     }
-    const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
-    window.open(mailUrl, '_blank');
-}
-        // Fungsi untuk memuat data dari LocalStorage ke dalam halaman My RAT
-function loadSavedShows() {
-    const savedContainer = document.getElementById('saved-container');
-    const savedData = JSON.parse(localStorage.getItem('rat_saved')) || [];
-
-    if (savedData.length === 0) {
-        savedContainer.innerHTML = '<p style="font-size: 11px; opacity: 0.5;">No saved shows yet.</p>';
-        return;
-    }
-
-    savedContainer.innerHTML = '';
-
-    savedData.forEach((show, index) => {
-        const item = document.createElement('div');
-        item.className = 'list-item';
-        item.onclick = () => changeTrack(show.title, show.sub, show.img);
-
-        item.innerHTML = `
-            <img src="${show.img}" class="item-cover">
-            <div class="item-info">
-                <b>${show.title}</b>
-                <span>${show.date}</span>
-            </div>
-            <div class="item-actions">
-                <span class="action-text" onclick="event.stopPropagation(); shareShow('${show.title}')">SHARE</span>
-                <a href="#" class="action-text">VIEW ↗</a>
-                <span class="action-text" onclick="event.stopPropagation(); removeSaved(${index})">DELETE</span>
-            </div>
-        `;
-        savedContainer.appendChild(item);
-    });
-}
-
-// Fungsi hapus khusus untuk data Saved (LocalStorage)
-function removeSaved(index) {
-    let saved = JSON.parse(localStorage.getItem('rat_saved')) || [];
-    saved.splice(index, 1);
-    localStorage.setItem('rat_saved', JSON.stringify(saved));
-    loadSavedShows(); // Refresh tampilan
-}
-
-function shareShow(title) {
-    alert("Sharing: " + title);
-}
-
-// Jalankan fungsi load saat halaman dibuka
-document.addEventListener('DOMContentLoaded', loadSavedShows);
 </script>
-
 </body>
 </html>
