@@ -551,7 +551,10 @@ footer {
         if (menuIcon) {
             menuIcon.onclick = (e) => { e.preventDefault(); toggleDrawer(); };
         }
-
+// Cek jika link dari My RAT minta buka drawer
+if (new URLSearchParams(window.location.search).get('openDrawer') === 'true') {
+    setTimeout(toggleDrawer, 500); 
+}
         // Header Play
         smallBtn.addEventListener('click', () => {
             const liveTitle = document.getElementById('live-text-source').innerText;
