@@ -133,17 +133,21 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
     text-decoration: none;
     opacity: 0.5;
     transition: 0.2s;
-    /* Kunci Sejajar Huruf E */
     display: inline-flex;
     align-items: center;
     line-height: 1; 
-    height: 11px; /* Paksa tinggi elemen sama dengan ukuran font */
+    height: 11px;
 }
 
 .action-text:hover { 
     opacity: 1; 
 }
 
+/* CSS BARU: Supaya saat dapet class copied warnanya berubah hijau */
+.action-text.copied {
+    color: #00ff00 !important;
+    opacity: 1 !important;
+}
 /* Perbaikan Header Section (SAVED SHOWS & HISTORY) */
 .section-header h3 { 
     font-size: 24px; 
@@ -376,14 +380,20 @@ footer {
 </section>
 
 <section class="shows-section">
-    <div class="section-header"><h3>HISTORY</h3></div>
     <div class="history-list" id="history-container">
-        <div class="list-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
-            <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="item-cover">
-            <div class="item-info">
-                <b>THE SEWER GHOST</b>
-                <span>12 FEB 2026</span>
-            </div>
+    <div class="list-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
+        <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="item-cover">
+        <div class="item-info">
+            <b>THE SEWER GHOST</b>
+            <span>12 FEB 2026</span>
+        </div>
+        <div class="item-actions">
+            <span class="action-text" onclick="event.stopPropagation(); shareShow(this, 'THE SEWER GHOST')">SHARE</span>
+            <span class="action-text" onclick="event.stopPropagation(); openView('THE SEWER GHOST', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">VIEW ↗</span>
+            <span class="action-text" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">DELETE</span>
+        </div>
+    </div>
+</div>
             <div class="item-actions">
                 <span class="action-text">SHARE</span>
                 <a href="#" class="action-text">VIEW</a>
