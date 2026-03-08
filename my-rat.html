@@ -38,12 +38,14 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .stop-square-small { width: 10px; height: 10px; background: #fff; }
 
 /* ================= DESAIN TENGAH (MY RAT CUSTOM) ================= */
+/* ================= DESAIN TENGAH (MY RAT CUSTOM) - UPDATED ================= */
 .my-rat-hero { padding: 120px 60px 40px 60px; }
 .my-rat-hero h2 { font-size: 85px; font-weight: 800; letter-spacing: -5px; line-height: 0.8; text-transform: uppercase; }
 
-.history-section { padding: 0 60px 100px 60px; }
-.history-header { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 30px; }
-.history-header h3 { font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: -1px; }
+/* Section Styling */
+.shows-section { padding: 0 60px 60px 60px; }
+.section-header { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 30px; }
+.section-header h3 { font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: -1px; }
 
 .history-list { display: flex; flex-direction: column; }
 .list-item { 
@@ -52,6 +54,35 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
     cursor: pointer; transition: 0.2s;
 }
 .list-item:hover { background: rgba(255,255,255,0.03); }
+
+/* Kiri: Grayscale Cover */
+.item-cover { width: 80px; height: 80px; filter: grayscale(100%); object-fit: cover; margin-right: 25px; border: 1px solid rgba(255,255,255,0.1); }
+
+/* Tengah: Info */
+.item-info { flex: 1; }
+.item-info b { display: block; font-size: 18px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
+.item-info span { font-size: 12px; opacity: 0.5; font-weight: 400; }
+
+/* Kanan: Aksi (Text Only, Sejajar, Font Kecil) */
+.item-actions { 
+    display: flex; 
+    gap: 20px; 
+    align-items: center; 
+}
+
+.action-text {
+    font-size: 10px; /* Diperkecil sesuai permintaan */
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #888; /* Warna Abu-abu */
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.action-text:hover { 
+    color: #fff; /* Jadi putih saat hover */
+}
 
 /* Kiri: Grayscale Cover */
 .item-cover { width: 80px; height: 80px; filter: grayscale(100%); object-fit: cover; margin-right: 25px; border: 1px solid rgba(255,255,255,0.1); }
@@ -304,32 +335,30 @@ footer {
     <h2>SHOWS</h2>
 </div>
 
-<section class="history-section">
-    <div class="history-header"><h3>HISTORY</h3></div>
+<section class="shows-section">
+    <div class="section-header"><h3>SAVED SHOWS</h3></div>
+    <div class="history-list" id="saved-container">
+        <p style="font-size: 11px; opacity: 0.5;">No saved shows yet.</p>
+    </div>
+</section>
+
+<section class="shows-section">
+    <div class="section-header"><h3>HISTORY</h3></div>
     <div class="history-list" id="history-container">
-        <div class="list-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE — 12 FEB 2026', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
+        <div class="list-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
             <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="item-cover">
             <div class="item-info">
                 <b>THE SEWER GHOST</b>
                 <span>12 FEB 2026</span>
             </div>
             <div class="item-actions">
-                <div class="trash-btn" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">🗑</div>
-                <div class="view-link">SHARE <span class="share-icon" style="font-size:14px; filter:none;">🔗</span> VIEW ↗</div>
-            </div>
-        </div>
-        <div class="list-item" onclick="changeTrack('NIGHT SHIFT', 'MALIK — 08 FEB 2026', 'https://i.pinimg.com/1200x/53/07/9f/53079fd51d47cc2853837bca36065fd9.jpg')">
-            <img src="https://i.pinimg.com/1200x/53/07/9f/53079fd51d47cc2853837bca36065fd9.jpg" class="item-cover">
-            <div class="item-info">
-                <b>NIGHT SHIFT</b>
-                <span>08 FEB 2026</span>
-            </div>
-            <div class="item-actions">
-                <div class="trash-btn" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">🗑</div>
-                <div class="view-link">SHARE <span class="share-icon" style="font-size:14px; filter:none;">🔗</span> VIEW ↗</div>
+                <span class="action-text">SHARE</span>
+                <a href="#" class="action-text">VIEW ↗</a>
+                <span class="action-text" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">DELETE</span>
             </div>
         </div>
     </div>
+</section>
 </section>
     <footer>
     <div class="footer-top">
@@ -554,6 +583,55 @@ likeBtn.onclick = function() {
     const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com&body=${encodeURIComponent(pesan)}`;
     window.open(mailUrl, '_blank');
 }
+        // Fungsi untuk memuat data dari LocalStorage ke dalam halaman My RAT
+function loadSavedShows() {
+    const savedContainer = document.getElementById('saved-container');
+    const savedData = JSON.parse(localStorage.getItem('rat_saved')) || [];
+
+    if (savedData.length === 0) {
+        savedContainer.innerHTML = '<p style="font-size: 11px; opacity: 0.5;">No saved shows yet.</p>';
+        return;
+    }
+
+    // Bersihkan container
+    savedContainer.innerHTML = '';
+
+    savedData.forEach((show, index) => {
+        const item = document.createElement('div');
+        item.className = 'list-item';
+        // Klik pada item akan memutar lagu di player
+        item.onclick = () => changeTrack(show.title, show.sub, show.img);
+
+        item.innerHTML = `
+            <img src="${show.img}" class="item-cover">
+            <div class="item-info">
+                <b>${show.title}</b>
+                <span>${show.date}</span>
+            </div>
+            <div class="item-actions">
+                <span class="action-text" onclick="event.stopPropagation(); shareShow('${show.title}')">SHARE</span>
+                <a href="#" class="action-text">VIEW ↗</a>
+                <span class="action-text" onclick="event.stopPropagation(); removeSaved(${index})">DELETE</span>
+            </div>
+        `;
+        savedContainer.appendChild(item);
+    });
+}
+
+// Fungsi hapus khusus untuk data Saved (LocalStorage)
+function removeSaved(index) {
+    let saved = JSON.parse(localStorage.getItem('rat_saved')) || [];
+    saved.splice(index, 1);
+    localStorage.setItem('rat_saved', JSON.stringify(saved));
+    loadSavedShows(); // Refresh tampilan
+}
+
+function shareShow(title) {
+    alert("Sharing: " + title);
+}
+
+// Jalankan fungsi load saat halaman dibuka
+document.addEventListener('DOMContentLoaded', loadSavedShows);
 </script>
 
 </body>
