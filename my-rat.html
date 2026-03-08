@@ -248,7 +248,71 @@ footer {
 .btn-toggle-bottom:hover { opacity: 0.6; }
 
 .stop-square-bottom { width: 14px; height: 14px; background: #fff; } 
+/* --- LAYOUT ITEM SHOWS --- */
+.rat-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
 
+.rat-cover {
+    width: 80px;
+    height: 80px;
+    filter: grayscale(100%);
+    object-fit: cover;
+    margin-right: 25px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.rat-info-center {
+    flex: 1;
+}
+
+.rat-info-center b {
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.rat-info-center span {
+    font-size: 11px;
+    opacity: 0.5;
+}
+
+.rat-actions-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 80px;
+}
+
+.btn-delete {
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+.btn-delete:hover { opacity: 1; }
+
+.bottom-action-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.share-btn-rat { cursor: pointer; font-size: 14px; opacity: 0.5; }
+
+.view-link {
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+}
 .track-box { display: flex; align-items: center; gap: 12px; }
 .track-box img { width: 38px; height: 38px; border: 1px solid #fff; filter: grayscale(100%); }
 
@@ -385,14 +449,16 @@ footer {
     <div class="history-list" id="history-container">
   <div class="list-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
     <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="item-cover">
-    <div class="item-info">
+   <div class="rat-info-center">
         <b>THE SEWER GHOST</b>
         <span>12 FEB 2026</span>
     </div>
-    <div class="item-actions">
-        <span class="action-text" onclick="event.stopPropagation(); shareShow(this, 'THE SEWER GHOST')">SHARE</span>
-        <span class="action-text" onclick="event.stopPropagation(); openView('THE SEWER GHOST', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">VIEW ↗</span>
-        <span class="action-text" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">DELETE</span>
+    <div class="rat-actions-right">
+        <div class="btn-delete" onclick="this.closest('.rat-item').remove()">DELETE</div>
+        <div class="bottom-action-row">
+            <span class="share-btn-rat" onclick="shareShow(this)">SHARE</span>
+            <a href="index.html?openDrawer=true" class="view-link">VIEW</a>
+        </div>
     </div>
 </div>
             <div class="item-actions">
@@ -554,18 +620,11 @@ footer {
     }
 
     // 3. FUNGSI SHARE & VIEW (FITUR BARU)
-   function shareShow(element, title) {
-    const dummyLink = window.location.origin + "/show/" + title.replace(/\s+/g, '-').toLowerCase();
-    navigator.clipboard.writeText(dummyLink).then(() => {
-        const originalText = element.innerText;
-        element.innerText = "COPIED";
-        element.classList.add('copied'); // Tetap putih sesuai CSS baru
-        
-        setTimeout(() => {
-            element.innerText = originalText;
-            element.classList.remove('copied');
-        }, 2000);
-    });
+  function shareShow(el) {
+    navigator.clipboard.writeText(window.location.origin + "/index.html");
+    const old = el.innerHTML;
+    el.innerHTML = '<span style="font-size:9px; font-weight:400; font-style:normal;">COPIED</span>';
+    setTimeout(() => { el.innerHTML = old; }, 2000);
 }
     function openView(title, img) {
     // Mengisi data ke drawer yang sudah ada
