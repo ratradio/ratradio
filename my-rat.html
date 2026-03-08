@@ -74,29 +74,49 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 
 /* Kanan: Aksi (Text Only, Sejajar, Font Kecil) */
 /* Update bagian ini di style kamu */
-.item-actions { 
-    display: flex; 
-    flex-direction: row; /* Paksa horizontal */
-    gap: 20px;           /* Jarak antar teks */
-    align-items: center; 
-    justify-content: flex-end;
-    height: 80px; 
+/* KANAN: Aksi (Trash atas, Share/View bawah) */
+.rat-actions-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Menjaga satu di atas, satu di bawah */
+    align-items: flex-end;
+    height: 80px; /* Harus sama dengan tinggi cover agar presisi */
+    min-width: 120px;
 }
 
-.action-text {
+.btn-delete {
+    cursor: pointer;
     font-size: 11px;
     font-weight: 700;
-    text-transform: uppercase;
-    color: #fff;
-    cursor: pointer;
-    text-decoration: none;
-    opacity: 0.5;
+    opacity: 0.3;
     transition: 0.2s;
-    display: inline-flex;
+    text-transform: uppercase;
+}
+.btn-delete:hover { opacity: 1; }
+
+.bottom-action-row {
+    display: flex;
     align-items: center;
-    line-height: 1; 
+    gap: 15px;
 }
 
+.action-link {
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    opacity: 0.5;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.action-link:hover { opacity: 1; }
+
+/* Feedback Copied tanpa Bold/Italic */
+.copied-text { 
+    font-size: 9px; 
+    font-weight: 400; 
+    letter-spacing: 1px; 
+}
 .action-text:hover { 
     color: #fff; /* Jadi putih bersih saat kursor ke situ */
     /* Feedback Copied */
@@ -430,80 +450,24 @@ footer {
 <section class="shows-section">
     <div class="section-header"><h3>HISTORY</h3></div>
     <div class="history-list" id="history-container">
-        <div class="list-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
-            <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="item-cover">
-            <div class="item-info">
+        <div class="rat-item">
+            <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="rat-cover">
+            
+            <div class="rat-info-center">
                 <b>THE SEWER GHOST</b>
                 <span>12 FEB 2026</span>
             </div>
-            <div class="item-actions">
-                <span class="action-text" onclick="event.stopPropagation(); shareShow(this, 'THE SEWER GHOST')">SHARE</span>
-                <span class="action-text" onclick="event.stopPropagation(); openView('THE SEWER GHOST', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">VIEW ↗</span>
-                <span class="action-text" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">DELETE</span>
+
+            <div class="rat-actions-right">
+                <div class="btn-delete" onclick="this.closest('.rat-item').remove()">DELETE</div>
+                <div class="bottom-action-row">
+                    <span class="action-link" onclick="shareShow(this)">SHARE</span>
+                    <a href="index.html?openDrawer=true" class="action-link">VIEW</a>
+                </div>
             </div>
         </div>
     </div>
 </section>
-
-<section class="shows-section">
-    <div class="history-list" id="history-container">
-  <div class="list-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
-    <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="item-cover">
-   <div class="rat-info-center">
-        <b>THE SEWER GHOST</b>
-        <span>12 FEB 2026</span>
-    </div>
-    <div class="rat-actions-right">
-        <div class="btn-delete" onclick="this.closest('.rat-item').remove()">DELETE</div>
-        <div class="bottom-action-row">
-            <span class="share-btn-rat" onclick="shareShow(this)">SHARE</span>
-            <a href="index.html?openDrawer=true" class="view-link">VIEW</a>
-        </div>
-    </div>
-</div>
-            <div class="item-actions">
-                <span class="action-text">SHARE</span>
-                <a href="#" class="action-text">VIEW</a>
-                <span class="action-text" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">DELETE</span>
-            </div>
-        </div>
-    </div>
-</section>
-</section>
-    <footer>
-    <div class="footer-top">
-        <div class="footer-suggestion">
-            <h4>Suggestions / Feedback</h4>
-            <div class="suggestion-box">
-                <textarea id="saranText" placeholder="Write your message here..."></textarea>
-                <button class="btn-send" onclick="sendSaran()">Send</button>
-            </div>
-        </div>
-
-        <div class="footer-nav">
-            <h2>RAT RADIO</h2>
-            <ul class="footer-links">
-                <li><a href="index.html">Latest</a></li>
-                <li><a href="explore.html">Explore</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="my-rat.html">My RAT</a></li> 
-                <li><a href="about.html">About</a></li>
-                <li><a href="submission.html">Submissions</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        <img src="New Project (3).png" class="footer-logo-img" alt="RAT Logo">
-        <span class="footer-slogan">PERPETUALLY UNDER EVERYTHING</span>
-        
-        <div class="footer-social-text">
-            <a href="https://www.instagram.com/ratradio_/" target="_blank">Instagram</a>
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ratratradio@gmail.com" target="_blank">Gmail</a>
-        </div>
-        
-        <div class="copyright">2026</div>
-    </div>
 </footer>
 
 <div class="player-fixed" id="main-player">
@@ -638,35 +602,38 @@ footer {
 }
 
     // 4. FUNGSI LOAD & DELETE UNTUK SAVED SHOWS (LOCAL STORAGE)
-    function loadSavedShows() {
-        const savedContainer = document.getElementById('saved-container');
-        const savedData = JSON.parse(localStorage.getItem('rat_saved')) || [];
+   function loadSavedShows() {
+    const savedContainer = document.getElementById('saved-container');
+    const savedData = JSON.parse(localStorage.getItem('rat_saved')) || [];
 
-        if (savedData.length === 0) {
-            savedContainer.innerHTML = '<p style="font-size: 11px; opacity: 0.5;">No saved shows yet.</p>';
-            return;
-        }
-
-        savedContainer.innerHTML = '';
-        savedData.forEach((show, index) => {
-            const item = document.createElement('div');
-            item.className = 'list-item';
-            item.onclick = () => changeTrack(show.title, show.sub, show.img);
-            item.innerHTML = `
-                <img src="${show.img}" class="item-cover">
-                <div class="item-info">
-                    <b>${show.title}</b>
-                    <span>${show.date}</span>
-                </div>
-                <div class="item-actions">
-                    <span class="action-text" onclick="event.stopPropagation(); shareShow(this, '${show.title}')">SHARE</span>
-                    <span class="action-text" onclick="event.stopPropagation(); openView('${show.title}', '${show.img}')">VIEW ↗</span>
-                    <span class="action-text" onclick="event.stopPropagation(); removeSaved(${index})">DELETE</span>
-                </div>
-            `;
-            savedContainer.appendChild(item);
-        });
+    if (savedData.length === 0) {
+        savedContainer.innerHTML = '<p style="font-size: 11px; opacity: 0.5; padding: 20px 0;">NO SAVED SHOWS.</p>';
+        return;
     }
+
+    savedContainer.innerHTML = '';
+    savedData.forEach((show, index) => {
+        const item = document.createElement('div');
+        item.className = 'rat-item'; // Pakai class baru biar rapi
+        
+        // Struktur HTML di bawah ini yang bikin DELETE di atas dan VIEW di bawah
+        item.innerHTML = `
+            <img src="${show.img}" class="rat-cover">
+            <div class="rat-info-center">
+                <b>${show.title}</b>
+                <span>${show.date || 'FEB 2026'}</span>
+            </div>
+            <div class="rat-actions-right">
+                <div class="btn-delete" onclick="event.stopPropagation(); removeSaved(${index})">DELETE</div>
+                <div class="bottom-action-row">
+                    <span class="action-link" onclick="event.stopPropagation(); shareShow(this)">SHARE</span>
+                    <a href="index.html?openDrawer=true" class="action-link" onclick="event.stopPropagation();">VIEW ↗</a>
+                </div>
+            </div>
+        `;
+        savedContainer.appendChild(item);
+    });
+}
 
     function removeSaved(index) {
         let saved = JSON.parse(localStorage.getItem('rat_saved')) || [];
