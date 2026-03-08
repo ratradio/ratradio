@@ -116,12 +116,12 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 
 /* Kanan: Actions */
 /* GANTI SEMUA BLOK .ITEM-ACTIONS SAMPAI .VIEW-LINK DENGAN INI */
-/* Update Bagian Action agar Horizontal dan Sejajar */
+/* Hilangkan semua blok .item-actions lama, ganti dengan ini */
 .item-actions { 
     display: flex; 
-    flex-direction: row; /* Paksa horizontal */
-    gap: 20px;           /* Jarak antar Share, View, Delete */
-    align-items: center; /* Menjaga posisi vertikal di tengah */
+    flex-direction: row; 
+    gap: 20px; 
+    align-items: center; 
     justify-content: flex-end;
     height: 80px; 
 }
@@ -132,37 +132,20 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
     text-transform: uppercase;
     color: #fff;
     cursor: pointer;
-    text-decoration: none;
     opacity: 0.5;
     transition: 0.2s;
-    display: inline-flex;
-    align-items: center;
-    line-height: 1; 
-    height: 11px;
 }
 
 .action-text:hover { 
     opacity: 1; 
 }
 
-/* CSS BARU: Supaya saat dapet class copied warnanya berubah hijau */
+/* Saat diklik (Copied), tetap putih tapi Opacity penuh */
 .action-text.copied {
-    color: #00ff00 !important;
+    color: #fff !important; 
     opacity: 1 !important;
+    font-weight: 900;
 }
-/* Perbaikan Header Section (SAVED SHOWS & HISTORY) */
-.section-header h3 { 
-    font-size: 24px; 
-    font-weight: 800; 
-    text-transform: uppercase; 
-    letter-spacing: -1px; 
-    display: flex;
-    align-items: center; 
-    line-height: 1; 
-    margin: 0;
-    padding-bottom: 5px; /* Memberi sedikit nafas di atas border */
-}
-
 /* Opsional: Jika ingin DELETE tetap putih tapi agak tegas */
 .btn-delete { 
     color: #fff; 
@@ -377,7 +360,24 @@ footer {
 <section class="shows-section">
     <div class="section-header"><h3>SAVED SHOWS</h3></div>
     <div class="history-list" id="saved-container">
-        <p style="font-size: 11px; opacity: 0.5;">No saved shows yet.</p>
+        </div>
+</section>
+
+<section class="shows-section">
+    <div class="section-header"><h3>HISTORY</h3></div>
+    <div class="history-list" id="history-container">
+        <div class="list-item" onclick="changeTrack('THE SEWER GHOST', 'GHOSTFACE', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">
+            <img src="https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg" class="item-cover">
+            <div class="item-info">
+                <b>THE SEWER GHOST</b>
+                <span>12 FEB 2026</span>
+            </div>
+            <div class="item-actions">
+                <span class="action-text" onclick="event.stopPropagation(); shareShow(this, 'THE SEWER GHOST')">SHARE</span>
+                <span class="action-text" onclick="event.stopPropagation(); openView('THE SEWER GHOST', 'https://i.pinimg.com/736x/4a/95/38/4a9538d1ecde6f01fca8fd9c89f1ab9f.jpg')">VIEW ↗</span>
+                <span class="action-text" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">DELETE</span>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -555,13 +555,11 @@ footer {
 
     // 3. FUNGSI SHARE & VIEW (FITUR BARU)
    function shareShow(element, title) {
-    // Membuat link dummy
     const dummyLink = window.location.origin + "/show/" + title.replace(/\s+/g, '-').toLowerCase();
-    
     navigator.clipboard.writeText(dummyLink).then(() => {
         const originalText = element.innerText;
         element.innerText = "COPIED";
-        element.classList.add('copied'); // Mengaktifkan warna hijau
+        element.classList.add('copied'); // Tetap putih sesuai CSS baru
         
         setTimeout(() => {
             element.innerText = originalText;
