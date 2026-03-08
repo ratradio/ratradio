@@ -64,24 +64,30 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .item-info span { font-size: 12px; opacity: 0.5; font-weight: 400; }
 
 /* Kanan: Aksi (Text Only, Sejajar, Font Kecil) */
+/* Update bagian ini di style kamu */
 .item-actions { 
     display: flex; 
-    gap: 20px; 
+    gap: 15px; /* Jarak antar teks aksi */
     align-items: center; 
+    justify-content: flex-end;
+    height: 80px; /* Samakan dengan tinggi foto agar presisi */
 }
 
 .action-text {
-    font-size: 10px; /* Diperkecil sesuai permintaan */
+    font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #888; /* Warna Abu-abu */
+    color: #888; /* Warna abu default */
     cursor: pointer;
     text-decoration: none;
     transition: 0.2s;
+    line-height: 1; /* Mengunci posisi vertikal huruf */
+    display: inline-flex;
+    align-items: center;
 }
 
 .action-text:hover { 
-    color: #fff; /* Jadi putih saat hover */
+    color: #fff; /* Jadi putih bersih saat kursor ke situ */
 }
 
 /* Kiri: Grayscale Cover */
@@ -332,7 +338,7 @@ footer {
 </div>
 
 <div class="my-rat-hero">
-    <h2>SHOWS</h2>
+    <h2>MY RAT</h2>
 </div>
 
 <section class="shows-section">
@@ -353,7 +359,7 @@ footer {
             </div>
             <div class="item-actions">
                 <span class="action-text">SHARE</span>
-                <a href="#" class="action-text">VIEW ↗</a>
+                <a href="#" class="action-text">VIEW</a>
                 <span class="action-text" onclick="event.stopPropagation(); this.parentElement.parentElement.remove();">DELETE</span>
             </div>
         </div>
