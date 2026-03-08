@@ -45,7 +45,16 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 /* Section Styling */
 .shows-section { padding: 0 60px 60px 60px; }
 .section-header { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 30px; }
-.section-header h3 { font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: -1px; }
+.section-header h3 { 
+    font-size: 24px; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    letter-spacing: -1px; 
+    display: flex; /* Mengunci alignment */
+    align-items: center; 
+    line-height: 1; /* Menghilangkan sisa ruang di bawah font */
+    margin: 0;
+}
 
 .history-list { display: flex; flex-direction: column; }
 .list-item { 
