@@ -62,11 +62,45 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 .item-info span { font-size: 12px; opacity: 0.5; font-weight: 400; }
 
 /* Kanan: Actions */
-.item-actions { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; height: 80px; }
-.trash-btn { cursor: pointer; font-size: 18px; opacity: 0.5; transition: 0.3s; }
-.trash-btn:hover { opacity: 1; color: #ff4444; }
-.view-link { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; opacity: 0.5; text-decoration: none; color: #fff; transition: 0.3s; }
-.view-link:hover { opacity: 1; }
+/* GANTI SEMUA BLOK .ITEM-ACTIONS SAMPAI .VIEW-LINK DENGAN INI */
+.item-actions { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-end; 
+    justify-content: space-between; 
+    height: 80px; 
+}
+
+/* Group untuk Share & View agar sejajar horizontal */
+.action-group {
+    display: flex;
+    gap: 15px;
+}
+
+/* Ini kunci font-nya: satu gaya untuk DELETE, SHARE, dan VIEW */
+.action-text {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+.action-text:hover { 
+    opacity: 1; 
+}
+
+/* Opsional: Jika ingin DELETE tetap putih tapi agak tegas */
+.btn-delete { 
+    color: #fff; 
+}
+    /* TAMBAHKAN INI UNTUK SECTION SAVED */
+.saved-section { padding: 0 60px 50px 60px; } /* Jarak bawah dikurangi agar tidak terlalu jauh ke History */
+.saved-header { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 30px; }
+.saved-header h3 { font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: -1px; }
 /* ================= FOOTER SECTION (DARI INDEX) ================= */
 footer {
     background: #000;
@@ -469,13 +503,28 @@ footer {
             setTimeout(() => { playerBar.style.display = 'none'; isPlaying = false; updatePlayIcons(); }, 400);
         });
 
-        const likeBtn = document.getElementById('like-btn');
-        let isLiked = false;
-        likeBtn.onclick = function() {
-            isLiked = !isLiked;
-            this.innerHTML = isLiked ? '♥' : '♡';
-        };
-    });
+        // EDIT DI SEMUA HTML (Index, Explore, dll)
+const likeBtn = document.getElementById('like-btn');
+likeBtn.onclick = function() {
+    this.innerHTML = (this.innerHTML === '♡') ? '♥' : '♡';
+    
+    // LOGIKA SAVED:
+    const showData = {
+        title: document.getElementById('player-title').innerText,
+        sub: document.getElementById('player-sub').innerText,
+        img: document.getElementById('bottom-cover').src,
+        date: new Date().toLocaleDateString('en-GB')
+    };
+
+    let saved = JSON.parse(localStorage.getItem('rat_saved')) || [];
+    
+    if(this.innerHTML === '♥') {
+        saved.push(showData);
+    } else {
+        saved = saved.filter(s => s.title !== showData.title);
+    }
+    localStorage.setItem('rat_saved', JSON.stringify(saved));
+};
 
     function seek(amount) {
         currentProgress += (amount / 2); 
