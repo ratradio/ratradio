@@ -109,21 +109,16 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
 
 /* Kanan: Actions */
 /* GANTI SEMUA BLOK .ITEM-ACTIONS SAMPAI .VIEW-LINK DENGAN INI */
+/* Update Bagian Action agar Horizontal dan Sejajar */
 .item-actions { 
     display: flex; 
-    flex-direction: column; 
-    align-items: flex-end; 
-    justify-content: space-between; 
+    flex-direction: row; /* Paksa horizontal */
+    gap: 20px;           /* Jarak antar Share, View, Delete */
+    align-items: center; /* Menjaga posisi vertikal di tengah */
+    justify-content: flex-end;
     height: 80px; 
 }
 
-/* Group untuk Share & View agar sejajar horizontal */
-.action-group {
-    display: flex;
-    gap: 15px;
-}
-
-/* Ini kunci font-nya: satu gaya untuk DELETE, SHARE, dan VIEW */
 .action-text {
     font-size: 11px;
     font-weight: 700;
@@ -133,10 +128,28 @@ body{ background:#000; color:#fff; overflow-x: hidden; }
     text-decoration: none;
     opacity: 0.5;
     transition: 0.2s;
+    /* Kunci Sejajar Huruf E */
+    display: inline-flex;
+    align-items: center;
+    line-height: 1; 
+    height: 11px; /* Paksa tinggi elemen sama dengan ukuran font */
 }
 
 .action-text:hover { 
     opacity: 1; 
+}
+
+/* Perbaikan Header Section (SAVED SHOWS & HISTORY) */
+.section-header h3 { 
+    font-size: 24px; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    letter-spacing: -1px; 
+    display: flex;
+    align-items: center; 
+    line-height: 1; 
+    margin: 0;
+    padding-bottom: 5px; /* Memberi sedikit nafas di atas border */
 }
 
 /* Opsional: Jika ingin DELETE tetap putih tapi agak tegas */
@@ -608,13 +621,11 @@ function loadSavedShows() {
         return;
     }
 
-    // Bersihkan container
     savedContainer.innerHTML = '';
 
     savedData.forEach((show, index) => {
         const item = document.createElement('div');
         item.className = 'list-item';
-        // Klik pada item akan memutar lagu di player
         item.onclick = () => changeTrack(show.title, show.sub, show.img);
 
         item.innerHTML = `
